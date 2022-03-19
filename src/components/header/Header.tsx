@@ -3,6 +3,7 @@ import { AppBar, Toolbar, IconButton, Menu, Container } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const CustomizedSlide = styled(Menu)`
   color: #20b2aa;
@@ -41,16 +42,16 @@ export default function Header() {
 <AppBar   position="fixed" color="primary" sx={{ display: 'flex', justifyContent:'space-around' ,  top: 'auto', bottom: 0 }}>
   <Container maxWidth={'sm'} >
     <Toolbar variant="dense" sx={{ display: 'flex', justifyContent:'space-around' }} >
-      <IconButton onClick={goHomePage} color="inherit" >
+      <IconButton component={Link} to='/' color="inherit" >
       <Home></Home>
       </IconButton>
-      <IconButton onClick={goWorkoutList}   color="inherit">
+      <IconButton component={Link} to='/WorkoutList'  color="inherit">
       <PlaylistAdd></PlaylistAdd>
         </IconButton>
-        <IconButton onClick={goWorkoutProgram}  color="inherit" >
+        <IconButton component={Link} to='/WorkoutProgram'  color="inherit" >
         <FitnessCenter></FitnessCenter>
         </IconButton>
-        <IconButton onClick={goProfile}  color="inherit" >
+        <IconButton component={Link} to='/Profile'  color="inherit" >
         <AccountCircle></AccountCircle>
         </IconButton>
     </Toolbar>
