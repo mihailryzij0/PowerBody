@@ -1,5 +1,6 @@
 import React from "react";
 import {Route, Routes } from "react-router-dom";
+import { getColectionFirebase, setItemFirebase } from "./firebaseAPI";
 import HomePage from "./pages/HomePage";
 import Profile from "./pages/Profile";
 import RegisterPage from "./pages/RegisterPage";
@@ -10,7 +11,6 @@ import WorkoutProgram from "./pages/WorkoutProgram";
 
 
 function App() {
-
   return(
       <Routes>
       <Route  path="/" element={<HomePage/>}/>
