@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {FC, useState} from 'react'
 import React from 'react'
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -8,7 +8,12 @@ flex-direction: column;
 margin-top: 30%;
 text-align: center;
 `;
-export function Form  ({handleClick, title}:any) {
+
+interface FormProps {
+  title:string;
+  handleClick: ( email:string, pass: string )=> void
+}
+export function Form ({handleClick, title}:FormProps) {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   return(

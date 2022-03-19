@@ -1,13 +1,13 @@
 import React from 'react'
 import {Form} from './Form'
-import { useDispatch } from 'react-redux'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setUser } from '../../store/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux-hooks';
 
 export default function Login() {
 
-  const dispach =useDispatch();
+  const dispach =useAppDispatch();
   let navigate = useNavigate()
   const hendleLogin = (email:string,pass:string) =>{
     const auth = getAuth();
@@ -18,7 +18,7 @@ export default function Login() {
       dispach(setUser({
         email:user.email,
         id:user.uid,
-        token:user.accessToken,
+        token:user.refreshToken,
 
       }))
       navigate('/Profile')
