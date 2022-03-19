@@ -1,7 +1,6 @@
 import { AccountCircle, FitnessCenter, Home, PlaylistAdd} from '@mui/icons-material';
 import { AppBar, Toolbar, IconButton, Menu, Container } from '@mui/material'
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -21,22 +20,6 @@ min-width: 100%;
 `;
 
 export default function Header() {
-  let navigate = useNavigate();  
-   async function goProfile() { 
-    navigate('/Profile'); 
-     } 
-    //  async function goBack() { 
-    //   navigate(-1); 
-    //   } 
-    async function goWorkoutProgram() { 
-      navigate("/WorkoutProgram"); 
-      } 
-      async function goWorkoutList() { 
-        navigate("/WorkoutList"); 
-        } 
-        async function goHomePage() { 
-          navigate('/'); 
-          }
   return (
 
 <AppBar   position="fixed" color="primary" sx={{ display: 'flex', justifyContent:'space-around' ,  top: 'auto', bottom: 0 }}>
@@ -45,7 +28,7 @@ export default function Header() {
       <IconButton component={Link} to='/' color="inherit" >
       <Home></Home>
       </IconButton>
-      <IconButton component={Link} to='/WorkoutList'  color="inherit">
+      <IconButton component={Link} to='/WorkoutProgram'  color="inherit">
       <PlaylistAdd></PlaylistAdd>
         </IconButton>
         <IconButton component={Link} to='/WorkoutProgram'  color="inherit" >
