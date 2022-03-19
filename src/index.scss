@@ -1,0 +1,20 @@
+body {
+
+ 
+ 
+}
+.start-page__body{
+  margin: 0;
+  background: url(./assets/arni.jpg) no-repeat center top fixed;
+  background-size: cover;
+  height: 100vh;
+}
+.swiper {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  max-width: 100%;
+}
