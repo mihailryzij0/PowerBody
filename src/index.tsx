@@ -3,20 +3,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import {Provider} from "react-redux"
+import { Provider } from "react-redux";
 import { store } from "./store/store";
-import './firebaseAPI'
-import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
+import "./firebaseAPI";
+import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 let theme = createTheme();
 theme = createTheme({
   palette: {
     primary: {
-      main: '#950740'
+      main: "#950740",
     },
-    secondary:{
-      main: '#e89eef'
+    secondary: {
+      main: "#e89eef",
     },
-
   },
   // components: {
   //   // Name of the component
@@ -34,17 +33,16 @@ theme = createTheme({
 });
 theme = responsiveFontSizes(theme);
 
-
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
 
-  <BrowserRouter>
-   <ThemeProvider theme={theme}  >
-      <Provider store={store}>
-        <App />
-      </Provider>
-     </ThemeProvider>
-  </BrowserRouter>
-  </React.StrictMode>
-
-, document.getElementById("root"));
+  document.getElementById("root")
+);
