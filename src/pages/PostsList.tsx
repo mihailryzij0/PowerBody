@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/header/Header";
 import PostItem from "../components/post/PostItem";
-import { getPostCards } from "../store/slices/workoutListSlice";
+import { getPostCards } from "../store/slices/cardsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { Link } from "react-router-dom";
-import { Box, styled } from "@mui/system";
-import TabsUnstyled from "@mui/base/TabsUnstyled";
-import TabPanel from "@mui/lab/TabPanel";
-import { TabContext, TabList } from "@mui/lab";
+import { Box} from "@mui/system";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Tab } from "@mui/material";
 export default function PostsList() {
   const dispach = useAppDispatch();
@@ -15,7 +13,7 @@ export default function PostsList() {
     dispach(getPostCards());
   }, []);
   const { vitamins, workouts } = useAppSelector(
-    (state) => state.workouts.postCard
+    (state) => state.cards.postCard
   );
   const [valueTabs, setValueTabs] = useState("1");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {

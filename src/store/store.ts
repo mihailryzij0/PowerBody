@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
-import workoutListReducer from "./slices/workoutListSlice";
+import cardsSlice from "./slices/cardsSlice";
+import postSlice from "./slices/postSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    workouts: workoutListReducer,
+    cards: cardsSlice,
+    post: postSlice,
   },
 });
 
