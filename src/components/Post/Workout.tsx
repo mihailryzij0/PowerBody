@@ -1,14 +1,14 @@
-import { Box, Typography, Rating } from '@mui/material'
-import React from 'react'
-import { Post } from '../../store/slices/cardsSlice'
-import Header from '../header/Header'
-import WorkoutList from './WorkoutList'
+import { Box, Typography, Rating } from "@mui/material";
+import React from "react";
+import { Post } from "../../store/slices/cardsSlice";
+import Header from "../header/Header";
+import WorkoutList from "./WorkoutList";
 
-export default function Workout({postData}:any) {
-  const {title, description, workouts, rating} = postData
+export default function Workout({ postData }: any) {
+  const { title, description, workouts, rating } = postData;
   return (
     <>
-          <Box sx={{ overflow: "contain", height: "200px" }}>
+      <Box sx={{ overflow: "contain", height: "200px" }}>
         <img
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
           src={require("../../assets/fon.jpg")}
@@ -32,5 +32,5 @@ export default function Workout({postData}:any) {
         <Header />
       </Box>
     </>
-  )
+  );
 }

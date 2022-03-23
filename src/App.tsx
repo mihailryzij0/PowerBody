@@ -12,11 +12,14 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/profile" element={
-      <RequireAutch>
-         <Profile />
-      </RequireAutch>
-      } />
+      <Route
+        path="/profile"
+        element={
+          <RequireAutch>
+            <Profile />
+          </RequireAutch>
+        }
+      />
       <Route path="/posts" element={<PostsList />} />
       <Route path="/posts/:id" element={<Singlepage />} />
       <Route path="/WorkoutProgram" element={<WorkoutProgram />} />

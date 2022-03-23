@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
-import { db} from "../../firebaseAPI";
+import { db } from "../../firebaseAPI";
 import { Post } from "./cardsSlice";
 
 interface Workout {
@@ -11,7 +11,7 @@ interface Workout {
 interface State {
   postData: Post;
   status: string;
-  error: string
+  error: string;
 }
 
 const initialState: State = {
@@ -22,46 +22,44 @@ const initialState: State = {
     id: "",
     workouts: [],
   },
-  status:'',
-  error:''
+  status: "",
+  error: "",
 };
 
 export const getPostData: any = createAsyncThunk(
   "post/getPostData",
   async (postId, { rejectWithValue, dispatch }) => {
-    try{
-      const respons = await getDoc( doc(db, "posts", `${postId}`));
-      if(!respons.exists()){
-        throw new Error('чтото пошло не так')
+    try {
+      const respons = await getDoc(doc(db, "posts", `${postId}`));
+      if (!respons.exists()) {
+        throw new Error("чтото пошло не так");
       }
       return respons.data();
-    }catch(error: any){
-    return rejectWithValue(error.message)
+    } catch (error: any) {
+      return rejectWithValue(error.message);
     }
-  } 
+  }
 );
 
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
     [getPostData.fulfilled]: (state, action) => {
-      state.status = 'fulfilled'
-      state.postData = action.payload
+      state.status = "fulfilled";
+      state.postData = action.payload;
     },
-    [getPostData.pending]: (state) =>  {
-      state.status = 'pending'
+    [getPostData.pending]: (state) => {
+      state.status = "pending";
     },
     [getPostData.rejected]: (state, action) => {
-      state.status = 'pending'
-      state.error = action.payload
+      state.status = "pending";
+      state.error = action.payload;
     },
   },
 });
 
-export const {} =
-postSlice.actions;
+export const {} = postSlice.actions;
 
 export default postSlice.reducer;

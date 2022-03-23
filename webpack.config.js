@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: "[name].bundle.[chunkhash].js",
     path: resolve(`${__dirname}/dist`),
-    publicPath: '/',
+    publicPath: "/",
     clean: true,
     environment: {
       arrowFunction: false,
