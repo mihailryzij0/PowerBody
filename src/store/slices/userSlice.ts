@@ -13,35 +13,31 @@ interface User{
 export const signInUser = createAsyncThunk(
   "userSlice/signInUser",
   async ({email, pass}:Record<string,string>, { rejectWithValue, dispatch }) => {
-    signInWithEmailAndPassword(getAuth(), email, pass)
+   return signInWithEmailAndPassword(getAuth(), email, pass)
       .then(({ user }) => {
         console.log(user);
-        dispatch(setUser(
-          {
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-          }
-        ))
+        return{
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+        }
       })
       .catch((error)=>{
-        rejectWithValue(error)
+        return rejectWithValue(error)
       });
   }
 );
 export const SignUpUser: any = createAsyncThunk(
-  "userSlice/signInUser",
-  async ({email, pass}:Record<string,string>, { rejectWithValue, dispatch }) => {
+  "userSlice/SignUpUser",
+  async ({email, pass}:Record<string,string>, { rejectWithValue}) => {
     createUserWithEmailAndPassword(getAuth(), email, pass)
       .then(({ user }) => {
         console.log(user);
-        dispatch(setUser(
-          {
+        return{
             email: user.email,
             id: user.uid,
             token: user.refreshToken,
           }
-        ))
       })
       .catch((error)=>{
         rejectWithValue(error)
@@ -80,9 +76,14 @@ const userSlice = createSlice({
   extraReducers: (builder) => {  
     builder.addCase(signInUser.fulfilled, (state, action) => {
     state.status = 'fulfilled'
+    state.email = action.payload.email;
+    state.token = action.payload.token;
+    state.id = action.payload.id;
+    state.isAuth = true
   })
   builder.addCase(signInUser.pending, (state, action) => {
     state.status = 'pending'
+
   })
   builder.addCase(signInUser.rejected, (state, action) => {
     state.status = 'rejected'
