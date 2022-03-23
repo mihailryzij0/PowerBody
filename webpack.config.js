@@ -10,6 +10,7 @@ module.exports = {
   output: {
     filename: "[name].bundle.[chunkhash].js",
     path: resolve(`${__dirname}/dist`),
+    publicPath: '/',
     clean: true,
     environment: {
       arrowFunction: false,
@@ -93,6 +94,7 @@ module.exports = {
   },
   devServer: {
     compress: true,
+    historyApiFallback: true,
     port: 9000,
     client: {
       logging: "info",

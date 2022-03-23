@@ -50,7 +50,6 @@ const postSlice = createSlice({
     [getPostData.fulfilled]: (state, action) => {
       state.status = 'fulfilled'
       state.postData = action.payload
-
     },
     [getPostData.pending]: (state) =>  {
       state.status = 'pending'
