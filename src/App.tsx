@@ -4,10 +4,10 @@ import HomePage from "./pages/HomePage";
 import LoginFormPage from "./pages/LoginFormPage";
 import Profile from "./pages/Profile";
 import PostsList from "./pages/PostsList";
-import WorkoutProgram from "./pages/WorkoutProgram";
+import IndividualWorkout from "./pages/IndividualWorkout";
 import Singlepage from "./pages/Singlepage";
 import RequireAutch from "./components/hoc/RequireAutch";
-
+import WorkoutProgram from "./pages/IndividualWorkout";
 function App() {
   return (
     <Routes>
@@ -22,8 +22,8 @@ function App() {
       />
       <Route path="/posts" element={<PostsList />} />
       <Route path="/posts/:id" element={<Singlepage />} />
-      <Route path="/WorkoutProgram" element={<WorkoutProgram />} />
-      <Route path="/LoginFormPage" element={<LoginFormPage />} />
+      <Route path="/individual" element={<IndividualWorkout/>} />
+      <Route path="/login" element={<LoginFormPage />} />
     </Routes>
   );
 }

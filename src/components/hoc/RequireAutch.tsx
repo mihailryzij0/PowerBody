@@ -24,7 +24,7 @@ export default function RequireAutch({
   const { isAuth, status } = useAppSelector((state) => state.user);
   const location = useLocation() as Location;
   if (!isAuth) {
-    return <Navigate to={"/loginFormPage"} state={{ from: location }} />;
+    return <Navigate to={"/login"} state={{ from: location }} />;
   }
   return children;
 }
