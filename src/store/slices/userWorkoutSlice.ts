@@ -29,16 +29,27 @@ export const setUserWorkout = createAsyncThunk(
   }
 );
 
+export const setUpdateWorkout = createAsyncThunk(
+  "userWorkout/setUpdateWorkout",
+  async (_, { getState, dispatch }) => {
+    const {
+      user,
+      userWorkout: { workout },
+    } = getState();
+    await setDoc(doc(db, "userWorkout", `${user.idUser}`), workout);
+  }
+);
+
 export const getUserWorkout: any = createAsyncThunk(
   "userWorkout/getUserWorkout",
   async (idUser, { rejectWithValue, dispatch }) => {
     try {
-      console.log(idUser);
       const respons = await getDoc(doc(db, "userWorkout", `${idUser}`));
       if (!respons.exists()) {
         throw new Error("чтото пошло не так");
       }
-      return respons.data();
+      const data = respons.data();
+      return { data, idUser };
     } catch (error: any) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -49,10 +60,15 @@ export const getUserWorkout: any = createAsyncThunk(
 const userWorkoutSlice = createSlice({
   name: "userWorkout",
   initialState,
-  reducers: {},
+  reducers: {
+    updateWorkout(state, action) {
+      state.workout.workouts.splice(action.payload, 1);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getUserWorkout.fulfilled, (state, action) => {
-      state.workout = action.payload;
+      state.workout = action.payload.data;
+      state.idUser = action.payload.idUser;
       state.status = "fulfilled";
     });
     builder.addCase(getUserWorkout.pending, (state, action) => {
@@ -64,6 +80,6 @@ const userWorkoutSlice = createSlice({
   },
 });
 
-export const {} = userWorkoutSlice.actions;
+export const { updateWorkout } = userWorkoutSlice.actions;
 
 export default userWorkoutSlice.reducer;

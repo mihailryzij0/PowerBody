@@ -1,16 +1,10 @@
-import React, {
-  FC,
-  JSXElementConstructor,
-  ReactComponentElement,
-  ReactElement,
-} from "react";
+import React, { ReactElement } from "react";
 import {
   Hash,
   Navigate,
   Pathname,
   Search,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux-hooks";
 

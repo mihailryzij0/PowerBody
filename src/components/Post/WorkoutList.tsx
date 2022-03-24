@@ -3,14 +3,12 @@ import {
   AccordionSummary,
   Typography,
   AccordionDetails,
-  List,
-  ListItem,
-  ListItemText,
+  Button,
 } from "@mui/material";
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WorkoutListItem from "./WorkoutListItem";
-import { Post, Workout } from "../../store/slices/cardsSlice";
+import { Post } from "../../store/slices/cardsSlice";
 
 export default function WorkoutList({ workouts }: Pick<Post, "workouts">) {
   return (
@@ -22,7 +20,7 @@ export default function WorkoutList({ workouts }: Pick<Post, "workouts">) {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>{workout.workoutName}</Typography>
+            <Typography>{`${i + 1} День - ${workout.workoutName}`}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <WorkoutListItem exercises={workout.exercises} />

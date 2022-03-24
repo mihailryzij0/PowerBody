@@ -1,7 +1,7 @@
 import Header from "../components/header/Header";
 import React, { useEffect, useState } from "react";
 import SignUp from "../components/form/SignUp";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import Login from "../components/form/Login";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -21,13 +21,12 @@ export default function LoginFormPage() {
     }
   }, [isAuth]);
   return (
-    <div>
-      {fromPage}
+    <Container>
       <Header />
       <main>
         {inputSwitch ? <SignUp /> : <Login />}
         <Button onClick={handleClick}>регистрация</Button>
       </main>
-    </div>
+    </Container>
   );
 }
