@@ -1,8 +1,9 @@
 import { async } from "@firebase/util";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { User } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseAPI";
-import { Post } from "./cardsSlice";
+import { Post, Workout } from "./cardsSlice";
 
 interface userWorkout {
   idUser: string | null;
@@ -35,7 +36,7 @@ export const setUpdateWorkout = createAsyncThunk(
     const {
       user,
       userWorkout: { workout },
-    } = getState();
+    } = getState() as any;
     await setDoc(doc(db, "userWorkout", `${user.idUser}`), workout);
   }
 );

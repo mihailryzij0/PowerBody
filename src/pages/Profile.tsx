@@ -21,9 +21,9 @@ export default function Profile() {
     margin-top: 100px;
   `;
   const ProfileText = styled(Typography)`
-  margin-top: 20px;
-  margin-bottom: 20px;
-  `
+    margin-top: 20px;
+    margin-bottom: 20px;
+  `;
 
   return (
     <>
@@ -33,9 +33,7 @@ export default function Profile() {
         ) : (
           <Box>
             <MyBox>
-              <ProfileText variant="h3">
-                {workout.title}
-              </ProfileText>
+              <ProfileText variant="h3">{workout.title}</ProfileText>
               <Rating
                 name="size-medium"
                 defaultValue={Number(workout.rating)}

@@ -1,82 +1,73 @@
-import { Box, Container, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+} from "@mui/material";
 import React, { useState } from "react";
 import Header from "../components/header/Header";
+import SelectGroup from "../components/SelectGroup/SelectGroup";
 
+export interface SelectGroupState {
+  level: string;
+  difficult: string;
+  purpose: string;
+  muscleGroup: string;
+}
+
+export interface SelectGrupItems {
+  criteria: keyof SelectGroupState;
+  placeholder: string;
+  items: Array<string>;
+}
 export default function IndividualWorkout() {
-  const [age, setAge] = useState('');
+  const selectGrupItems: SelectGrupItems[] = [
+    {
+      criteria: "level",
+      placeholder: "Уровень подготовки",
+      items: ["Начинающий", "Средний", "Выше среднего"],
+    },
+    {
+      criteria: "difficult",
+      placeholder: "Желаемая сложность",
+      items: [
+        "Тренировки средней тяжести",
+        "Тренировки полегче",
+        "Тренировки посложнее",
+      ],
+    },
+    {
+      criteria: "purpose",
+      placeholder: "Цель тренировок",
+      items: [
+        "Похудеть",
+        "Набрать массу",
+        "Повысить силовые",
+        "Повысить выносливость",
+      ],
+    },
+    {
+      criteria: "muscleGroup",
+      placeholder: "Чему уделить внимание",
+      items: ["Ноги", "Спина", "Пресс", "Грудь"],
+    },
+  ];
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
+  const [criteria, setСriteria] = useState<SelectGroupState>({
+    level: "",
+    difficult: "",
+    purpose: "",
+    muscleGroup: "",
+  });
+
   return (
-    <Container>
-      <Box mt={'200px'}>
-        <FormControl>
-          <Select
-           sx={{width:'360px'}}
-           value={age}
-           onChange={handleChange}
-           displayEmpty
-           inputProps={{ 'aria-label': 'Without label' }}
-          >
-           <MenuItem value="">
-            <em>Уровень подготовки</em>
-          </MenuItem>
-          <MenuItem value={10}>Начинающий</MenuItem>
-          <MenuItem value={21}>Средний</MenuItem>
-          <MenuItem value={22}>Выше среднего</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl>
-          <Select
-           sx={{width:'360px'}}
-           value={age}
-           onChange={handleChange}
-           displayEmpty
-           inputProps={{ 'aria-label': 'Without label' }}
-          >
-           <MenuItem value="">
-            <em>Желаемая сложность</em>
-          </MenuItem>
-          <MenuItem value={10}>Тренировки средней тяжести</MenuItem>
-          <MenuItem value={21}>Тренировки полегче</MenuItem>
-          <MenuItem value={22}>Тренировки посложнее</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl>
-          <Select
-           sx={{width:'360px'}}
-           value={age}
-           onChange={handleChange}
-           displayEmpty
-           inputProps={{ 'aria-label': 'Without label' }}
-          >
-           <MenuItem value="">
-            <em>Цель тренировок</em>
-          </MenuItem>
-          <MenuItem value={10}>Похудеть</MenuItem>
-          <MenuItem value={21}>Набрать массу</MenuItem>
-          <MenuItem value={22}>Повысить силовые</MenuItem>
-          <MenuItem value={22}>Повысить выносливость</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl >
-          <Select
-           sx={{width:'360px'}}
-           value={age}
-           onChange={handleChange}
-           displayEmpty
-           inputProps={{ 'aria-label': 'Without label' }}
-          >
-           <MenuItem value="">
-            <em>Чему уделить внимание</em>
-          </MenuItem>
-          <MenuItem value={10}>Ноги</MenuItem>
-          <MenuItem value={21}>Спина</MenuItem>
-          <MenuItem value={22}>Пресс</MenuItem>
-          <MenuItem value={22}>Грудь</MenuItem>
-          </Select>
-        </FormControl>
+    <Container maxWidth={"sm"}>
+      <Box sx={{  display:'flex', flexDirection: 'column'}}  mt={"200px"}>
+        <SelectGroup
+          state={criteria}
+          onCriteriaChange={setСriteria}
+          selectGrupItems={selectGrupItems}
+        />
+        <Button sx={{mt:'40px'}} variant="contained">Создать тренировку</Button>
       </Box>
 
       <Header></Header>

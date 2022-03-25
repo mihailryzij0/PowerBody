@@ -22,7 +22,7 @@ function App() {
       />
       <Route path="/posts" element={<PostsList />} />
       <Route path="/posts/:id" element={<Singlepage />} />
-      <Route path="/individual" element={<IndividualWorkout/>} />
+      <Route path="/individual" element={<IndividualWorkout />} />
       <Route path="/login" element={<LoginFormPage />} />
     </Routes>
   );
