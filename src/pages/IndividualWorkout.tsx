@@ -1,15 +1,14 @@
-import {
-  Box,
-  Button,
-  Container,
-} from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import React, { useState } from "react";
 import Header from "../components/header/Header";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { Post } from "../store/slices/cardsSlice";
+import { setUserWorkout, userWorkout } from "../store/slices/userWorkoutSlice";
+import { trainingCreator } from "../trainingCreator/trainingCreator";
 
 export interface SelectGroupState {
   level: string;
-  difficult: string;
   purpose: string;
   muscleGroup: string;
 }
@@ -24,50 +23,44 @@ export default function IndividualWorkout() {
     {
       criteria: "level",
       placeholder: "Уровень подготовки",
-      items: ["Начинающий", "Средний", "Выше среднего"],
-    },
-    {
-      criteria: "difficult",
-      placeholder: "Желаемая сложность",
-      items: [
-        "Тренировки средней тяжести",
-        "Тренировки полегче",
-        "Тренировки посложнее",
-      ],
+      items: ["Начинающий", "Средний"],
     },
     {
       criteria: "purpose",
       placeholder: "Цель тренировок",
-      items: [
-        "Похудеть",
-        "Набрать массу",
-        "Повысить силовые",
-        "Повысить выносливость",
-      ],
+      items: ["Набрать массу", "Повысить силовые", "Повысить выносливость"],
     },
     {
       criteria: "muscleGroup",
       placeholder: "Чему уделить внимание",
-      items: ["Ноги", "Спина", "Пресс", "Грудь"],
+      items: ["Ноги", "Спина", "Грудь"],
     },
   ];
 
   const [criteria, setСriteria] = useState<SelectGroupState>({
     level: "",
-    difficult: "",
     purpose: "",
     muscleGroup: "",
   });
+  const dispatch = useAppDispatch();
+  const { idUser } = useAppSelector((state) => state.user);
+  const hendleClick = () => {
+    const workout = trainingCreator(criteria) as Post;
+    dispatch(setUserWorkout({ workout, idUser }));
+    trainingCreator(criteria);
+  };
 
   return (
     <Container maxWidth={"sm"}>
-      <Box sx={{  display:'flex', flexDirection: 'column'}}  mt={"200px"}>
+      <Box sx={{ display: "flex", flexDirection: "column" }} mt={"200px"}>
         <SelectGroup
           state={criteria}
           onCriteriaChange={setСriteria}
           selectGrupItems={selectGrupItems}
         />
-        <Button sx={{mt:'40px'}} variant="contained">Создать тренировку</Button>
+        <Button onClick={hendleClick} sx={{ mt: "40px" }} variant="contained">
+          Создать тренировку
+        </Button>
       </Box>
 
       <Header></Header>
