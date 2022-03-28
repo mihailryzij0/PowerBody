@@ -1,54 +1,55 @@
-import { exercises } from "./exercisStorage";
 import { ExercisesGroups } from "./trainingCreator";
 
-export const creatorGroup = (): ExercisesGroups => {
+export const creatorGroup = (
+  newExercises: Record<string, Array<string[]>>
+): ExercisesGroups => {
   return {
     backAndBiceps: {
       workoutName: "Спина / Бицепс",
       exercises: [
-        ...exercises.back,
-        ...exercises.biceps,
-        ...exercises.additiona,
+        ...newExercises.back,
+        ...newExercises.biceps,
+        ...newExercises.additiona,
       ],
     },
     legsAndShoulder: {
       workoutName: "Ноги / Плечи",
       exercises: [
-        ...exercises.legs,
-        ...exercises.shoulder,
-        ...exercises.additiona,
+        ...newExercises.legs,
+        ...newExercises.shoulder,
+        ...newExercises.additiona,
       ],
     },
     pectoralAndTriceps: {
       workoutName: "Грудь / Трицепс",
       exercises: [
-        ...exercises.pectoral,
-        ...exercises.triceps,
-        ...exercises.additiona,
+        ...newExercises.pectoral,
+        ...newExercises.triceps,
+        ...newExercises.additiona,
       ],
     },
     pectoral: {
       workoutName: "Грудь",
       exercises: [
-        ...exercises.pectoral,
-        ...exercises.additiona,
-        ...exercises.additiona,
+        ...newExercises.pectoral,
+        ...newExercises.additiona,
+        ...newExercises.additiona,
       ],
     },
     legs: {
       workoutName: "Ноги",
       exercises: [
-        ...exercises.legs,
-        ...exercises.additiona,
-        ...exercises.additiona,
+        ...newExercises.legs,
+        ...newExercises.additiona,
+        ...newExercises.additiona,
       ],
     },
     back: {
       workoutName: "Спина",
       exercises: [
-        ...exercises.back,
-        ...exercises.additiona,
-        ...exercises.additiona,
+        ...newExercises.back,
+        ...newExercises.additiona,
+        ...newExercises.additiona,
       ],
     },
   };

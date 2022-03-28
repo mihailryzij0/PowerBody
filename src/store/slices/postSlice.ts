@@ -17,6 +17,7 @@ interface State {
 const initialState: State = {
   postData: {
     description: "",
+    rating: "",
     title: "",
     id: "",
     workouts: [],

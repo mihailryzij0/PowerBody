@@ -5,8 +5,8 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseAPI";
 import { Post, Workout } from "./cardsSlice";
 
-interface userWorkout {
-  idUser: string | null;
+export interface userWorkout {
+  idUser?: string | null;
   workout: Post;
   status?: string;
 }

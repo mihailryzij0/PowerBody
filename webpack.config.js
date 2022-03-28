@@ -3,7 +3,9 @@ const { resolve } = require("path");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { NODE_ENV } = process.env;
 module.exports = {
   entry: resolve(__dirname, "./src/index"),
@@ -21,6 +23,7 @@ module.exports = {
   },
   devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
   module: {
+    
     rules: [
       {
         test: /\.(j|t)sx?$/,
@@ -32,6 +35,8 @@ module.exports = {
           },
         },
       },
+
+     
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
@@ -66,13 +71,25 @@ module.exports = {
           filename: "[name][ext]",
         },
       },
+   
+
     ],
   },
 
   mode: NODE_ENV === "production" ? "production" : "development",
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'PowerBody',
       template: resolve(__dirname, "./src/index.html"),
+    }),
+    new WebpackPwaManifest({
+      name: 'PowerBody',
+      short_name: 'Power',
+      description: 'My awesome Progressive Web App!',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+      icons: [
+      ]
     }),
     new BrowserSyncPlugin(
       {
@@ -88,6 +105,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {  from: 'src/sw.js', to: ''  },
+      ],
+    })
   ],
   optimization: {
     minimizer: ["...", new CssMinimizerPlugin()],
@@ -98,6 +120,9 @@ module.exports = {
     port: 9000,
     client: {
       logging: "info",
+    },
+    devMiddleware: {
+      writeToDisk: false,
     },
   },
 };

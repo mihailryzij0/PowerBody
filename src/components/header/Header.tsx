@@ -41,7 +41,7 @@ export default function Header() {
           <IconButton component={Link} to="/individual" color="inherit">
             <FitnessCenter></FitnessCenter>
           </IconButton>
-          <IconButton component={Link} to="/profile" color="inherit">
+          <IconButton component={Link} to="/" color="inherit">
             <AccountCircle></AccountCircle>
           </IconButton>
         </Toolbar>

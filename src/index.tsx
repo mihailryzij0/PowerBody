@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import "./firebaseAPI";
+
+
 import {
   Container,
   createTheme,
@@ -37,6 +39,12 @@ theme = createTheme({
   // },
 });
 theme = responsiveFontSizes(theme);
+
+if ("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+  navigator.serviceWorker.register("sw.js");
+  })
+  }
 
 ReactDOM.render(
   <React.StrictMode>

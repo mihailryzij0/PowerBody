@@ -22,7 +22,6 @@ export default function LoginFormPage() {
   }, [isAuth]);
   return (
     <Container>
-      <Header />
       <main>
         {inputSwitch ? <SignUp /> : <Login />}
         <Button onClick={handleClick}>регистрация</Button>

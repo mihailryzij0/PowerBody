@@ -12,6 +12,11 @@ export default function Profile() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getUserWorkout(user.idUser));
+    if(navigator){
+      navigator.serviceWorker.register('/sw.js').catch(()=>{
+        
+      })
+   }
   }, []);
 
   const MyBox = styled(Box)`
@@ -21,19 +26,21 @@ export default function Profile() {
     margin-top: 100px;
   `;
   const ProfileText = styled(Typography)`
-    margin-top: 20px;
-    margin-bottom: 20px;
-  `;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  `
 
   return (
     <>
-      <Container>
+      <Container maxWidth={'sm'}>
         {userWorkout.status == "pending" ? (
           <div>loading</div>
         ) : (
           <Box>
             <MyBox>
-              <ProfileText variant="h3">{workout.title}</ProfileText>
+              <ProfileText variant="h3">
+                {workout.title}
+              </ProfileText>
               <Rating
                 name="size-medium"
                 defaultValue={Number(workout.rating)}

@@ -4,6 +4,7 @@ import { db } from "../../firebaseAPI";
 
 export interface Post {
   description: string;
+  rating: string;
   title: string;
   id: string;
   workouts: Array<Workout>;

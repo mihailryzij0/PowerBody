@@ -1,19 +1,17 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import LoginFormPage from "./pages/LoginFormPage";
 import Profile from "./pages/Profile";
 import PostsList from "./pages/PostsList";
-import IndividualWorkout from "./pages/IndividualWorkout";
 import Singlepage from "./pages/Singlepage";
 import RequireAutch from "./components/hoc/RequireAutch";
-import WorkoutProgram from "./pages/IndividualWorkout";
+import IndividualWorkout from "./pages/IndividualWorkout";
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
       <Route
-        path="/profile"
+        path="/"
         element={
           <RequireAutch>
             <Profile />
@@ -22,7 +20,7 @@ function App() {
       />
       <Route path="/posts" element={<PostsList />} />
       <Route path="/posts/:id" element={<Singlepage />} />
-      <Route path="/individual" element={<IndividualWorkout />} />
+      <Route path="/individual" element={<IndividualWorkout/>} />
       <Route path="/login" element={<LoginFormPage />} />
     </Routes>
   );
