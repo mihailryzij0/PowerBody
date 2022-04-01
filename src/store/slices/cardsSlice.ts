@@ -43,7 +43,7 @@ export const getPostCards: any = createAsyncThunk(
       }
       return respons.data();
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       return rejectWithValue(error.message);
     }
   }

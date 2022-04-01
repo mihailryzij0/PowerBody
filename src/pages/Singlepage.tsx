@@ -8,16 +8,14 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button, CircularProgress, IconButton } from "@mui/material";
 import { setUserWorkout } from "../store/slices/userWorkoutSlice";
+import { green } from "@mui/material/colors";
 
 export default function Singlepage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { post} = useAppSelector((state) => state);
   const dispach = useAppDispatch();
-
-  const { post, user } = useAppSelector((state) => state);
-
   const { postData, status, error } = post;
-  const { isAuth, email, token, idUser } = user;
   useEffect(() => {
     if (id === postData.id) {
       return;
@@ -26,11 +24,6 @@ export default function Singlepage() {
     }
   }, []);
 
-  const handleClick = () => {
-    isAuth && token
-      ? dispach(setUserWorkout({ workout: postData, idUser }))
-      : console.log("kdkdk");
-  };
 
   return (
     <>
@@ -52,10 +45,8 @@ export default function Singlepage() {
             aria-label="delete"
           >
             <ArrowCircleLeftOutlinedIcon sx={{ fontSize: 40 }} />
-          </IconButton>
-          <IconButton onClick={handleClick}>
-            <AddCircleIcon />
-          </IconButton>
+            </IconButton>
+          
         </>
       )}
 

@@ -24,14 +24,14 @@ const initialState: userWorkout = {
 export const setUserWorkout = createAsyncThunk(
   "userWorkout/setUserWorkout",
   async ({ workout, idUser }: userWorkout, { rejectWithValue, dispatch }) => {
-    dispatch(updateWorkout(workout))
+    dispatch(updateWorkout(workout));
     await setDoc(doc(db, "userWorkout", `${idUser}`), workout);
   }
 );
 
 export const updateUserWorkout = createAsyncThunk(
   "userWorkout/updateWorkout",
-  async (_, { getState}) => {
+  async (_, { getState }) => {
     const {
       user,
       userWorkout: { workout },
@@ -43,7 +43,7 @@ export const updateUserWorkout = createAsyncThunk(
 
 export const getUserWorkout: any = createAsyncThunk(
   "userWorkout/getUserWorkout",
-  async (idUser, { rejectWithValue}) => {
+  async (idUser, { rejectWithValue }) => {
     try {
       const respons = await getDoc(doc(db, "userWorkout", `${idUser}`));
       if (!respons.exists()) {

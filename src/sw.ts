@@ -1,9 +1,13 @@
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { clientsClaim } from 'workbox-core';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate, CacheFirst, NetworkFirst } from 'workbox-strategies';
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { clientsClaim } from "workbox-core";
+import { ExpirationPlugin } from "workbox-expiration";
+import { precacheAndRoute } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import {
+  StaleWhileRevalidate,
+  CacheFirst,
+  NetworkFirst,
+} from "workbox-strategies";
 
 clientsClaim();
 declare let self: WorkerGlobalScope & typeof globalThis;
@@ -11,19 +15,17 @@ declare let self: WorkerGlobalScope & typeof globalThis;
 self.skipWaiting();
 precacheAndRoute(self.__WB_MANIFEST);
 
-
-
 registerRoute(
-  ({request}) => request.destination === 'script' ||
-                  request.destination === 'style', 
+  ({ request }) =>
+    request.destination === "script" || request.destination === "style",
   new CacheFirst({
-    cacheName: 'static-resources',
+    cacheName: "static-resources",
   })
 );
 registerRoute(
-  ({url}) => url.origin === 'https://fonts.gstatic.com',
+  ({ url }) => url.origin === "https://fonts.gstatic.com",
   new CacheFirst({
-    cacheName: 'google-fonts-webfonts',
+    cacheName: "google-fonts-webfonts",
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
@@ -36,9 +38,9 @@ registerRoute(
   })
 );
 registerRoute(
-  ({request}) => request.destination === 'image',
+  ({ request }) => request.destination === "image",
   new CacheFirst({
-    cacheName: 'images',
+    cacheName: "images",
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
@@ -48,5 +50,5 @@ registerRoute(
         maxAgeSeconds: 30 * 24 * 60 * 60,
       }),
     ],
-  }),
+  })
 );

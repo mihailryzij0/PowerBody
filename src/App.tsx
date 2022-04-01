@@ -6,10 +6,10 @@ import PostsList from "./pages/PostsList";
 import Singlepage from "./pages/Singlepage";
 import RequireAutch from "./components/hoc/RequireAutch";
 import IndividualWorkout from "./pages/IndividualWorkout";
+import AdminWorkout from "./pages/adminWorkout";
 
 
 function App() {
-
   return (
     <Routes>
       <Route
@@ -20,9 +20,10 @@ function App() {
           </RequireAutch>
         }
       />
+      <Route path="/addWorkout" element={<AdminWorkout />} />
       <Route path="/posts" element={<PostsList />} />
       <Route path="/posts/:id" element={<Singlepage />} />
-      <Route path="/individual" element={<IndividualWorkout/>} />
+      <Route path="/individual" element={<IndividualWorkout />} />
       <Route path="/login" element={<LoginFormPage />} />
     </Routes>
   );

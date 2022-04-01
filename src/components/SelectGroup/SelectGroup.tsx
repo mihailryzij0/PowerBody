@@ -25,7 +25,7 @@ export default function SelectGroup({
   return (
     <>
       {selectGrupItems.map((select) => (
-        <FormControl sx={{ mt: 1, minWidth: '100%' }} key={select.criteria}>
+        <FormControl sx={{ mt: 1, minWidth: "100%" }} key={select.criteria}>
           <FormHelperText>{select.placeholder}</FormHelperText>
           <Select
             value={state[select.criteria]}

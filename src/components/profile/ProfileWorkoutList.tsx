@@ -7,7 +7,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import WorkoutListItem from "../Post/WorkoutListItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -16,9 +16,7 @@ import {
   updateUserWorkout,
   updateWorkout,
 } from "../../store/slices/userWorkoutSlice";
-import { Post} from "../../store/slices/cardsSlice";
-
-
+import { Post } from "../../store/slices/cardsSlice";
 
 export default function ProfileWorkoutList({ workout }: Record<string, Post>) {
   const { workouts } = workout;

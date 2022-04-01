@@ -43,38 +43,42 @@ export default function IndividualWorkout() {
     purpose: "",
     muscleGroup: "",
   });
-  const [helperText, setHelperText] = useState(false)
+  const [helperText, setHelperText] = useState(false);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { idUser } = useAppSelector((state) => state.user);
 
   const hendleClick = () => {
-    if(criteria.level !== "" &&
-       criteria.purpose !== "" &&
-       criteria.muscleGroup !== "" ){
-      setHelperText(false)
+    if (
+      criteria.level !== "" &&
+      criteria.purpose !== "" &&
+      criteria.muscleGroup !== ""
+    ) {
+      setHelperText(false);
       const workout = trainingCreator(criteria) as Post;
       dispatch(setUserWorkout({ workout, idUser }));
-      navigate('/')
-    }else{
-      setHelperText(true)
+      navigate("/");
+    } else {
+      setHelperText(true);
     }
-
-
   };
   const MyBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
-  text-align: center;
-`;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    text-align: center;
+  `;
 
   return (
     <Container maxWidth={"sm"}>
       <MyBox mt={"200px"}>
-        <Typography mt={1} variant="h3" >Генератор тренировок</Typography>
-         <Typography mt={1}>Тренировка расчитывается для спорсменов начального и среднего уровня</Typography>
+        <Typography mt={1} variant="h3">
+          Генератор тренировок
+        </Typography>
+        <Typography mt={1}>
+          Тренировка расчитывается для спорсменов начального и среднего уровня
+        </Typography>
         <SelectGroup
           state={criteria}
           onCriteriaChange={setСriteria}
@@ -83,7 +87,11 @@ export default function IndividualWorkout() {
         <Button onClick={hendleClick} sx={{ mt: "40px" }} variant="contained">
           Создать тренировку
         </Button>
-         {helperText? <Typography sx={{color:'red'}} >Заполните все формы</Typography>: '' }
+        {helperText ? (
+          <Typography sx={{ color: "red" }}>Заполните все формы</Typography>
+        ) : (
+          ""
+        )}
       </MyBox>
 
       <Header></Header>

@@ -1,13 +1,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { resolve } = require("path");
-const {path} = require("path");
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const workboxPlugin = require("workbox-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-
 
 const { NODE_ENV } = process.env;
 module.exports = {
@@ -81,8 +77,6 @@ module.exports = {
       template: resolve(__dirname, "./src/index.html"),
     }),
 
-
-
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
@@ -98,7 +92,6 @@ module.exports = {
       swSrc: "./src/sw.ts",
       swDest: "sw.js",
     }),
-    
   ],
 
   optimization: {
@@ -109,10 +102,9 @@ module.exports = {
     historyApiFallback: true,
     open: true,
     port: 9000,
- 
+
     client: {
       logging: "info",
     },
   },
 };
-

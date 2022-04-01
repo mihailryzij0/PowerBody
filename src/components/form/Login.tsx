@@ -9,5 +9,5 @@ export default function Login() {
   const hendleLogin = (email: string, pass: string) => {
     dispach(signInUser({ email, pass }));
   };
-  return <Form title="Войти" errorMessage={error}  handleClick={hendleLogin} />;
+  return <Form title="Войти" errorMessage={error} handleClick={hendleLogin} />;
 }

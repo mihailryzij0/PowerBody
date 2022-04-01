@@ -33,7 +33,7 @@ export default function Header() {
           sx={{ display: "flex", justifyContent: "space-around" }}
         >
           <IconButton component={Link} to="/posts" color="inherit">
-          <Home></Home>
+            <Home></Home>
           </IconButton>
           <IconButton component={Link} to="/individual" color="inherit">
             <FitnessCenter></FitnessCenter>

@@ -9,5 +9,11 @@ export default function SignUp() {
   const hendleRegistr = (email: string, pass: string) => {
     dispach(signUpUser({ email, pass }));
   };
-  return <Form title="регистрация" errorMessage={error} handleClick={hendleRegistr} />;
+  return (
+    <Form
+      title="регистрация"
+      errorMessage={error}
+      handleClick={hendleRegistr}
+    />
+  );
 }

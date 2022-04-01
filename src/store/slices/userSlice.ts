@@ -21,16 +21,15 @@ export const signInUser = createAsyncThunk(
     { rejectWithValue, dispatch }
   ) => {
     return signInWithEmailAndPassword(getAuth(), email, pass)
-     
       .then(({ user }) => {
-        const userData ={
+        const userData = {
           email: user.email,
           idUser: user.uid,
           token: user.refreshToken,
-          isAuth: true
+          isAuth: true,
         };
-        localStorage.setItem('userData', JSON.stringify(userData))
-        return userData
+        localStorage.setItem("userData", JSON.stringify(userData));
+        return userData;
       })
       .catch((error) => {
         return rejectWithValue(error.message);
@@ -42,23 +41,23 @@ export const signUpUser: any = createAsyncThunk(
   "userSlice/SignUpUser",
   async ({ email, pass }: Record<string, string>, { rejectWithValue }) => {
     createUserWithEmailAndPassword(getAuth(), email, pass)
-    .then(({ user }) => {
-      const userData ={
-        email: user.email,
-        idUser: user.uid,
-        token: user.refreshToken,
-        isAuth: true
-      };
-      localStorage.setItem('userData', JSON.stringify(userData))
-      return userData
-    })
-    .catch((error) => {
-      return rejectWithValue(error.message);
-    });
+      .then(({ user }) => {
+        const userData = {
+          email: user.email,
+          idUser: user.uid,
+          token: user.refreshToken,
+          isAuth: true,
+        };
+        localStorage.setItem("userData", JSON.stringify(userData));
+        return userData;
+      })
+      .catch((error) => {
+        return rejectWithValue(error.message);
+      });
   }
 );
 
- const initialState: User = {
+const initialState: User = {
   isAuth: false,
   email: null,
   token: null,
