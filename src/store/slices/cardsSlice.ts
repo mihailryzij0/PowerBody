@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebaseAPI";
+import { db } from "../../firebase";
 
 export interface Post {
   description: string;
@@ -43,6 +43,7 @@ export const getPostCards: any = createAsyncThunk(
       }
       return respons.data();
     } catch (error: any) {
+      console.log(error)
       return rejectWithValue(error.message);
     }
   }

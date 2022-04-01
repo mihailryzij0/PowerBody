@@ -11,7 +11,6 @@ export interface Exercises {
 export type ExercisesGroups = Record<string, Exercises>;
 export function trainingCreator(parameters: SelectGroupState) {
   function addIntensity(basicIntensity: number, secondaryIntensity: number) {
-    console.log({ basicIntensity, secondaryIntensity });
     let basicIntensityGroup: number;
     let secondaryIntensityGroup: number;
     let secondaryRepetitionGroup: number;
@@ -93,8 +92,6 @@ export function trainingCreator(parameters: SelectGroupState) {
         );
     }
   }
-
-  
 
   switch (parameters.purpose) {
     case "Набрать массу":

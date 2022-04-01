@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-interface User {
+export interface User {
   isAuth: boolean;
   email: string | null;
   token: string | null;
@@ -21,36 +21,44 @@ export const signInUser = createAsyncThunk(
     { rejectWithValue, dispatch }
   ) => {
     return signInWithEmailAndPassword(getAuth(), email, pass)
+     
       .then(({ user }) => {
-        return {
+        const userData ={
           email: user.email,
           idUser: user.uid,
           token: user.refreshToken,
+          isAuth: true
         };
+        localStorage.setItem('userData', JSON.stringify(userData))
+        return userData
       })
       .catch((error) => {
-        return rejectWithValue(error);
-      });
-  }
-);
-export const SignUpUser: any = createAsyncThunk(
-  "userSlice/SignUpUser",
-  async ({ email, pass }: Record<string, string>, { rejectWithValue }) => {
-    createUserWithEmailAndPassword(getAuth(), email, pass)
-      .then(({ user }) => {
-        return {
-          email: user.email,
-          idUser: user.uid,
-          token: user.refreshToken,
-        };
-      })
-      .catch((error) => {
-        rejectWithValue(error);
+        return rejectWithValue(error.message);
       });
   }
 );
 
-const initialState: User = {
+export const signUpUser: any = createAsyncThunk(
+  "userSlice/SignUpUser",
+  async ({ email, pass }: Record<string, string>, { rejectWithValue }) => {
+    createUserWithEmailAndPassword(getAuth(), email, pass)
+    .then(({ user }) => {
+      const userData ={
+        email: user.email,
+        idUser: user.uid,
+        token: user.refreshToken,
+        isAuth: true
+      };
+      localStorage.setItem('userData', JSON.stringify(userData))
+      return userData
+    })
+    .catch((error) => {
+      return rejectWithValue(error.message);
+    });
+  }
+);
+
+ const initialState: User = {
   isAuth: false,
   email: null,
   token: null,
@@ -72,7 +80,7 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.email = action.payload.email;
       state.token = action.payload.token;
-      state.idUser = action.payload.id;
+      state.idUser = action.payload.idUser;
       state.isAuth = true;
     },
   },
@@ -88,6 +96,7 @@ const userSlice = createSlice({
       state.status = "pending";
     });
     builder.addCase(signInUser.rejected, (state, action) => {
+      state.error = action.payload as string;
       state.status = "rejected";
     });
   },

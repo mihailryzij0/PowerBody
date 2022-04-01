@@ -32,11 +32,8 @@ export default function Header() {
           variant="dense"
           sx={{ display: "flex", justifyContent: "space-around" }}
         >
-          <IconButton component={Link} to="/" color="inherit">
-            <Home></Home>
-          </IconButton>
           <IconButton component={Link} to="/posts" color="inherit">
-            <PlaylistAdd></PlaylistAdd>
+          <Home></Home>
           </IconButton>
           <IconButton component={Link} to="/individual" color="inherit">
             <FitnessCenter></FitnessCenter>

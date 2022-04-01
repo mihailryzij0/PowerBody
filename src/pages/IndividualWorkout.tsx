@@ -1,5 +1,6 @@
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button, Container, styled, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
@@ -42,17 +43,38 @@ export default function IndividualWorkout() {
     purpose: "",
     muscleGroup: "",
   });
+  const [helperText, setHelperText] = useState(false)
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
   const { idUser } = useAppSelector((state) => state.user);
+
   const hendleClick = () => {
-    const workout = trainingCreator(criteria) as Post;
-    dispatch(setUserWorkout({ workout, idUser }));
-    trainingCreator(criteria);
+    if(criteria.level !== "" &&
+       criteria.purpose !== "" &&
+       criteria.muscleGroup !== "" ){
+      setHelperText(false)
+      const workout = trainingCreator(criteria) as Post;
+      dispatch(setUserWorkout({ workout, idUser }));
+      navigate('/')
+    }else{
+      setHelperText(true)
+    }
+
+
   };
+  const MyBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  text-align: center;
+`;
 
   return (
     <Container maxWidth={"sm"}>
-      <Box sx={{ display: "flex", flexDirection: "column" }} mt={"200px"}>
+      <MyBox mt={"200px"}>
+        <Typography mt={1} variant="h3" >Генератор тренировок</Typography>
+         <Typography mt={1}>Тренировка расчитывается для спорсменов начального и среднего уровня</Typography>
         <SelectGroup
           state={criteria}
           onCriteriaChange={setСriteria}
@@ -61,7 +83,8 @@ export default function IndividualWorkout() {
         <Button onClick={hendleClick} sx={{ mt: "40px" }} variant="contained">
           Создать тренировку
         </Button>
-      </Box>
+         {helperText? <Typography sx={{color:'red'}} >Заполните все формы</Typography>: '' }
+      </MyBox>
 
       <Header></Header>
     </Container>

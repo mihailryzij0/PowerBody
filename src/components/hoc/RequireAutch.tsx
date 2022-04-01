@@ -23,6 +23,7 @@ export default function RequireAutch({
 }: Record<string, ReactElement>) {
   const { isAuth, status } = useAppSelector((state) => state.user);
   const location = useLocation() as Location;
+  
   if (!isAuth) {
     return <Navigate to={"/login"} state={{ from: location }} />;
   }

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebaseAPI";
+import { db } from "../../firebase";
 import { Post } from "./cardsSlice";
 
 interface Workout {

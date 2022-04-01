@@ -1,33 +1,36 @@
-import React, { FC } from "react";
+import React from "react";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
-  List,
+  IconButton,
   Typography,
 } from "@mui/material";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import WorkoutListItem from "../Post/WorkoutListItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-  setUpdateWorkout,
+  deleteWorkout,
+  updateUserWorkout,
   updateWorkout,
 } from "../../store/slices/userWorkoutSlice";
-import { Post, Workout } from "../../store/slices/cardsSlice";
+import { Post} from "../../store/slices/cardsSlice";
+
+
+
 export default function ProfileWorkoutList({ workout }: Record<string, Post>) {
   const { workouts } = workout;
   const dispatch = useAppDispatch();
   const hendleClick = (index: number) => {
-    dispatch(updateWorkout(index));
-    dispatch(setUpdateWorkout());
+    dispatch(deleteWorkout(index));
+    dispatch(updateUserWorkout());
   };
   return (
     <>
-      {workouts.map((el, i) => (
-        <Accordion key={i}>
+      {workouts.map((el, index) => (
+        <Accordion key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -42,15 +45,16 @@ export default function ProfileWorkoutList({ workout }: Record<string, Post>) {
               }}
             >
               <Typography>{el.workoutName}</Typography>
-              <Button
-                sx={{ mr: "40px" }}
+              <IconButton
+                aria-label="delete"
+                sx={{ mr: "20px" }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  hendleClick(i);
+                  hendleClick(index);
                 }}
               >
-                rgdg
-              </Button>
+                <DeleteIcon />
+              </IconButton>
             </Box>
           </AccordionSummary>
           <AccordionDetails>

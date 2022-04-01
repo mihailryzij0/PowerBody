@@ -1,9 +1,7 @@
-import { async } from "@firebase/util";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { User } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../firebaseAPI";
-import { Post, Workout } from "./cardsSlice";
+import { db } from "../../firebase";
+import { Post } from "./cardsSlice";
 
 export interface userWorkout {
   idUser?: string | null;
@@ -26,24 +24,26 @@ const initialState: userWorkout = {
 export const setUserWorkout = createAsyncThunk(
   "userWorkout/setUserWorkout",
   async ({ workout, idUser }: userWorkout, { rejectWithValue, dispatch }) => {
+    dispatch(updateWorkout(workout))
     await setDoc(doc(db, "userWorkout", `${idUser}`), workout);
   }
 );
 
-export const setUpdateWorkout = createAsyncThunk(
-  "userWorkout/setUpdateWorkout",
-  async (_, { getState, dispatch }) => {
+export const updateUserWorkout = createAsyncThunk(
+  "userWorkout/updateWorkout",
+  async (_, { getState}) => {
     const {
       user,
       userWorkout: { workout },
     } = getState() as any;
+
     await setDoc(doc(db, "userWorkout", `${user.idUser}`), workout);
   }
 );
 
 export const getUserWorkout: any = createAsyncThunk(
   "userWorkout/getUserWorkout",
-  async (idUser, { rejectWithValue, dispatch }) => {
+  async (idUser, { rejectWithValue}) => {
     try {
       const respons = await getDoc(doc(db, "userWorkout", `${idUser}`));
       if (!respons.exists()) {
@@ -52,7 +52,6 @@ export const getUserWorkout: any = createAsyncThunk(
       const data = respons.data();
       return { data, idUser };
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -63,6 +62,9 @@ const userWorkoutSlice = createSlice({
   initialState,
   reducers: {
     updateWorkout(state, action) {
+      state.workout = action.payload;
+    },
+    deleteWorkout(state, action) {
       state.workout.workouts.splice(action.payload, 1);
     },
   },
@@ -81,6 +83,6 @@ const userWorkoutSlice = createSlice({
   },
 });
 
-export const { updateWorkout } = userWorkoutSlice.actions;
+export const { deleteWorkout, updateWorkout } = userWorkoutSlice.actions;
 
 export default userWorkoutSlice.reducer;

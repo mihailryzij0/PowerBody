@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginFormPage from "./pages/LoginFormPage";
 import Profile from "./pages/Profile";
@@ -7,7 +7,9 @@ import Singlepage from "./pages/Singlepage";
 import RequireAutch from "./components/hoc/RequireAutch";
 import IndividualWorkout from "./pages/IndividualWorkout";
 
+
 function App() {
+
   return (
     <Routes>
       <Route

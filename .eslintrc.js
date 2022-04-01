@@ -11,9 +11,9 @@ module.exports = {
   },
   rules: {
     "import/prefer-default-export": "off",
-    "no-console": "off",
+    "no-restricted-globals": "off",
     "no-unused-expressions": "off",
-    "no-new": "off",
+    "no-underscore-dangle": "off",
     "max-len": [
       "error",
       {
