@@ -1,9 +1,12 @@
+import { ErrorData } from "@firebase/util";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 export interface User {
   isAuth: boolean;
@@ -40,20 +43,27 @@ export const signInUser = createAsyncThunk(
 export const signUpUser: any = createAsyncThunk(
   "userSlice/SignUpUser",
   async ({ email, pass }: Record<string, string>, { rejectWithValue }) => {
-    createUserWithEmailAndPassword(getAuth(), email, pass)
-      .then(({ user }) => {
-        const userData = {
-          email: user.email,
-          idUser: user.uid,
-          token: user.refreshToken,
-          isAuth: true,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        return userData;
-      })
-      .catch((error) => {
-        return rejectWithValue(error.message);
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        getAuth(),
+        email,
+        pass
+      );
+      const userData = {
+        email: user.email,
+        idUser: user.uid,
+        token: user.refreshToken,
+        isAuth: true,
+      };
+      localStorage.setItem("userData", JSON.stringify(userData));
+      await setDoc(doc(db, "users", `${user.email}`), {
+        isAdmin: false,
+        workout: null,
       });
+      return userData;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -86,15 +96,32 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signInUser.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      state.email = action.payload.email;
-      state.token = action.payload.token;
-      state.idUser = action.payload.idUser;
+      const { email, token, idUser } = action.payload;
+      state.email = email;
+      state.token = token;
+      state.idUser = idUser;
       state.isAuth = true;
     });
     builder.addCase(signInUser.pending, (state, action) => {
       state.status = "pending";
     });
     builder.addCase(signInUser.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.status = "rejected";
+    });
+
+    builder.addCase(signUpUser.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      const { email, token, idUser } = action.payload;
+      state.email = email;
+      state.token = token;
+      state.idUser = idUser;
+      state.isAuth = true;
+    });
+    builder.addCase(signUpUser.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(signUpUser.rejected, (state, action) => {
       state.error = action.payload as string;
       state.status = "rejected";
     });

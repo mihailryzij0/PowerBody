@@ -1,31 +1,34 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { Post } from "./cardsSlice";
 
-export interface userWorkout {
-  idUser?: string | null;
-  workout: Post;
+export interface userData {
+  workout: Post | null;
   status?: string;
+  isAdmin: boolean;
 }
 
-const initialState: userWorkout = {
-  workout: {
-    description: "",
-    rating: "",
-    title: "",
-    id: "",
-    workouts: [],
-  },
+export const initialState: userData = {
+  workout: null,
   status: "",
-  idUser: "",
+  isAdmin: false,
 };
 
 export const setUserWorkout = createAsyncThunk(
   "userWorkout/setUserWorkout",
-  async ({ workout, idUser }: userWorkout, { rejectWithValue, dispatch }) => {
+  async (workout: Post, { getState, dispatch }) => {
+    console.log(workout);
+    const {
+      user: { email },
+    } = getState() as any;
     dispatch(updateWorkout(workout));
-    await setDoc(doc(db, "userWorkout", `${idUser}`), workout);
+    const ref = doc(db, "users", `${email}`);
+    await updateDoc(ref, {
+      workout: workout,
+    });
   }
 );
 
@@ -37,20 +40,26 @@ export const updateUserWorkout = createAsyncThunk(
       userWorkout: { workout },
     } = getState() as any;
 
-    await setDoc(doc(db, "userWorkout", `${user.idUser}`), workout);
+    const ref = doc(db, "users", `${user.email}`);
+    await updateDoc(ref, {
+      workout: workout,
+    });
   }
 );
 
 export const getUserWorkout: any = createAsyncThunk(
   "userWorkout/getUserWorkout",
-  async (idUser, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    const {
+      user: { email },
+    } = getState() as any;
     try {
-      const respons = await getDoc(doc(db, "userWorkout", `${idUser}`));
+      const respons = await getDoc(doc(db, "users", `${email}`));
       if (!respons.exists()) {
         throw new Error("чтото пошло не так");
       }
-      const data = respons.data();
-      return { data, idUser };
+      const workout = respons.data();
+      return workout;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -65,13 +74,13 @@ const userWorkoutSlice = createSlice({
       state.workout = action.payload;
     },
     deleteWorkout(state, action) {
-      state.workout.workouts.splice(action.payload, 1);
+      state.workout?.workouts.splice(action.payload, 1);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserWorkout.fulfilled, (state, action) => {
-      state.workout = action.payload.data;
-      state.idUser = action.payload.idUser;
+      state.workout = action.payload.workout;
+      state.isAdmin = action.payload.isAdmin;
       state.status = "fulfilled";
     });
     builder.addCase(getUserWorkout.pending, (state, action) => {

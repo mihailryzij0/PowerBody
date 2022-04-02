@@ -6,7 +6,7 @@ export interface Post {
   description: string;
   rating: string;
   title: string;
-  id: string;
+  id: number;
   workouts: Array<Workout>;
 }
 

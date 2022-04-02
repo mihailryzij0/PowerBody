@@ -13,7 +13,7 @@ import { green } from "@mui/material/colors";
 export default function Singlepage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { post} = useAppSelector((state) => state);
+  const { post } = useAppSelector((state) => state);
   const dispach = useAppDispatch();
   const { postData, status, error } = post;
   useEffect(() => {
@@ -23,7 +23,6 @@ export default function Singlepage() {
       dispach(getPostData(id));
     }
   }, []);
-
 
   return (
     <>
@@ -45,8 +44,7 @@ export default function Singlepage() {
             aria-label="delete"
           >
             <ArrowCircleLeftOutlinedIcon sx={{ fontSize: 40 }} />
-            </IconButton>
-          
+          </IconButton>
         </>
       )}
 

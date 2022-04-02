@@ -1,11 +1,10 @@
-import { Backdrop, Box, Container, Rating, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Backdrop, Container, } from "@mui/material";
 import React, { useEffect } from "react";
 import Header from "../components/header/Header";
-import ProfileWorkoutList from "../components/profile/ProfileWorkoutList";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { getUserWorkout } from "../store/slices/userWorkoutSlice";
 import CircularProgress from "@mui/material/CircularProgress";
+import ProfileContent from "../components/profile/ProfileContent";
 
 export default function Profile() {
   const { user, userWorkout } = useAppSelector((state) => state);
@@ -16,21 +15,7 @@ export default function Profile() {
       dispatch(getUserWorkout(user.idUser));
     }
   }, []);
-
-  const MyBox = styled(Box)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
-    text-align: center;
-  `;
-  const ProfileText = styled(Typography)`
-    margin-top: 20px;
-    margin-bottom: 20px;
-  `;
-
   return (
-    <>
       <Container maxWidth={"sm"}>
         {userWorkout.status == "pending" ? (
           <Backdrop
@@ -40,22 +25,11 @@ export default function Profile() {
             <CircularProgress color="inherit" />
           </Backdrop>
         ) : (
-          <Box>
-            <MyBox>
-              <ProfileText variant="h3">{workout.title}</ProfileText>
-              <Rating
-                name="size-medium"
-                defaultValue={Number(workout.rating)}
-              />
-              <ProfileText>{workout.description}</ProfileText>
-            </MyBox>
-            <ProfileWorkoutList workout={workout}></ProfileWorkoutList>
-          </Box>
+          <ProfileContent/>
         )}
         <Header></Header>
       </Container>
-    </>
+
   );
 }
 
-// loyd@gmail.com

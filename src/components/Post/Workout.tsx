@@ -9,24 +9,24 @@ import WorkoutList from "./WorkoutList";
 
 export default function Workout({ postData }: any) {
   const { title, description, workouts, rating } = postData;
-  const {idUser } = useAppSelector((state) => state.user);
+  const { idUser } = useAppSelector((state) => state.user);
   const dispach = useAppDispatch();
   const navigate = useNavigate();
   const [successButton, setSuccessButton] = useState(false);
 
   const handleClick = () => {
-    dispach(setUserWorkout({ workout: postData, idUser }));
+    dispach(setUserWorkout(postData));
     setSuccessButton(true);
   };
   return (
     <>
-      <Box sx={{ position:'relative',  overflow: "contain", height: "200px" }}>
+      <Box sx={{ position: "relative", overflow: "contain", height: "200px" }}>
         <img
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
           src={require("../../assets/fon.jpg")}
         ></img>
-                <Rating
-          sx={{position:'absolute', right:"20px", bottom:'20px'}}      
+        <Rating
+          sx={{ position: "absolute", right: "20px", bottom: "20px" }}
           name="size-large"
           disabled={true}
           defaultValue={Number(rating)}
@@ -39,17 +39,19 @@ export default function Workout({ postData }: any) {
         {description}
       </Typography>
       <Box sx={{ m: "0 auto", width: "max-content" }}>
-                    {successButton ? (
-              <Button onClick={()=>navigate('/')}
-               variant="contained" color="success">
-               перейти в ЛК
-            </Button>
-            ) : (
-              <Button onClick={handleClick}
-               variant="contained" color="success">
-              Добавить
-            </Button>
-            )}
+        {successButton ? (
+          <Button
+            onClick={() => navigate("/")}
+            variant="contained"
+            color="success"
+          >
+            перейти в ЛК
+          </Button>
+        ) : (
+          <Button onClick={handleClick} variant="contained" color="success">
+            Добавить
+          </Button>
+        )}
       </Box>
 
       <Box sx={{ mt: "50px" }}>

@@ -8,7 +8,6 @@ import RequireAutch from "./components/hoc/RequireAutch";
 import IndividualWorkout from "./pages/IndividualWorkout";
 import AdminWorkout from "./pages/adminWorkout";
 
-
 function App() {
   return (
     <Routes>

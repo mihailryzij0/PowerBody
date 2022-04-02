@@ -14,7 +14,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   deleteWorkout,
   updateUserWorkout,
-  updateWorkout,
 } from "../../store/slices/userWorkoutSlice";
 import { Post } from "../../store/slices/cardsSlice";
 
