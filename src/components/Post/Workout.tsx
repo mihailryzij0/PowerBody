@@ -15,9 +15,28 @@ export default function Workout({ postData }: any) {
   const [successButton, setSuccessButton] = useState(false);
 
   const handleClick = () => {
-    dispach(setUserWorkout(postData));
-    setSuccessButton(true);
+    if (successButton) {
+      navigate("/");
+    } else {
+      dispach(setUserWorkout(postData));
+      setSuccessButton(true);
+    }
   };
+
+  const MyButton = () => {
+    return successButton ? (
+      <Button color="success" variant="contained" onClick={handleClick}>
+        {" "}
+        Перейти в ЛК{" "}
+      </Button>
+    ) : (
+      <Button color="primary" variant="contained" onClick={handleClick}>
+        {" "}
+        Добавить{" "}
+      </Button>
+    );
+  };
+
   return (
     <>
       <Box sx={{ position: "relative", overflow: "contain", height: "200px" }}>
@@ -38,26 +57,17 @@ export default function Workout({ postData }: any) {
       <Typography mt={2} mb={2} variant="body2" align="center">
         {description}
       </Typography>
-      <Box sx={{ m: "0 auto", width: "max-content" }}>
-        {successButton ? (
-          <Button
-            onClick={() => navigate("/")}
-            variant="contained"
-            color="success"
-          >
-            перейти в ЛК
-          </Button>
-        ) : (
-          <Button onClick={handleClick} variant="contained" color="success">
-            Добавить
-          </Button>
-        )}
-      </Box>
-
-      <Box sx={{ mt: "50px" }}>
-        <WorkoutList workouts={workouts} />
-        <Header />
-      </Box>
+      {workouts.length > 1 && (
+        <>
+          <Box sx={{ m: "0 auto", width: "max-content" }}>
+            <MyButton />
+          </Box>
+          <Box sx={{ mt: "50px" }}>
+            <WorkoutList workouts={workouts} />
+            <Header />
+          </Box>
+        </>
+      )}
     </>
   );
 }
