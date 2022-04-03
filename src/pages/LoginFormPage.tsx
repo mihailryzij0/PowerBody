@@ -21,7 +21,7 @@ export default function LoginFormPage() {
     }
   }, [isAuth]);
   return (
-    <Container>
+    <Container maxWidth={"sm"}>
       <main>
         {inputSwitch ? <SignUp /> : <Login />}
         <Button onClick={handleClick}>регистрация</Button>

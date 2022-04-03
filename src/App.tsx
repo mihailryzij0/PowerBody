@@ -6,7 +6,7 @@ import PostsList from "./pages/PostsList";
 import Singlepage from "./pages/Singlepage";
 import RequireAutch from "./components/hoc/RequireAutch";
 import IndividualWorkout from "./pages/IndividualWorkout";
-import AdminWorkout from "./pages/adminWorkout";
+import AdminWorkout from "./pages/AdminWorkout";
 
 function App() {
   return (

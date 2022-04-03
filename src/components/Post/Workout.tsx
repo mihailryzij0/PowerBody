@@ -57,17 +57,17 @@ export default function Workout({ postData }: any) {
       <Typography mt={2} mb={2} variant="body2" align="center">
         {description}
       </Typography>
-      {workouts.length > 1 && (
+      {workouts && (
         <>
           <Box sx={{ m: "0 auto", width: "max-content" }}>
             <MyButton />
           </Box>
           <Box sx={{ mt: "50px" }}>
             <WorkoutList workouts={workouts} />
-            <Header />
           </Box>
         </>
       )}
+      <Header />
     </>
   );
 }

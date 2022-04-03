@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Post } from "./cardsSlice";
 
@@ -9,19 +9,13 @@ interface Workout {
 }
 
 interface State {
-  postData: Post;
+  postData: Post | null;
   status: string;
   error: string;
 }
 
 const initialState: State = {
-  postData: {
-    description: "",
-    rating: "",
-    title: "",
-    id: "",
-    workouts: [],
-  },
+  postData: null,
   status: "",
   error: "",
 };
@@ -38,6 +32,12 @@ export const getPostData: any = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
+  }
+);
+export const setPostData = createAsyncThunk(
+  "post/setPostData",
+  async (postData: Post, {}) => {
+    await setDoc(doc(db, "posts", `${postData.id}`), postData);
   }
 );
 

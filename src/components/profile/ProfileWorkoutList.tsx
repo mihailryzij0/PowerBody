@@ -26,8 +26,8 @@ export default function ProfileWorkoutList({ workout }: Record<string, Post>) {
   };
   return (
     <>
-      {workouts.map((el, index) => (
-        <Accordion key={index}>
+      {workouts?.map((el, index) => (
+        <Accordion sx={{ marginBottom: "10px" }} key={index}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"

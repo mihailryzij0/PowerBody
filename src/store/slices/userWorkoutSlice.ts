@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { Post } from "./cardsSlice";
 
 export interface userData {
@@ -74,7 +72,7 @@ const userWorkoutSlice = createSlice({
       state.workout = action.payload;
     },
     deleteWorkout(state, action) {
-      state.workout?.workouts.splice(action.payload, 1);
+      state.workout?.workouts?.splice(action.payload, 1);
     },
   },
   extraReducers: (builder) => {

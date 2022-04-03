@@ -1,16 +1,9 @@
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
-  Avatar,
   Box,
   Button,
-  Divider,
-  IconButton,
-  ListItemIcon,
-  Menu,
-  MenuItem,
+  Container,
   Rating,
   styled,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -40,17 +33,21 @@ export default function ProfileContent() {
 
   const { workout } = useAppSelector((state) => state.userWorkout);
   return workout ? (
-    <Box>
+    <Container>
       <Button sx={{ left: "80%", top: "5%" }} variant="outlined">
         Выйти
       </Button>
       <MyBox>
-        <ProfileText variant="h4">{workout.title}</ProfileText>
+        <ProfileText sx={{ maxWidth: "60%" }} variant="h4">
+          {workout.title}
+        </ProfileText>
         <Rating name="size-medium" defaultValue={Number(workout.rating)} />
-        <ProfileText>{workout.description}</ProfileText>
+        <ProfileText variant="subtitle1" gutterBottom sx={{ maxWidth: "70%" }}>
+          {workout.description}
+        </ProfileText>
       </MyBox>
       <ProfileWorkoutList workout={workout}></ProfileWorkoutList>
-    </Box>
+    </Container>
   ) : (
     <Typography>Здесб будет ваша тренировка</Typography>
   );

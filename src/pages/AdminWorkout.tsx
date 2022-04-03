@@ -1,24 +1,24 @@
 import {
   Box,
-  Button,
   Container,
+  IconButton,
   styled,
-  TextareaAutosize,
-  TextField,
   ToggleButton,
   ToggleButtonGroup,
-  Typography,
 } from "@mui/material";
+import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import InputArray from "../components/form/InputArray";
+import Header from "../components/header/Header";
 
 export default function AdminWorkout() {
-  const [post, setPost] = useState();
-  const [workoutPostChoice, setChoice] = useState("course");
+  const [postKey, setPostKey] = useState("vitamins");
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newChoice: string
   ) => {
-    setChoice(newChoice);
+    setPostKey(newChoice);
   };
   const MyBox = styled(Box)`
     display: flex;
@@ -27,61 +27,40 @@ export default function AdminWorkout() {
     margin-top: 100px;
     text-align: center;
   `;
+  const navigate = useNavigate();
+
   return (
-    <Container sx={{ textAlign: "center" }}>
+    <Container maxWidth={"sm"} sx={{ textAlign: "center" }}>
       <MyBox>
         <ToggleButtonGroup
           color="primary"
-          value={workoutPostChoice}
+          value={postKey}
           exclusive
           onChange={handleChange}
         >
-          <ToggleButton value="workout">Тренировка</ToggleButton>
-          <ToggleButton value="course">Курс</ToggleButton>
+          <ToggleButton value="workouts">Тренировка</ToggleButton>
+          <ToggleButton value="vitamins">Курс</ToggleButton>
         </ToggleButtonGroup>
-        <TextareaAutosize
-          aria-label="minimum height"
-          placeholder="Введите описание"
-          style={{ minWidth: "100%", minHeight: "200px", marginTop: "40px" }}
-        />
-        <Button variant="contained" component="label">
+        {/* <Button variant="contained" component="label">
           Upload File
           <input type="file" hidden />
-        </Button>
-        {workoutPostChoice === "workout" ? (
-          <>
-            <Box>
-              <Typography variant="h4">Первый день</Typography>
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-            </Box>
-            <Box>
-              <Typography variant="h4">Второй день</Typography>
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-            </Box>
-            <Box>
-              <Typography variant="h4">Третий день</Typography>
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-              <TextField fullWidth label="fullWidth" id="fullWidth" />
-            </Box>
-          </>
-        ) : (
-          ""
-        )}
+        </Button> */}
+        <InputArray postKey={postKey} />
       </MyBox>
+      <IconButton
+        sx={{
+          position: "fixed",
+          top: "20px",
+          left: "10px",
+          color: "black",
+        }}
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <ArrowCircleLeftOutlinedIcon sx={{ fontSize: 40 }} />
+      </IconButton>
+      <Header></Header>
     </Container>
   );
 }

@@ -12,21 +12,17 @@ import { green } from "@mui/material/colors";
 
 export default function Singlepage() {
   const { id } = useParams();
+  useEffect(() => {
+    dispach(getPostData(id));
+  }, []);
   const navigate = useNavigate();
   const { post } = useAppSelector((state) => state);
   const dispach = useAppDispatch();
   const { postData, status, error } = post;
-  useEffect(() => {
-    if (id === postData.id) {
-      return;
-    } else {
-      dispach(getPostData(id));
-    }
-  }, []);
 
   return (
     <>
-      {status === "pending" ? (
+      {status === "pending" || postData === null ? (
         <CircularProgress color="secondary" />
       ) : (
         <>
