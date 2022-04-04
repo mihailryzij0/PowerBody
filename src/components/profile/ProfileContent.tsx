@@ -34,7 +34,7 @@ export default function ProfileContent() {
   const { workout } = useAppSelector((state) => state.userWorkout);
   return workout ? (
     <Container>
-      <Button sx={{ left: "80%", top: "5%" }} variant="outlined">
+      <Button onClick={handleClick} sx={{ left: "80%", top: "5%" }} variant="outlined">
         Выйти
       </Button>
       <MyBox>

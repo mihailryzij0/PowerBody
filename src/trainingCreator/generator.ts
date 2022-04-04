@@ -3,7 +3,7 @@ import { Exercises } from "./trainingCreator";
 
 export function generator(...exercisesGroups: Array<Exercises>) {
   let workout: Post = {
-    id: new Date().toString(),
+    id: new Date().valueOf(),
     description: "",
     rating: "4",
     title: "Индивидульная тренировка",

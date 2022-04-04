@@ -22,7 +22,7 @@ const initialState: State = {
 
 export const getPostData: any = createAsyncThunk(
   "post/getPostData",
-  async (postId, { rejectWithValue, dispatch }) => {
+  async (postId, { rejectWithValue }) => {
     try {
       const respons = await getDoc(doc(db, "posts", `${postId}`));
       if (!respons.exists()) {
@@ -36,7 +36,7 @@ export const getPostData: any = createAsyncThunk(
 );
 export const setPostData = createAsyncThunk(
   "post/setPostData",
-  async (postData: Post, {}) => {
+  async (postData:Post , {}) => {
     await setDoc(doc(db, "posts", `${postData.id}`), postData);
   }
 );
@@ -44,7 +44,8 @@ export const setPostData = createAsyncThunk(
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: {
     [getPostData.fulfilled]: (state, action) => {
       state.status = "fulfilled";

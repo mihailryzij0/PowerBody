@@ -25,7 +25,7 @@ export default function Profile() {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : (
-        <ProfileContent />
+        <ProfileContent  />
       )}
       <Header></Header>
     </Container>

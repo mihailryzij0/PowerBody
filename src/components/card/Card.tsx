@@ -1,25 +1,29 @@
 import {
-  ImageList,
   ImageListItem,
   ImageListItemBar,
   Rating,
 } from "@mui/material";
 import React from "react";
+import { CardImg } from "./card.style";
 
-export default function PostItem({ postData }: any) {
+export interface CardProps{
+  title:string;
+  rating:string;
+
+}
+export default function Card( {title, rating} : CardProps) {
   return (
     <ImageListItem sx={{ mt: "20px", mb: "20px" }}>
-      <img
-        style={{ height: "100%", maxWidth: "100%" }}
+      <CardImg
         src={require("../../assets/fon.jpg")}
-      ></img>
+      ></CardImg>
       <ImageListItemBar
-        title={postData.title}
+        title={title}
         actionIcon={
           <Rating
             name="size-medium"
             disabled={true}
-            defaultValue={Number(postData.rating)}
+            defaultValue={Number(rating)}
           />
         }
       ></ImageListItemBar>

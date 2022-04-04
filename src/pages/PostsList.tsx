@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/header/Header";
-import Cards from "../components/cards/Cards";
+import Card from "../components/card/Card";
 import { getPostCards } from "../store/slices/cardsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ export default function PostsList() {
             {workouts?.map((post) => (
               <Link key={post.id} to={`/posts/${Number(post.id)}`}>
                 <ImageList cols={1} rowHeight={164}>
-                  <Cards postData={post}></Cards>
+                  <Card {...post}></Card>
                 </ImageList>
               </Link>
             ))}
@@ -51,7 +51,7 @@ export default function PostsList() {
             {vitamins?.map((post) => (
               <Link key={post.id} to={`/posts/${Number(post.id)}`}>
                 <ImageList cols={1} rowHeight={164}>
-                  <Cards postData={post}></Cards>
+                  <Card {...post}></Card>
                 </ImageList>
               </Link>
             ))}
