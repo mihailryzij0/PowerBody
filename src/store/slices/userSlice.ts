@@ -1,4 +1,3 @@
-import { ErrorData } from "@firebase/util";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
@@ -6,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, signIn, signUp } from "../../firebase";
 
 export interface User {
   isAuth: boolean;
@@ -21,18 +20,12 @@ export const signInUser = createAsyncThunk(
   "userSlice/signInUser",
   async (
     { email, pass }: Record<string, string>,
-    { rejectWithValue, dispatch }
+    { rejectWithValue }
   ) => {
-    return signInWithEmailAndPassword(getAuth(), email, pass)
-      .then(({ user }) => {
-        const userData = {
-          email: user.email,
-          idUser: user.uid,
-          token: user.refreshToken,
-          isAuth: true,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        return userData;
+    return signIn(email, pass)
+      .then((user)=>{
+        localStorage.setItem("user", JSON.stringify(user));
+        return user
       })
       .catch((error) => {
         return rejectWithValue(error.message);
@@ -42,28 +35,16 @@ export const signInUser = createAsyncThunk(
 
 export const signUpUser: any = createAsyncThunk(
   "userSlice/SignUpUser",
-  async ({ email, pass }: Record<string, string>, { rejectWithValue }) => {
-    try {
-      const { user } = await createUserWithEmailAndPassword(
-        getAuth(),
-        email,
-        pass
-      );
-      const userData = {
-        email: user.email,
-        idUser: user.uid,
-        token: user.refreshToken,
-        isAuth: true,
-      };
-      localStorage.setItem("userData", JSON.stringify(userData));
-      await setDoc(doc(db, "users", `${user.email}`), {
-        isAdmin: false,
-        workout: null,
-      });
-      return userData;
-    } catch (error: any) {
+  async ({ email, pass }: Record<string, string>,
+     { rejectWithValue }) => {
+     return signUp(email, pass)
+      .then((user)=>{
+        localStorage.setItem("user", JSON.stringify(user));  
+      return user;
+
+     }).catch ((error: any)=>{
       return rejectWithValue(error.message);
-    }
+     })
   }
 );
 
@@ -85,12 +66,6 @@ const userSlice = createSlice({
       state.token = null;
       state.idUser = null;
       state.isAuth = false;
-    },
-    setUser(state, action) {
-      state.email = action.payload.email;
-      state.token = action.payload.token;
-      state.idUser = action.payload.idUser;
-      state.isAuth = true;
     },
   },
   extraReducers: (builder) => {
@@ -128,6 +103,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { removeUser, setUser } = userSlice.actions;
+export const { removeUser} = userSlice.actions;
 
 export default userSlice.reducer;

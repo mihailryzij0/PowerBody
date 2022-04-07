@@ -1,10 +1,15 @@
-import { Box, Button, TextareaAutosize, TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
+import { Box, Button, styled, TextareaAutosize, TextField, Typography } from '@mui/material'
+import React, { ChangeEvent, useState } from 'react'
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { setPostCards } from '../../store/slices/cardsSlice';
 import { setPostData } from '../../store/slices/postSlice';
 
-export default function InputArray({postKey}:Record<string, string>) {
+
+export interface AdminWorkoutProps{
+  postKey:'vitamins' | 'workouts';
+}
+
+export default  function AdminWorkoutContent({postKey}:AdminWorkoutProps) {
   const [post, setPost] = useState({
     description:"",
     id:new Date().getUTCMilliseconds(),
@@ -33,22 +38,26 @@ export default function InputArray({postKey}:Record<string, string>) {
     newPost.workouts[parentIndex].exercises[index] = e.target.value;
       setPost(newPost)
   };
+
   const setWorkoutNameInput =
    (index:number) =>
     (e: ChangeEvent<HTMLInputElement>)=> {
     newPost.workouts[index].workoutName = e.target.value;
     setPost(newPost)
   };
-  const setNameInput =
+
+  const setTitleInput =
    (e: ChangeEvent<HTMLInputElement>)=> {
    newPost.title = e.target.value;
    setPost(newPost)
  };
+
  const setDescriptionInput =
   (e: ChangeEvent<HTMLTextAreaElement>)=> {
   newPost.description = e.target.value;
   setPost(newPost)
 };
+
 const dispatch = useAppDispatch();
 const handleClick=()=>{
   const {workouts,description, ...cardsData}= post
@@ -62,27 +71,33 @@ const handleClick=()=>{
     dispatch(setPostCards({cardsData, postKey}))
   }
 }
-
+ const AdminTextareaAutosize = styled(TextareaAutosize)`
+   min-height: 200px;
+   mix-width: 100%;
+   margin-top: 40px;
+`;
+const AdminTextField = styled(TextField)`
+   mix-width: 90%;
+`;
 
   return (
     <> 
-     <TextField value={post.title} fullWidth label="Назавание тренировки" onChange={setNameInput} />
-     <TextareaAutosize
-          onChange={setDescriptionInput}
+     <TextField value={post.title} fullWidth label="Назавание тренировки" onChange={setTitleInput} />
+     <AdminTextareaAutosize
+          onChange={()=>setDescriptionInput}
           value={post.description}
           aria-label="minimum height"
           placeholder="Введите описание"
-          style={{ minWidth: "100%", minHeight: "200px", marginTop: "40px" }}
         />
         {postKey=== "workouts" &&
-         post.workouts.map((element,i)=>(
-       <Box mt={1} mb={1}>
-         <Typography> {i +1} день </Typography>
-         <TextField sx={{marginTop:'10px', marginBottom:'10px'}} 
-          value={element.workoutName} fullWidth label="Тренировка" onChange={setWorkoutNameInput(i)} />
+         post.workouts.map((element,parentIndex)=>(
+       <Box key={parentIndex} mt={1} mb={1}>
+         <Typography> {parentIndex +1} день </Typography>
+         <AdminTextField
+          value={element.workoutName} fullWidth label="Тренировка" onChange={()=>setWorkoutNameInput(parentIndex)} />
         {element.exercises.map((el,index)=>(
-       <TextField value={el} onChange={setWorkoutInput(i,index)} key={index} fullWidth label="Упражнение"/>
-           ))}
+       <AdminTextField value={el} onChange={setWorkoutInput(parentIndex,index)} key={index} fullWidth label="Упражнение"/>
+           ))} 
       </Box>
        ))
         }

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import React from "react";
+import {useForm} from "react-hook-form"
 import {
   Box,
   Button,
   FormControl,
+  FormGroup,
   FormHelperText,
   Grid,
   TextField,
@@ -17,68 +19,93 @@ const CustomizedBox = styled(Box)`
   text-align: center;
 `;
 
+const CustomizedForm = styled('form')`
+  display: flex;
+  flex-direction: column;
+  margin-top: 30%;
+  text-align: center;
+`;
+
 interface FormProps {
   title: string;
   handleClick: (email: string, pass: string) => void;
   errorMessage: string;
 }
 
-export function Form({ handleClick, title, errorMessage }: FormProps) {
+export function FormAutch({ handleClick, title, errorMessage }: FormProps) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   function setHelperText() {
     switch (errorMessage) {
       case "Firebase: Error (auth/wrong-password).":
-        console.log(errorMessage);
         return "Пароль введен не правильно";
       case "Firebase: Error (auth/user-not-found).":
         return "Пользователь не найден";
       case "Firebase: Error (auth/invalid-email).":
         return "email введен не правильно";
-      case "Firebase: Error (auth/wrong-password).":
-        return "Пароль введен не правильно";
-      case "Firebase: Error (auth/wrong-password).":
-        return "Пароль введен не правильно";
+      case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+        return "Пароль должен содержать минимум 6 символов";
       default:
         return "Чтото пошло не так";
     }
   }
+  const {register,
+        formState:{
+          errors,
+          isValid
+        },
+        handleSubmit,
+        reset
+      } = useForm({
+        mode: 'onBlur'
+      })
+
+ const onSubmit= (data: any) => {
+   alert(JSON.stringify(data));
+   reset()
+  }
 
   return (
-    <CustomizedBox component={"form"}>
+    <CustomizedBox >
       <Typography variant="h2">{title}</Typography>
       <Typography sx={{ color: "red" }} variant="h4">
         {errorMessage ? setHelperText() : ""}
       </Typography>
-      <FormControl>
+      <CustomizedForm onSubmit={handleSubmit(onSubmit)} >
+
         <TextField
-          value={email}
-          error
-          onChange={(e) => setEmail(e.target.value)}
+        {...register('email',{
+        required:true})
+      }
           type="email"
           sx={{ mt: "30px" }}
           label="email"
           variant="outlined"
         />
-      </FormControl>
-      <FormControl>
         <TextField
-          id="standard-error-helper-text"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
+         {...register('password',{
+            required: 'поле обьзательно для заполнения',
+            minLength:{
+              value:6,
+              message:'поле обьязательно для заполнения'
+            }
+          })
+           }
+          
           type="password"
           label="password"
           sx={{ mt: "30px" }}
           variant="outlined"
         />
-      </FormControl>
       <Button
-        onClick={() => handleClick(email, pass)}
+        disabled={!isValid}
+        type="submit"
         sx={{ mt: "30px" }}
         variant="contained"
       >
         Ввод
       </Button>
+   </CustomizedForm>
     </CustomizedBox>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "./Form";
+import { FormAutch } from "./FormAutch";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { signInUser } from "../../store/slices/userSlice";
 
@@ -9,5 +9,5 @@ export default function Login() {
   const hendleLogin = (email: string, pass: string) => {
     dispach(signInUser({ email, pass }));
   };
-  return <Form title="Войти" errorMessage={error} handleClick={hendleLogin} />;
+  return <FormAutch title="Войти" errorMessage={error} handleClick={hendleLogin} />;
 }

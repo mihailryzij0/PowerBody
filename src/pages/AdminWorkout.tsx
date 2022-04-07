@@ -9,14 +9,15 @@ import {
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputArray from "../components/form/InputArray";
 import Header from "../components/header/Header";
+import AdminWorkoutContent from "../components/AdminWorkoutContent/AdminWorkoutContent";
 
+ type postKey= "vitamins" | 'workouts';
 export default function AdminWorkout() {
-  const [postKey, setPostKey] = useState("vitamins");
+  const [postKey, setPostKey] = useState<postKey>("vitamins");
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newChoice: string
+    newChoice: postKey
   ) => {
     setPostKey(newChoice);
   };
@@ -45,7 +46,7 @@ export default function AdminWorkout() {
           Upload File
           <input type="file" hidden />
         </Button> */}
-        <InputArray postKey={postKey} />
+        <AdminWorkoutContent postKey={postKey} />
       </MyBox>
       <IconButton
         sx={{

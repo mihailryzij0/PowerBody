@@ -14,6 +14,7 @@ import {
   Tab,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+
 export default function PostsList() {
   const dispach = useAppDispatch();
   useEffect(() => {
@@ -35,12 +36,12 @@ export default function PostsList() {
           <Box>
             <TabList centered onChange={handleChange}>
               <Tab label="Тренировки" value="1" />
-              <Tab label="Анаболики" value="2" />
+              <Tab label="Витамины" value="2" />
             </TabList>
           </Box>
           <TabPanel value="1">
             {workouts?.map((post) => (
-              <Link key={post.id} to={`/posts/${Number(post.id)}`}>
+              <Link data-testid="cards-1-list" key={post.id} to={`/posts/${Number(post.id)}`}>
                 <ImageList cols={1} rowHeight={164}>
                   <Card {...post}></Card>
                 </ImageList>
@@ -49,7 +50,7 @@ export default function PostsList() {
           </TabPanel>
           <TabPanel value="2">
             {vitamins?.map((post) => (
-              <Link key={post.id} to={`/posts/${Number(post.id)}`}>
+              <Link data-testid="cards-2-list" key={post.id} to={`/posts/${Number(post.id)}`}>
                 <ImageList cols={1} rowHeight={164}>
                   <Card {...post}></Card>
                 </ImageList>

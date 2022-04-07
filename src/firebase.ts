@@ -1,7 +1,11 @@
-import { async } from "@firebase/util";
+/**
+ * @jest-environment node
+ */
 import { initializeApp } from "firebase/app";
-import { getFirestore, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { enableIndexedDbPersistence } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBecqwV8Ij8Fep_E03F-5oDgLMQCglfgCQ",
   authDomain: "powerbody-6330f.firebaseapp.com",
@@ -13,4 +17,48 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
-enableIndexedDbPersistence(db);
+// enableIndexedDbPersistence(db);
+export const getFirebaseData = (colection:string, document:string)=>
+      getDoc(doc(db, colection, document)).then(data => {    
+         if(data.exists()){
+          console.log(data.data())
+          return data.data()
+         }else{
+          throw "Несчастливое число";
+         }
+    })
+
+
+export const setFirebaseData = 
+async (colection:string, document:string, data:Record<string, string>)=>{
+  setDoc(doc(db, `${colection}`, `${document}`),data)
+}
+
+export const signIn = (email:string, pass:string)=>
+        signInWithEmailAndPassword(getAuth(), email, pass)
+        .then(({ user }) => {
+          const userData = {
+            email: user.email,
+            idUser: user.uid,
+            token: user.refreshToken,
+            isAuth: true,
+          };
+          return userData;
+        })
+
+export  const signUp = (email:string, pass:string)=>
+         createUserWithEmailAndPassword(getAuth(), email, pass)
+        .then(({ user }) => {
+          const userData = {
+            email: user.email,
+            idUser: user.uid,
+            token: user.refreshToken,
+            isAuth: true,
+          };
+          setDoc(doc(db, "users", `${user.email}`), {
+            isAdmin: false,
+            workout: null,
+          });
+          return userData;
+        })
+     

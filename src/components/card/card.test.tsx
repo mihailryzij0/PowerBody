@@ -8,7 +8,7 @@ describe("DefultPage", () => {
     rating:"4",
   }
 
-  it("test quantity of hr at DOM", () => {
+  it("Card render", () => {
     render(<Card {...cardsProps} />);
     const cardsTitle = screen.getByText(/Тренировка/i)
     const cardsRating = screen.getByText(/4/i)

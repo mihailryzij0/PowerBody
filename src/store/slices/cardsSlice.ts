@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, getFirebaseData, setFirebaseData } from "../../firebase";
 
 export interface Post {
   description: string;
@@ -42,16 +42,11 @@ const initialState: State = {
 export const getPostCards: any = createAsyncThunk(
   "cards/getPostCards",
   async (_, { rejectWithValue }) => {
-    try {
-      const respons = await getDoc(doc(db, "postCards", "cards"));
-      if (!respons.exists()) {
-        throw new Error("чтото пошло не так");
-      }
-      return respons.data();
-    } catch (error: any) {
-      console.log(error);
-      return rejectWithValue(error.message);
-    }
+  return getFirebaseData('postCards', 'cards').then((respons)=>{
+    return respons
+   }).catch((error)=>{
+    return rejectWithValue(error)
+   })
   }
 );
 export const setPostCards = createAsyncThunk(
@@ -61,7 +56,7 @@ export const setPostCards = createAsyncThunk(
     const {
       cards: { postCards },
     } = getState() as any;
-    await setDoc(doc(db, "postCards", "cards"), postCards);
+    await setFirebaseData("postCards", "cards", postCards);
   }
 );
 
@@ -94,6 +89,4 @@ const cardsSlice = createSlice({
 export const { addCards } = cardsSlice.actions;
 
 export default cardsSlice.reducer;
-function getState(): any {
-  throw new Error("Function not implemented.");
-}
+
