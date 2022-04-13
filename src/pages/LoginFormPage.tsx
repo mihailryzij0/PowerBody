@@ -12,7 +12,7 @@ export default function LoginFormPage() {
   };
   const navigate = useNavigate();
   const location = useLocation() as Location;
-  const { isAuth} = useAppSelector((state) => state.user);
+  const { isAuth } = useAppSelector((state) => state.user);
   const fromPage = location.state?.from.pathname || "/";
   useEffect(() => {
     if (isAuth) {

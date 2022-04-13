@@ -1,5 +1,5 @@
 import "./index.scss";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
@@ -10,6 +10,8 @@ import "./firebase";
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 
 import { Workbox } from "workbox-window";
+import { useAppDispatch } from "./hooks/redux-hooks";
+import { getPostCards } from "./store/slices/cardsSlice";
 
 if ("serviceWorker" in navigator) {
   const wb = new Workbox("/sw.js");

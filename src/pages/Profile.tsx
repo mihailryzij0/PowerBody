@@ -8,13 +8,7 @@ import ProfileContent from "../components/profile/ProfileContent";
 
 export default function Profile() {
   const { user, userData } = useAppSelector((state) => state);
-  const { workout } = userData;
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (userData.status !== "fulfilled") {
-      dispatch(getUserData(user.idUser));
-    }
-  }, []);
+
   return (
     <Container maxWidth={"sm"}>
       {userData.status == "pending" ? (

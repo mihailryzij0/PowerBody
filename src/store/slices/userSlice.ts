@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UserDataForm } from "../../components/form/Login";
+import { UserDataForm } from "../../components/formAuth/Login";
 import { signIn, signUp } from "../../firebase";
 
 export interface User {
@@ -7,7 +7,7 @@ export interface User {
   email: string | null;
   token: string | null;
   idUser: string | null;
-  status: string;
+  status: "pending" | "fulfilled" | "rejected" | "";
   error: string;
 }
 

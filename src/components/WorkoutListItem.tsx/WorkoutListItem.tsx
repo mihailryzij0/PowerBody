@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemText } from "@mui/material";
 import React from "react";
-import { Workout } from "../../store/slices/cardsSlice";
+import { Workout } from "../../store/slices/postSlice";
 
 export default function WorkoutListItem({
   exercises,

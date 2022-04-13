@@ -34,13 +34,11 @@ export const updateUserData = createAsyncThunk(
 export const getUserData: any = createAsyncThunk(
   "userWorkout/getUserData",
   async (_, { rejectWithValue, getState }) => {
-    const { user } = getState() as any;
-    return getFirebaseData("users", `${user.email}`)
+    const {
+      user: { email },
+    } = getState() as any;
+    return getFirebaseData("users", `${email}`)
       .then((response) => {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...user, isAdmin: response.isAdmin })
-        );
         return response;
       })
       .catch((error) => {
@@ -62,6 +60,7 @@ const userDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUserData.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.workout = action.payload.workout;
       state.isAdmin = action.payload.isAdmin;
       state.nickname = action.payload.nickname;

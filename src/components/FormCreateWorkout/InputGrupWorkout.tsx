@@ -6,13 +6,13 @@ import {
   TextField,
   IconButton,
   Fab,
+  Button,
 } from "@mui/material";
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Exercises } from "../../trainingCreator/trainingCreator";
 
 export default function InputGrupWorkout() {
   const { register, getValues, control } = useFormContext();
@@ -94,17 +94,22 @@ export default function InputGrupWorkout() {
           </AccordionDetails>
         </Accordion>
       ))}
-      <Fab
-        color="secondary"
-        onClick={() => {
-          append({
-            exercises: [""],
-            workoutName: "",
-          });
-        }}
-      >
-        <AddIcon />
-      </Fab>
+      <div className="form-workout__bottom">
+        <Fab
+          color="secondary"
+          onClick={() => {
+            append({
+              exercises: [""],
+              workoutName: "",
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
+        <Button variant="outlined" color="secondary" type="submit">
+          Создать
+        </Button>
+      </div>
     </div>
   );
 }

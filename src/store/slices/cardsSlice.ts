@@ -1,20 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getFirebaseData, setFirebaseData } from "../../firebase";
-
-export interface Post {
-  author: string | null;
-  image: string | null;
-  description: string;
-  rating: string;
-  title: string;
-  id: number;
-  workouts?: Array<Workout>;
-}
-
-export interface Workout {
-  workoutName: string;
-  exercises: Array<string>;
-}
+import { Post } from "./postSlice";
 
 type postCards = Omit<Post, "workouts">;
 

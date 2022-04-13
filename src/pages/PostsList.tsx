@@ -16,10 +16,6 @@ import {
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function PostsList() {
-  const dispach = useAppDispatch();
-  useEffect(() => {
-    dispach(getPostCards());
-  }, []);
   const { postCards, status } = useAppSelector((state) => state.cards);
   const { isAdmin } = useAppSelector((state) => state.userData);
   const { vitamins, workouts } = postCards;

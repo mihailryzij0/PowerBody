@@ -14,8 +14,9 @@ import Header from "../components/header/Header";
 import FormCreateWorkout from "../components/FormCreateWorkout/FormCreateWorkout";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import { setPostData, setPostProps } from "../store/slices/postSlice";
-import { Post, setPostCards } from "../store/slices/cardsSlice";
+import { setPostCards } from "../store/slices/cardsSlice";
 import { setFirebaseImage } from "../firebase";
+import { setDataPost } from "../store/slices/setImageSlice";
 
 type postKey = "vitamins" | "workouts";
 export default function AdminWorkout() {
@@ -29,10 +30,7 @@ export default function AdminWorkout() {
   const dispach = useAppDispatch();
   const handleSubmit = async (data: setPostProps) => {
     if (data.image) {
-      const urlImage = await setFirebaseImage(data.image[0]);
-      data.image = urlImage;
-      await dispach(setPostData(data));
-      await dispach(setPostCards({ data, postKey }));
+      dispach(setDataPost({ data, postKey }));
     }
   };
   const MyBox = styled(Box)`

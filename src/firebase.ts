@@ -24,14 +24,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore();
+const db = getFirestore();
 const storage = getStorage();
-enableIndexedDbPersistence(db);
+// enableIndexedDbPersistence(db);
 
 export const getFirebaseData = (colection: string, document: string) =>
   getDoc(doc(db, colection, document)).then((data) => {
     if (data.exists()) {
-      console.log(data.data());
       return data.data();
     } else {
       throw "Загрузить данные не удалось, попробуйте еще раз";
@@ -43,6 +42,7 @@ export const setFirebaseData = async (
   document: string,
   data: Record<any, any>
 ) => {
+  console.log(data);
   setDoc(doc(db, `${colection}`, `${document}`), data);
 };
 

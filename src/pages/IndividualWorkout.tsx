@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { Post } from "../store/slices/cardsSlice";
+import { Post } from "../store/slices/postSlice";
 import {
   updateUserData,
   updateUserWorkout,
@@ -49,7 +49,6 @@ export default function IndividualWorkout() {
   const [helperText, setHelperText] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { idUser } = useAppSelector((state) => state.user);
 
   const hendleClick = () => {
     if (

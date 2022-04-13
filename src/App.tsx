@@ -3,13 +3,21 @@ import { Route, Routes } from "react-router-dom";
 import LoginFormPage from "./pages/LoginFormPage";
 import Profile from "./pages/Profile";
 import PostsList from "./pages/PostsList";
-import Singlepage from "./pages/PostPage";
 import RequireAutch from "./components/hoc/RequireAutch";
 import IndividualWorkout from "./pages/IndividualWorkout";
 import AdminWorkout from "./pages/AdminWorkout";
 import PostPage from "./pages/PostPage";
+import { useAppDispatch, useAppSelector } from "./hooks/redux-hooks";
+import { getPostCards } from "./store/slices/cardsSlice";
+import { getUserData } from "./store/slices/userDataSlice";
 
 function App() {
+  const dispach = useAppDispatch();
+  const { user } = useAppSelector((state) => state);
+  useEffect(() => {
+    dispach(getPostCards());
+    dispach(getUserData(user.idUser));
+  }, []);
   return (
     <Routes>
       <Route

@@ -2,17 +2,26 @@
   margin-top: 20px;
 }
 
-.form-workout-bottom {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.form-workout {
+  &__bottom {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 }
 
-.previus {
+.preview {
   height: 164px;
   width: 100%;
+  display: inline-block;
+  cursor: pointer;
   margin-top: 20px;
   margin-bottom: 20px;
+  background-image: url("./assets/imageDefault.svg");
+  background-color: rgb(10 143 231);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   &__img {
     height: 100%;
