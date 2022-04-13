@@ -1,7 +1,11 @@
+@use "./components/FormCreateWorkout/FormCreateWorkout.scss";
+
 * {
   margin: 0;
 }
 
 body {
   overflow-x: hidden;
+
+  // background: url('./assets/paperFon.png');
 }

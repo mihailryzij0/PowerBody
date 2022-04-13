@@ -1,8 +1,7 @@
-import Header from "../components/header/Header";
 import React, { useEffect, useState } from "react";
-import SignUp from "../components/form/SignUp";
+import SignUp from "../components/formAuth/SignUp";
 import { Button, Container } from "@mui/material";
-import Login from "../components/form/Login";
+import Login from "../components/formAuth/Login";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Location } from "../components/hoc/RequireAutch";
@@ -13,7 +12,7 @@ export default function LoginFormPage() {
   };
   const navigate = useNavigate();
   const location = useLocation() as Location;
-  const { isAuth } = useAppSelector((state) => state.user);
+  const { isAuth} = useAppSelector((state) => state.user);
   const fromPage = location.state?.from.pathname || "/";
   useEffect(() => {
     if (isAuth) {
@@ -21,11 +20,22 @@ export default function LoginFormPage() {
     }
   }, [isAuth]);
   return (
-    <Container maxWidth={"sm"}>
-      <main>
-        {inputSwitch ? <SignUp /> : <Login />}
-        <Button onClick={handleClick}>регистрация</Button>
-      </main>
+    <Container
+      sx={{
+        textAlign: "center",
+        height: "90vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      maxWidth={"sm"}
+    >
+      {inputSwitch ? <SignUp /> : <Login />}
+      <Button sx={{ marginTop: 2 }} onClick={handleClick}>
+        {" "}
+        {inputSwitch ? "Войти" : "Зарегистрироваться"}
+      </Button>
     </Container>
   );
 }

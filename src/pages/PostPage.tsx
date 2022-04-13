@@ -1,30 +1,29 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/header/Header";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { getPostData } from "../store/slices/postSlice";
-import Workout from "../components/Post/Workout";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import { CircularProgress, IconButton } from "@mui/material";
+import PostContent from "../components/Post/PostContent";
 
 export default function Singlepage() {
   const { id } = useParams();
   useEffect(() => {
     dispach(getPostData(id));
-}, []);
+  }, []);
   const navigate = useNavigate();
   const { post } = useAppSelector((state) => state);
   const dispach = useAppDispatch();
   const { postData, status, error } = post;
 
-
   return (
     <>
-      {status === "pending" || postData===null ? (
+      {status === "pending" || postData === null ? (
         <CircularProgress color="secondary" />
       ) : (
         <>
-          <Workout postData={postData} />
+          <PostContent postData={postData} />
           <IconButton
             sx={{
               position: "fixed",

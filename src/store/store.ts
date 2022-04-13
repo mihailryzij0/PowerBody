@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
 import cardsSlice from "./slices/cardsSlice";
 import postSlice from "./slices/postSlice";
-import userWorkoutSlice from "./slices/userWorkoutSlice";
+import userDataSlice from "./slices/userDataSlice";
 import { User } from "./slices/userSlice";
-let userAutch = localStorage.getItem("userData");
+let userAutch = localStorage.getItem("user");
 let user: User | undefined = undefined;
 if (userAutch !== null) user = JSON.parse(userAutch);
 
@@ -13,7 +13,7 @@ export const store = configureStore({
     user: userReducer,
     cards: cardsSlice,
     post: postSlice,
-    userWorkout: userWorkoutSlice,
+    userData: userDataSlice,
   },
   preloadedState: {
     user: user,

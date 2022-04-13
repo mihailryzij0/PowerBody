@@ -2,22 +2,22 @@ import { Backdrop, Container } from "@mui/material";
 import React, { useEffect } from "react";
 import Header from "../components/header/Header";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { getUserWorkout } from "../store/slices/userWorkoutSlice";
+import { getUserData } from "../store/slices/userDataSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import ProfileContent from "../components/profile/ProfileContent";
 
 export default function Profile() {
-  const { user, userWorkout } = useAppSelector((state) => state);
-  const { workout } = userWorkout;
+  const { user, userData } = useAppSelector((state) => state);
+  const { workout } = userData;
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (userWorkout.status !== "fulfilled") {
-      dispatch(getUserWorkout(user.idUser));
+    if (userData.status !== "fulfilled") {
+      dispatch(getUserData(user.idUser));
     }
   }, []);
   return (
     <Container maxWidth={"sm"}>
-      {userWorkout.status == "pending" ? (
+      {userData.status == "pending" ? (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}
@@ -25,7 +25,7 @@ export default function Profile() {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : (
-        <ProfileContent  />
+        <ProfileContent />
       )}
       <Header></Header>
     </Container>

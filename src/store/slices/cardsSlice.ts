@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db, getFirebaseData, setFirebaseData } from "../../firebase";
+import { getFirebaseData, setFirebaseData } from "../../firebase";
 
 export interface Post {
+  author: string | null;
+  image: string | null;
   description: string;
   rating: string;
   title: string;
@@ -26,8 +27,8 @@ interface State {
   error: string;
 }
 interface PropsSetPost {
-  cardsData: Omit<postCards, "description">;
-  postKey: string;
+  data: Post;
+  postKey: "vitamins" | "workouts";
 }
 
 const initialState: State = {
@@ -42,21 +43,29 @@ const initialState: State = {
 export const getPostCards: any = createAsyncThunk(
   "cards/getPostCards",
   async (_, { rejectWithValue }) => {
-  return getFirebaseData('postCards', 'cards').then((respons)=>{
-    return respons
-   }).catch((error)=>{
-    return rejectWithValue(error)
-   })
+    return getFirebaseData("postCards", "cards")
+      .then((respons) => {
+        return respons;
+      })
+      .catch((error) => {
+        rejectWithValue(error);
+      });
   }
 );
 export const setPostCards = createAsyncThunk(
   "post/setPostCards",
-  async ({ cardsData, postKey }: PropsSetPost, { dispatch, getState }) => {
-    dispatch(addCards({ cardsData, postKey }));
+  async (
+    { data, postKey }: PropsSetPost,
+    { dispatch, getState, rejectWithValue }
+  ) => {
+    const { workouts, ...dataCards } = data;
+    dispatch(addCards({ dataCards, postKey }));
     const {
       cards: { postCards },
     } = getState() as any;
-    await setFirebaseData("postCards", "cards", postCards);
+    setFirebaseData("postCards", "cards", postCards).catch((error) => {
+      rejectWithValue(error);
+    });
   }
 );
 
@@ -66,8 +75,8 @@ const cardsSlice = createSlice({
   reducers: {
     addCards(state, action) {
       action.payload.postKey === "vitamins"
-        ? state.postCards.vitamins.push(action.payload.cardsData)
-        : state.postCards.workouts.push(action.payload.cardsData);
+        ? state.postCards.vitamins.push(action.payload.dataCards)
+        : state.postCards.workouts.push(action.payload.dataCards);
     },
   },
   extraReducers: {
@@ -89,4 +98,3 @@ const cardsSlice = createSlice({
 export const { addCards } = cardsSlice.actions;
 
 export default cardsSlice.reducer;
-

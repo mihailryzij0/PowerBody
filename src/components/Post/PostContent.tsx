@@ -2,15 +2,16 @@ import { Box, Typography, Rating, Button } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { Post } from "../../store/slices/cardsSlice";
-import { setUserWorkout } from "../../store/slices/userWorkoutSlice";
+import {
+  updateUserData,
+  updateUserWorkout,
+} from "../../store/slices/userDataSlice";
 import Header from "../header/Header";
 import WorkoutList from "./WorkoutList";
 
-export default function Workout({ postData }: any) {
+export default function PostContent({ postData }: any) {
   const { title, description, workouts, rating } = postData;
-  const { idUser } = useAppSelector((state) => state.user);
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [successButton, setSuccessButton] = useState(false);
 
@@ -18,7 +19,8 @@ export default function Workout({ postData }: any) {
     if (successButton) {
       navigate("/");
     } else {
-      dispach(setUserWorkout(postData));
+      dispatch(updateUserWorkout(postData));
+      dispatch(updateUserData());
       setSuccessButton(true);
     }
   };

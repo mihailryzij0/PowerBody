@@ -1,10 +1,18 @@
-/**
- * @jest-environment node
- */
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { enableIndexedDbPersistence } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import {
+  doc,
+  enableIndexedDbPersistence,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBecqwV8Ij8Fep_E03F-5oDgLMQCglfgCQ",
@@ -17,48 +25,70 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
-// enableIndexedDbPersistence(db);
-export const getFirebaseData = (colection:string, document:string)=>
-      getDoc(doc(db, colection, document)).then(data => {    
-         if(data.exists()){
-          console.log(data.data())
-          return data.data()
-         }else{
-          throw "Несчастливое число";
-         }
-    })
+const storage = getStorage();
+enableIndexedDbPersistence(db);
 
+export const getFirebaseData = (colection: string, document: string) =>
+  getDoc(doc(db, colection, document)).then((data) => {
+    if (data.exists()) {
+      console.log(data.data());
+      return data.data();
+    } else {
+      throw "Загрузить данные не удалось, попробуйте еще раз";
+    }
+  });
 
-export const setFirebaseData = 
-async (colection:string, document:string, data:Record<string, string>)=>{
-  setDoc(doc(db, `${colection}`, `${document}`),data)
-}
+export const setFirebaseData = async (
+  colection: string,
+  document: string,
+  data: Record<any, any>
+) => {
+  setDoc(doc(db, `${colection}`, `${document}`), data);
+};
 
-export const signIn = (email:string, pass:string)=>
-        signInWithEmailAndPassword(getAuth(), email, pass)
-        .then(({ user }) => {
-          const userData = {
-            email: user.email,
-            idUser: user.uid,
-            token: user.refreshToken,
-            isAuth: true,
-          };
-          return userData;
-        })
+export const updateFirebaseData = async (
+  colection: string,
+  document: string,
+  updateDocumentKey: string,
+  data: Record<any, any>
+) => {
+  const ref = doc(db, `${colection}`, `${document}`);
+  updateDoc(ref, {
+    [`${updateDocumentKey}`]: data,
+  });
+};
 
-export  const signUp = (email:string, pass:string)=>
-         createUserWithEmailAndPassword(getAuth(), email, pass)
-        .then(({ user }) => {
-          const userData = {
-            email: user.email,
-            idUser: user.uid,
-            token: user.refreshToken,
-            isAuth: true,
-          };
-          setDoc(doc(db, "users", `${user.email}`), {
-            isAdmin: false,
-            workout: null,
-          });
-          return userData;
-        })
-     
+export const setFirebaseImage = async (data: any) => {
+  const storageRef = ref(storage, `imagePosts/${data.name}`);
+  return uploadBytes(storageRef, data).then((uploadTask) => {
+    return getDownloadURL(uploadTask.ref);
+  });
+};
+
+export const signIn = (email: string, pass: string) =>
+  signInWithEmailAndPassword(getAuth(), email, pass).then(({ user }) => {
+    const userData = {
+      email: user.email,
+      idUser: user.uid,
+      token: user.refreshToken,
+      isAuth: true,
+    };
+    return userData;
+  });
+
+export const signUp = (email: string, pass: string, nickname: string) =>
+  createUserWithEmailAndPassword(getAuth(), email, pass).then(({ user }) => {
+    const userData = {
+      email: user.email,
+      idUser: user.uid,
+      token: user.refreshToken,
+      isAuth: true,
+    };
+    setDoc(doc(db, "users", `${user.email}`), {
+      isAdmin: false,
+      nickname: nickname,
+      workout: null,
+      avatarImg: null,
+    });
+    return userData;
+  });

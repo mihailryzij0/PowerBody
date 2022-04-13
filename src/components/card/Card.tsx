@@ -1,22 +1,16 @@
-import {
-  ImageListItem,
-  ImageListItemBar,
-  Rating,
-} from "@mui/material";
+import { ImageListItem, ImageListItemBar, Rating } from "@mui/material";
 import React from "react";
 import { CardImg } from "./card.style";
 
-export interface CardProps{
-  title:string;
-  rating:string;
-
+export interface CardProps {
+  title: string;
+  rating: string;
+  image: string | null;
 }
-export default function Card( {title, rating} : CardProps) {
+export default function Card({ title, rating, image }: CardProps) {
   return (
     <ImageListItem sx={{ mt: "20px", mb: "20px" }}>
-      <CardImg
-        src={require("../../assets/fon.jpg")}
-      ></CardImg>
+      <CardImg src={image ? image : ""}></CardImg>
       <ImageListItemBar
         title={title}
         actionIcon={

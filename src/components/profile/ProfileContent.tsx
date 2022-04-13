@@ -31,10 +31,14 @@ export default function ProfileContent() {
     navigate("/");
   };
 
-  const { workout } = useAppSelector((state) => state.userWorkout);
+  const { workout } = useAppSelector((state) => state.userData);
   return workout ? (
     <Container>
-      <Button onClick={handleClick} sx={{ left: "80%", top: "5%" }} variant="outlined">
+      <Button
+        onClick={handleClick}
+        sx={{ left: "80%", top: "5%" }}
+        variant="outlined"
+      >
         Выйти
       </Button>
       <MyBox>

@@ -1,0 +1,22 @@
+.form-workout-box {
+  margin-top: 20px;
+}
+
+.form-workout-bottom {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.previus {
+  height: 164px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

@@ -1,11 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { db, signIn, signUp } from "../../firebase";
+import { UserDataForm } from "../../components/form/Login";
+import { signIn, signUp } from "../../firebase";
 
 export interface User {
   isAuth: boolean;
@@ -18,14 +13,11 @@ export interface User {
 
 export const signInUser = createAsyncThunk(
   "userSlice/signInUser",
-  async (
-    { email, pass }: Record<string, string>,
-    { rejectWithValue }
-  ) => {
+  async ({ email, pass }: UserDataForm, { rejectWithValue }) => {
     return signIn(email, pass)
-      .then((user)=>{
+      .then((user) => {
         localStorage.setItem("user", JSON.stringify(user));
-        return user
+        return user;
       })
       .catch((error) => {
         return rejectWithValue(error.message);
@@ -33,18 +25,19 @@ export const signInUser = createAsyncThunk(
   }
 );
 
-export const signUpUser: any = createAsyncThunk(
+export const signUpUser = createAsyncThunk(
   "userSlice/SignUpUser",
-  async ({ email, pass }: Record<string, string>,
-     { rejectWithValue }) => {
-     return signUp(email, pass)
-      .then((user)=>{
-        localStorage.setItem("user", JSON.stringify(user));  
-      return user;
-
-     }).catch ((error: any)=>{
-      return rejectWithValue(error.message);
-     })
+  async ({ email, pass, nickname }: UserDataForm, { rejectWithValue }) => {
+    if (nickname) {
+      return signUp(email, pass, nickname)
+        .then((user) => {
+          localStorage.setItem("user", JSON.stringify(user));
+          return user;
+        })
+        .catch((error) => {
+          return rejectWithValue(error.message);
+        });
+    }
   }
 );
 
@@ -87,11 +80,13 @@ const userSlice = createSlice({
 
     builder.addCase(signUpUser.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      const { email, token, idUser } = action.payload;
-      state.email = email;
-      state.token = token;
-      state.idUser = idUser;
-      state.isAuth = true;
+      if (action.payload) {
+        const { email, token, idUser } = action.payload;
+        state.email = email;
+        state.token = token;
+        state.idUser = idUser;
+        state.isAuth = true;
+      }
     });
     builder.addCase(signUpUser.pending, (state, action) => {
       state.status = "pending";
@@ -103,6 +98,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { removeUser} = userSlice.actions;
+export const { removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

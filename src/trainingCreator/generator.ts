@@ -4,6 +4,8 @@ import { Exercises } from "./trainingCreator";
 export function generator(...exercisesGroups: Array<Exercises>) {
   let workout: Post = {
     id: new Date().valueOf(),
+    image: "",
+    author: "",
     description: "",
     rating: "4",
     title: "Индивидульная тренировка",

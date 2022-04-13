@@ -36,7 +36,7 @@ registerRoute(
       // }),
     ],
   }),
-  'GET'
+  "GET"
 );
 registerRoute(
   ({ request }) => request.destination === "image",

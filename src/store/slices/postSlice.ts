@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, setFirebaseData, setFirebaseImage } from "../../firebase";
 import { Post } from "./cardsSlice";
 
 interface Workout {
@@ -20,6 +20,8 @@ const initialState: State = {
   error: "",
 };
 
+export type setPostProps = Required<Post> | Required<Omit<Post, "workouts">>;
+
 export const getPostData: any = createAsyncThunk(
   "post/getPostData",
   async (postId, { rejectWithValue }) => {
@@ -36,16 +38,17 @@ export const getPostData: any = createAsyncThunk(
 );
 export const setPostData = createAsyncThunk(
   "post/setPostData",
-  async (postData:Post , {}) => {
-    await setDoc(doc(db, "posts", `${postData.id}`), postData);
+  async (postData: setPostProps, { rejectWithValue }) => {
+    setFirebaseData("posts", `${postData.id}`, postData).catch((error) => {
+      return rejectWithValue(error);
+    });
   }
 );
 
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
     [getPostData.fulfilled]: (state, action) => {
       state.status = "fulfilled";

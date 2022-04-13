@@ -5,7 +5,10 @@ import Header from "../components/header/Header";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { Post } from "../store/slices/cardsSlice";
-import { setUserWorkout } from "../store/slices/userWorkoutSlice";
+import {
+  updateUserData,
+  updateUserWorkout,
+} from "../store/slices/userDataSlice";
 import { trainingCreator } from "../trainingCreator/trainingCreator";
 
 export interface SelectGroupState {
@@ -56,8 +59,8 @@ export default function IndividualWorkout() {
     ) {
       setHelperText(false);
       const workout = trainingCreator(criteria) as Post;
-
-      dispatch(setUserWorkout(workout));
+      dispatch(updateUserWorkout(workout));
+      dispatch(updateUserData());
       navigate("/");
     } else {
       setHelperText(true);

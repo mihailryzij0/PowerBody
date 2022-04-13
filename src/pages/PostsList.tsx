@@ -21,7 +21,7 @@ export default function PostsList() {
     dispach(getPostCards());
   }, []);
   const { postCards, status } = useAppSelector((state) => state.cards);
-  const { isAdmin } = useAppSelector((state) => state.userWorkout);
+  const { isAdmin } = useAppSelector((state) => state.userData);
   const { vitamins, workouts } = postCards;
   const navigate = useNavigate();
   const [valueTabs, setValueTabs] = useState("1");
@@ -41,7 +41,11 @@ export default function PostsList() {
           </Box>
           <TabPanel value="1">
             {workouts?.map((post) => (
-              <Link data-testid="cards-1-list" key={post.id} to={`/posts/${Number(post.id)}`}>
+              <Link
+                data-testid="cards-1-list"
+                key={post.id}
+                to={`/posts/${Number(post.id)}`}
+              >
                 <ImageList cols={1} rowHeight={164}>
                   <Card {...post}></Card>
                 </ImageList>
@@ -50,7 +54,11 @@ export default function PostsList() {
           </TabPanel>
           <TabPanel value="2">
             {vitamins?.map((post) => (
-              <Link data-testid="cards-2-list" key={post.id} to={`/posts/${Number(post.id)}`}>
+              <Link
+                data-testid="cards-2-list"
+                key={post.id}
+                to={`/posts/${Number(post.id)}`}
+              >
                 <ImageList cols={1} rowHeight={164}>
                   <Card {...post}></Card>
                 </ImageList>

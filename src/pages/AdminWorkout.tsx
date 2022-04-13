@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   IconButton,
   styled,
@@ -10,9 +11,13 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
-import AdminWorkoutContent from "../components/AdminWorkoutContent/AdminWorkoutContent";
+import FormCreateWorkout from "../components/FormCreateWorkout/FormCreateWorkout";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import { setPostData, setPostProps } from "../store/slices/postSlice";
+import { Post, setPostCards } from "../store/slices/cardsSlice";
+import { setFirebaseImage } from "../firebase";
 
- type postKey= "vitamins" | 'workouts';
+type postKey = "vitamins" | "workouts";
 export default function AdminWorkout() {
   const [postKey, setPostKey] = useState<postKey>("vitamins");
   const handleChange = (
@@ -20,6 +25,15 @@ export default function AdminWorkout() {
     newChoice: postKey
   ) => {
     setPostKey(newChoice);
+  };
+  const dispach = useAppDispatch();
+  const handleSubmit = async (data: setPostProps) => {
+    if (data.image) {
+      const urlImage = await setFirebaseImage(data.image[0]);
+      data.image = urlImage;
+      await dispach(setPostData(data));
+      await dispach(setPostCards({ data, postKey }));
+    }
   };
   const MyBox = styled(Box)`
     display: flex;
@@ -31,7 +45,7 @@ export default function AdminWorkout() {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth={"sm"} sx={{ textAlign: "center" }}>
+    <Container maxWidth={"sm"} sx={{ textAlign: "center", marginBottom: 20 }}>
       <MyBox>
         <ToggleButtonGroup
           color="primary"
@@ -42,11 +56,8 @@ export default function AdminWorkout() {
           <ToggleButton value="workouts">Тренировка</ToggleButton>
           <ToggleButton value="vitamins">Курс</ToggleButton>
         </ToggleButtonGroup>
-        {/* <Button variant="contained" component="label">
-          Upload File
-          <input type="file" hidden />
-        </Button> */}
-        <AdminWorkoutContent postKey={postKey} />
+
+        <FormCreateWorkout postKey={postKey} handlerForm={handleSubmit} />
       </MyBox>
       <IconButton
         sx={{

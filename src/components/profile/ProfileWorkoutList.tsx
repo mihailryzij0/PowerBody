@@ -9,20 +9,20 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import WorkoutListItem from "../Post/WorkoutListItem";
+import WorkoutListItem from "../WorkoutListItem.tsx/WorkoutListItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-  deleteWorkout,
-  updateUserWorkout,
-} from "../../store/slices/userWorkoutSlice";
-import { Post } from "../../store/slices/cardsSlice";
+  deleteUserWorkout,
+  updateUserData,
+} from "../../store/slices/userDataSlice";
+import { Post } from "../../store/slices/postSlice";
 
 export default function ProfileWorkoutList({ workout }: Record<string, Post>) {
   const { workouts } = workout;
   const dispatch = useAppDispatch();
   const hendleClick = (index: number) => {
-    dispatch(deleteWorkout(index));
-    dispatch(updateUserWorkout());
+    dispatch(deleteUserWorkout(index));
+    dispatch(updateUserData());
   };
   return (
     <>
