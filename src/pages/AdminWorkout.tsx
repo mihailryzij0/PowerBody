@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Container,
   IconButton,
   styled,
@@ -11,12 +10,11 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
-import FormCreateWorkout from "../components/FormCreateWorkout/FormCreateWorkout";
+import FormCreateWorkout, {
+  WorkoutForm,
+} from "../components/FormCreateWorkout/FormCreateWorkout";
 import { useAppDispatch } from "../hooks/redux-hooks";
-import { setPostData, setPostProps } from "../store/slices/postSlice";
-import { setPostCards } from "../store/slices/cardsSlice";
-import { setFirebaseImage } from "../firebase";
-import { setDataPost } from "../store/slices/setImageSlice";
+import { createPost } from "../store/slices/createPostSlice";
 
 type postKey = "vitamins" | "workouts";
 export default function AdminWorkout() {
@@ -28,9 +26,9 @@ export default function AdminWorkout() {
     setPostKey(newChoice);
   };
   const dispach = useAppDispatch();
-  const handleSubmit = async (data: setPostProps) => {
-    if (data.image) {
-      dispach(setDataPost({ data, postKey }));
+  const handleSubmit = async (postData: WorkoutForm) => {
+    if (postData.image) {
+      dispach(createPost({ postData, postKey }));
     }
   };
   const MyBox = styled(Box)`

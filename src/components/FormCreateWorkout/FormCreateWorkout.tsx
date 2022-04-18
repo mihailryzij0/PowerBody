@@ -7,15 +7,31 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  EventType,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { useAppSelector } from "../../hooks/redux-hooks";
-import { Post, setPostProps } from "../../store/slices/postSlice";
+import { Post, Workout } from "../../store/slices/types";
 import InputFileImgPreview from "./InputFileImgPreview";
 import InputGrupWorkout from "./InputGrupWorkout";
 
+export interface WorkoutForm {
+  authorId: string | null;
+  author: string;
+  image: File[] | null;
+  description: string;
+  rating: string;
+  title: string;
+  id: number;
+  workouts?: Array<Workout>;
+}
+
 export interface AdminWorkoutProps {
   postKey: "vitamins" | "workouts";
-  handlerForm: (formData: setPostProps) => void;
+  handlerForm: (formData: any) => void;
 }
 
 export default function FormCreateWorkout({
@@ -29,10 +45,12 @@ export default function FormCreateWorkout({
   `;
 
   const {
+    user: { idUser },
     userData: { nickname },
-    setImage: { status },
+    createPost: { status },
   } = useAppSelector((state) => state);
-  const onSubmit: SubmitHandler<Required<Post>> = (formData) => {
+
+  const onSubmit: SubmitHandler<Required<WorkoutForm>> = (formData) => {
     if (postKey === "vitamins") {
       const { workouts, ...formDataVitamin } = formData;
       handlerForm(formDataVitamin);
@@ -44,10 +62,11 @@ export default function FormCreateWorkout({
     }
   };
 
-  const methods = useForm<Required<Post>>({
+  const methods = useForm<Required<WorkoutForm>>({
     defaultValues: {
       title: "",
       description: "",
+      authorId: idUser,
       author: nickname,
       id: new Date().valueOf(),
       rating: "4",

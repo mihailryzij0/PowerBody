@@ -1,6 +1,5 @@
 import { SelectGroupState } from "../pages/IndividualWorkout";
 import { exercises } from "./exercisStorage";
-import { Post } from "../store/slices/cardsSlice";
 import { creatorGroup } from "./creatorGroup";
 import { generator } from "./generator";
 

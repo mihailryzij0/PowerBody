@@ -1,20 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getFirebaseData, setFirebaseData } from "../../firebase";
-import { Post } from "./postSlice";
-
-type postCards = Omit<Post, "workouts">;
+import { getFirebaseData } from "../../firebase";
+import { Card } from "./types";
 
 interface State {
   postCards: {
-    vitamins: postCards[];
-    workouts: postCards[];
+    vitamins: Card[];
+    workouts: Card[];
   };
   status: string;
   error: string;
-}
-interface PropsSetPost {
-  data: Post;
-  postKey: "vitamins" | "workouts";
 }
 
 const initialState: State = {
@@ -38,33 +32,11 @@ export const getPostCards: any = createAsyncThunk(
       });
   }
 );
-export const setPostCards = createAsyncThunk(
-  "post/setPostCards",
-  async (
-    { data, postKey }: PropsSetPost,
-    { dispatch, getState, rejectWithValue }
-  ) => {
-    const { workouts, ...dataCards } = data;
-    dispatch(addCards({ dataCards, postKey }));
-    const {
-      cards: { postCards },
-    } = getState() as any;
-    setFirebaseData("postCards", "cards", postCards).catch((error) => {
-      rejectWithValue(error);
-    });
-  }
-);
 
 const cardsSlice = createSlice({
   name: "cards",
   initialState,
-  reducers: {
-    addCards(state, action) {
-      action.payload.postKey === "vitamins"
-        ? state.postCards.vitamins.push(action.payload.dataCards)
-        : state.postCards.workouts.push(action.payload.dataCards);
-    },
-  },
+  reducers: {},
   extraReducers: {
     [getPostCards.fulfilled]: (state, action) => {
       state.status = "fulfilled";
@@ -81,6 +53,6 @@ const cardsSlice = createSlice({
   },
 });
 
-export const { addCards } = cardsSlice.actions;
+export const {} = cardsSlice.actions;
 
 export default cardsSlice.reducer;

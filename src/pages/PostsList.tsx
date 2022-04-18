@@ -35,32 +35,30 @@ export default function PostsList() {
               <Tab label="Витамины" value="2" />
             </TabList>
           </Box>
-          <TabPanel value="1">
-            {workouts?.map((post) => (
-              <Link
-                data-testid="cards-1-list"
-                key={post.id}
-                to={`/posts/${Number(post.id)}`}
-              >
-                <ImageList cols={1} rowHeight={164}>
+          <ImageList cols={1} rowHeight={164}>
+            <TabPanel sx={{ padding: 0 }} value="1">
+              {workouts?.map((post) => (
+                <Link
+                  data-testid="cards-1-list"
+                  key={post.id}
+                  to={`/posts/${Number(post.id)}`}
+                >
                   <Card {...post}></Card>
-                </ImageList>
-              </Link>
-            ))}
-          </TabPanel>
-          <TabPanel value="2">
-            {vitamins?.map((post) => (
-              <Link
-                data-testid="cards-2-list"
-                key={post.id}
-                to={`/posts/${Number(post.id)}`}
-              >
-                <ImageList cols={1} rowHeight={164}>
+                </Link>
+              ))}
+            </TabPanel>
+            <TabPanel sx={{ padding: 0 }} value="2">
+              {vitamins?.map((post) => (
+                <Link
+                  data-testid="cards-2-list"
+                  key={post.id}
+                  to={`/posts/${Number(post.id)}`}
+                >
                   <Card {...post}></Card>
-                </ImageList>
-              </Link>
-            ))}
-          </TabPanel>
+                </Link>
+              ))}
+            </TabPanel>
+          </ImageList>
         </TabContext>
         {status === "pending" && <CircularProgress color="secondary" />}
         {isAdmin && (

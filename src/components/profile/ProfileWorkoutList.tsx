@@ -41,7 +41,9 @@ export default function ProfileWorkoutList({ workout }: Record<string, Post>) {
                 width: "100%",
               }}
             >
-              <Typography>{el.workoutName}</Typography>
+              <Typography>{`${index + 1}. День - ${
+                el.workoutName
+              }`}</Typography>
               <IconButton
                 aria-label="delete"
                 sx={{ mr: "20px" }}

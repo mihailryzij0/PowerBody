@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getFirebaseData, updateFirebaseData } from "../../firebase";
+import {
+  getFirebaseData,
+  setFirebaseData,
+  setFirebaseImage,
+  updateFirebaseData,
+} from "../../firebase";
 import { Post } from "./postSlice";
 
 export interface userData {
@@ -8,6 +13,7 @@ export interface userData {
   isAdmin: boolean;
   nickname: string;
   avatarImg: string | null;
+  error: string | null;
 }
 
 export const initialState: userData = {
@@ -16,14 +22,29 @@ export const initialState: userData = {
   isAdmin: false,
   nickname: "",
   avatarImg: null,
+  error: null,
 };
+
+export const setImageProfile = createAsyncThunk(
+  "userWorkout/updateImage",
+  async (image: HTMLImageElement, { rejectWithValue, getState }) => {
+    const { user } = getState() as any;
+    return setFirebaseImage(image, user.idUser, "imageUser")
+      .then((url: string) => {
+        setFirebaseData("usersAvatar", user.idUser, { avatarImg: url });
+        updateFirebaseData("users", user.email, "avatarImg", url);
+        return url;
+      })
+      .catch((error: string) => rejectWithValue(error));
+  }
+);
 
 export const updateUserData = createAsyncThunk(
   "userWorkout/updateData",
   async (_, { getState, rejectWithValue }) => {
     const {
       user,
-      userWorkout: { workout },
+      userData: { workout },
     } = getState() as any;
     updateFirebaseData("users", user.email, "workout", workout).catch(() => {
       rejectWithValue("Что-то пошло не так");
@@ -60,17 +81,30 @@ const userDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUserData.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.workout = action.payload.workout;
       state.isAdmin = action.payload.isAdmin;
       state.nickname = action.payload.nickname;
-      state.status = "fulfilled";
+      state.avatarImg = action.payload.avatarImg;
+      state.status = "data-fulfilled";
     });
     builder.addCase(getUserData.pending, (state) => {
-      state.status = "pending";
+      state.status = "data-pending";
     });
     builder.addCase(getUserData.rejected, (state) => {
-      state.status = "rejected";
+      state.status = "data-rejected";
+    });
+
+    builder.addCase(setImageProfile.fulfilled, (state, action) => {
+      state.avatarImg = action.payload;
+      state.status = "img-fulfilled";
+    });
+    builder.addCase(setImageProfile.pending, (state) => {
+      state.status = "img-pending";
+    });
+    builder.addCase(setImageProfile.rejected, (state, action) => {
+      state.error = action.payload as string;
+      console.log(action.payload);
+      state.status = "img-rejected";
     });
   },
 });

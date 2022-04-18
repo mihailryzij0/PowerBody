@@ -52,8 +52,8 @@ export function FormAuth({ onSubmit, title }: FormProps) {
             {...register("nickname", {
               required: "поле обьзательно для заполнения",
             })}
-            type="email"
-            label="email"
+            type="text"
+            label="псевдоним"
             variant="outlined"
             fullWidth={true}
             margin="normal"

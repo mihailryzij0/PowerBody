@@ -4,7 +4,8 @@ import cardsSlice from "./slices/cardsSlice";
 import postSlice from "./slices/postSlice";
 import userDataSlice from "./slices/userDataSlice";
 import { User } from "./slices/userSlice";
-import setImageSlice from "./slices/setImageSlice";
+import createPostSlice from "./slices/createPostSlice";
+import getUsersAvatarSlice from "./slices/getUsersAvatarSlice";
 let userAutch = localStorage.getItem("user");
 let user: User | undefined = undefined;
 if (userAutch !== null) user = JSON.parse(userAutch);
@@ -15,7 +16,8 @@ export const store = configureStore({
     cards: cardsSlice,
     post: postSlice,
     userData: userDataSlice,
-    setImage: setImageSlice,
+    createPost: createPostSlice,
+    usersAvatar: getUsersAvatarSlice,
   },
   preloadedState: {
     user: user,

@@ -50,7 +50,7 @@ export const updateFirebaseData = async (
   colection: string,
   document: string,
   updateDocumentKey: string,
-  data: Record<any, any>
+  data: Record<any, any> | string
 ) => {
   const ref = doc(db, `${colection}`, `${document}`);
   updateDoc(ref, {
@@ -58,9 +58,13 @@ export const updateFirebaseData = async (
   });
 };
 
-export const setFirebaseImage = async (data: any) => {
-  const storageRef = ref(storage, `imagePosts/${data.name}`);
-  return uploadBytes(storageRef, data).then((uploadTask) => {
+export const setFirebaseImage = async (
+  image: any,
+  ImageName: string,
+  folder: string
+) => {
+  const storageRef = ref(storage, `${folder}/${ImageName}`);
+  return uploadBytes(storageRef, image).then((uploadTask) => {
     return getDownloadURL(uploadTask.ref);
   });
 };

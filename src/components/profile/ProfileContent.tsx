@@ -1,15 +1,7 @@
-import {
-  Box,
-  Button,
-  Container,
-  Rating,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Rating, styled, Typography } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { removeUser } from "../../store/slices/userSlice";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import ProfileTopInfo from "./ProfileTopInfo";
 import ProfileWorkoutList from "./ProfileWorkoutList";
 
 export default function ProfileContent() {
@@ -24,23 +16,11 @@ export default function ProfileContent() {
     margin-top: 20px;
     margin-bottom: 20px;
   `;
-  const dicpatch = useAppDispatch();
-  const navigate = useNavigate();
-  const handleClick = () => {
-    dicpatch(removeUser());
-    navigate("/");
-  };
 
-  const { workout } = useAppSelector((state) => state.userData);
+  const { workout, avatarImg } = useAppSelector((state) => state.userData);
   return workout ? (
     <Container>
-      <Button
-        onClick={handleClick}
-        sx={{ left: "80%", top: "5%" }}
-        variant="outlined"
-      >
-        Выйти
-      </Button>
+      <ProfileTopInfo image={avatarImg} />
       <MyBox>
         <ProfileText sx={{ maxWidth: "60%" }} variant="h4">
           {workout.title}
