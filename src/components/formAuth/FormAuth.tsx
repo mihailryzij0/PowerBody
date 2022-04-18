@@ -46,13 +46,18 @@ export function FormAuth({ onSubmit, title }: FormProps) {
       <Typography sx={{ color: "red" }} variant="body1">
         {error ? setHelperText() : " "}
       </Typography>
-      <form className="auth-form__form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        data-testid="form"
+        className="auth-form__form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {title === "Регистрация" && (
           <TextField
             {...register("nickname", {
               required: "поле обьзательно для заполнения",
             })}
             type="text"
+            data-testid="input-nickname"
             label="псевдоним"
             variant="outlined"
             fullWidth={true}
@@ -68,6 +73,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
               message: "email введен не правильно",
             },
           })}
+          data-testid="input-email"
           type="email"
           label="email"
           variant="outlined"
@@ -84,6 +90,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
               message: "пароль минимум 6 символов",
             },
           })}
+          data-testid="input-pass"
           fullWidth={true}
           type="password"
           label="password"

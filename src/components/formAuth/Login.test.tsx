@@ -5,16 +5,16 @@ import userEvent from "@testing-library/user-event";
 import { renderWithReduxAndRouter } from "../../test-utils";
 import Login from "./Login";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup";
+import { signIn } from "../../firebase";
+import { signInUser } from "../../store/slices/userSlice";
 
-jest.mock("../../firebase", () => ({
-  signIn: jest.fn().mockImplementation(() => userData),
-}));
+// jest.mock("../../store/slices/userSlice", () => ({
+//   signInUser: jest.fn(),
+// }));
 
 const userData = {
   email: "sdfsd@gmail.com",
-  idUser: "sfgsfvdsvsvxxdvxzv",
-  token: "sdvvvvvvvvvvvvvvvvvvvvvvvvv",
-  isAuth: true,
+  pass: "123test",
 };
 
 describe("DefultPage", () => {
@@ -26,7 +26,23 @@ describe("DefultPage", () => {
 
   it("Login render", () => {
     const title = screen.getByText("Войти");
-    const input = screen.getByRole("textbox", { name: "email" });
+    const inputEmail = screen.getByTestId("input-email");
+    const inputPass = screen.getByTestId("input-pass");
+    const button = screen.getByText("Ввод");
     expect(title).toBeInTheDocument();
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputPass).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
+
+  // it("Login form submit", () => {
+  //   const title = screen.getByText("Войти");
+  //   const inputEmail = screen.getByTestId( "input-email" ) as HTMLInputElement;
+  //   const inputPass = screen.getByTestId("input-pass") as HTMLInputElement;
+  //   const button = screen.getByText("Ввод");
+  //   user.type(inputEmail, "sdfsd@gmail.com")
+  //   user.type(inputPass, '123test')
+  //   user.click(button)
+
+  // });
 });
