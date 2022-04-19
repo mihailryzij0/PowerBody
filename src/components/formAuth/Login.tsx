@@ -6,7 +6,7 @@ import { signInUser } from "../../store/slices/userSlice";
 export interface UserDataForm {
   email: string;
   pass: string;
-  nickname: string;
+  nickname?: string;
 }
 
 export default function Login() {

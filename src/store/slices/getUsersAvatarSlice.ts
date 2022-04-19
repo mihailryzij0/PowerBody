@@ -21,15 +21,15 @@ const initialState: State = {
 export const getUserAvatar = createAsyncThunk(
   "post/getUserAvatar",
   async (userId: string, { rejectWithValue }) => {
-      return getFirebaseData("usersAvatar", userId)
-        .then((respons) => {
-          return {
-            userId: userId,
-            avatarImage: respons.avatarImg,
-          };
-        })
-        .catch((error)=> rejectWithValue(error));
-    }
+    return getFirebaseData("usersAvatar", userId)
+      .then((respons) => {
+        return {
+          userId: userId,
+          avatarImage: respons.avatarImg,
+        };
+      })
+      .catch((error) => rejectWithValue(error));
+  }
 );
 
 const getUsersAvatarSlice = createSlice({

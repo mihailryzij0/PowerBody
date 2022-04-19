@@ -10,30 +10,27 @@ interface initialState {
 
 export const createPost: any = createAsyncThunk(
   "post/setDataPost",
-  async (
-    { postData, postKey }: any,
-    { rejectWithValue, getState}
-  ) => {
-      setFirebaseImage(postData.image[0], postData.image[0].name, "imagePosts")
-        .then((url) => {
-          postData.image = url;
-          setFirebaseData("posts", `${postData.id}`, postData);
-        })
-        .then(() => {
-          const { workouts, ...dataCards } = postData;
-          const {
-            cards: { postCards },
-          } = getState() as any;
-          const newCards = {
-            ...postCards,
-            [`${postKey}`]: [...postCards[`${postKey}`], dataCards],
-          };
-          setFirebaseData("postCards", "cards", newCards);
-        })
-        .catch(() => {
-          rejectWithValue(postData);
-        });
-    }
+  async ({ postData, postKey }: any, { rejectWithValue, getState }) => {
+    setFirebaseImage(postData.image[0], postData.image[0].name, "imagePosts")
+      .then((url) => {
+        postData.image = url;
+        setFirebaseData("posts", `${postData.id}`, postData);
+      })
+      .then(() => {
+        const { workouts, ...dataCards } = postData;
+        const {
+          cards: { postCards },
+        } = getState() as any;
+        const newCards = {
+          ...postCards,
+          [`${postKey}`]: [...postCards[`${postKey}`], dataCards],
+        };
+        setFirebaseData("postCards", "cards", newCards);
+      })
+      .catch(() => {
+        rejectWithValue(postData);
+      });
+  }
 );
 
 const initialState = {

@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { Post } from "../store/slices/postSlice";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import { Post } from "../store/slices/types";
+
 import {
   updateUserData,
   updateUserWorkout,
@@ -22,7 +23,7 @@ export interface SelectGrupItems {
   placeholder: string;
   items: Array<string>;
 }
-export default function IndividualWorkout() {
+export default function GeneratorWorkout() {
   const selectGrupItems: SelectGrupItems[] = [
     {
       criteria: "level",

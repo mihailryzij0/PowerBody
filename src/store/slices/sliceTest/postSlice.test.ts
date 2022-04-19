@@ -1,14 +1,14 @@
 import { store } from "../../store";
 import { getPostData } from "../postSlice";
 
-const receivedData  = {
-    authorId: "test123",
-    author: "Михаил",
-    image: "https://firebasestorage.googleapis.com",
-    description: "test",
-    rating: "5",
-    title: "test",
-    id: 123,
+const receivedData = {
+  authorId: "test123",
+  author: "Михаил",
+  image: "https://firebasestorage.googleapis.com",
+  description: "test",
+  rating: "5",
+  title: "test",
+  id: 123,
 };
 
 jest.mock("../../../firebase", () => ({

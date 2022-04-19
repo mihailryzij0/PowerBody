@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction, useCallback } from "react";
 import {
   SelectGroupState,
   SelectGrupItems,
-} from "../../pages/IndividualWorkout";
+} from "../../pages/GeneratorWorkout";
 
 interface SelectGroup {
   state: SelectGroupState;
