@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import { store } from "../../store";
 import { getPostCards } from "../cardsSlice";
 

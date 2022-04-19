@@ -19,25 +19,19 @@ export const signInUser = createAsyncThunk(
         localStorage.setItem("user", JSON.stringify(user));
         return user;
       })
-      .catch((error) => {
-        return rejectWithValue(error.message);
-      });
+      .catch((error) => rejectWithValue(error.message));
   }
 );
 
 export const signUpUser = createAsyncThunk(
-  "userSlice/SignUpUser",
+  "userSlice/signUpUser",
   async ({ email, pass, nickname }: UserDataForm, { rejectWithValue }) => {
-    if (nickname) {
-      return signUp(email, pass, nickname)
-        .then((user) => {
-          localStorage.setItem("user", JSON.stringify(user));
-          return user;
-        })
-        .catch((error) => {
-          return rejectWithValue(error.message);
-        });
-    }
+    return signUp(email, pass, nickname)
+      .then((user) => {
+        localStorage.setItem("user", JSON.stringify(user));
+        return user;
+      })
+      .catch((error) => rejectWithValue(error.message));
   }
 );
 
@@ -59,6 +53,7 @@ const userSlice = createSlice({
       state.token = null;
       state.idUser = null;
       state.isAuth = false;
+      localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
@@ -70,7 +65,7 @@ const userSlice = createSlice({
       state.idUser = idUser;
       state.isAuth = true;
     });
-    builder.addCase(signInUser.pending, (state, action) => {
+    builder.addCase(signInUser.pending, (state) => {
       state.status = "pending";
     });
     builder.addCase(signInUser.rejected, (state, action) => {
@@ -88,7 +83,7 @@ const userSlice = createSlice({
         state.isAuth = true;
       }
     });
-    builder.addCase(signUpUser.pending, (state, action) => {
+    builder.addCase(signUpUser.pending, (state) => {
       state.status = "pending";
     });
     builder.addCase(signUpUser.rejected, (state, action) => {

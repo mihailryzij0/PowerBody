@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     if (user.isAuth) {
       dispach(getPostCards());
-      dispach(getUserData(user.idUser));
+      dispach(getUserData());
     }
   }, []);
   return (

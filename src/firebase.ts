@@ -80,7 +80,7 @@ export const signIn = (email: string, pass: string) =>
     return userData;
   });
 
-export const signUp = (email: string, pass: string, nickname: string) =>
+export const signUp = (email: string, pass: string, nickname?: string) =>
   createUserWithEmailAndPassword(getAuth(), email, pass).then(({ user }) => {
     const userData = {
       email: user.email,

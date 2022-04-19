@@ -1,6 +1,6 @@
 import React from "react";
 import { FormAuth } from "./FormAuth";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { useAppDispatch } from "../../hooks/redux-hooks";
 import { signUpUser } from "../../store/slices/userSlice";
 import { UserDataForm } from "./Login";
 

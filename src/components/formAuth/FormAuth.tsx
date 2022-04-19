@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   CircularProgress,
-  FormControl,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,7 +12,7 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 
 interface FormProps {
   title: string;
-  onSubmit: (userData: UserDataForm) => void;
+  onSubmit: (userData: UserDataForm | Required<UserDataForm>) => void;
 }
 
 export function FormAuth({ onSubmit, title }: FormProps) {
