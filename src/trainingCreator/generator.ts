@@ -1,8 +1,8 @@
-import { Post, Workout } from "../store/slices/postSlice";
+import { Post, Workout } from "../store/slices/types";
 import { Exercises } from "./trainingCreator";
 
 export function generator(...exercisesGroups: Array<Exercises>) {
-  let workout: Post = {
+  let workout: Required<Post> = {
     id: new Date().valueOf(),
     image: "",
     authorId: "",

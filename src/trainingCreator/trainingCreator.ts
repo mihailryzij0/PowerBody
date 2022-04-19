@@ -1,4 +1,4 @@
-import { SelectGroupState } from "../pages/IndividualWorkout";
+import { SelectGroupState } from "../pages/GeneratorWorkout";
 import { exercises } from "./exercisStorage";
 import { creatorGroup } from "./creatorGroup";
 import { generator } from "./generator";

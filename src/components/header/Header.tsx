@@ -1,14 +1,9 @@
-import {
-  AccountCircle,
-  FitnessCenter,
-  Home,
-  PlaylistAdd,
-} from "@mui/icons-material";
+import { AccountCircle, FitnessCenter, Home } from "@mui/icons-material";
 import { AppBar, Toolbar, IconButton, Menu, Container } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 const CustomizedSlide = styled(Menu)`
   color: #20b2aa;
   min-width: 100% !important
@@ -35,7 +30,7 @@ export default function Header() {
           <IconButton component={Link} to="/posts" color="inherit">
             <Home></Home>
           </IconButton>
-          <IconButton component={Link} to="/individual" color="inherit">
+          <IconButton component={Link} to="/generator" color="inherit">
             <FitnessCenter></FitnessCenter>
           </IconButton>
           <IconButton component={Link} to="/" color="inherit">

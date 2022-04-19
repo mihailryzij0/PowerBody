@@ -1,24 +1,8 @@
-import {
-  Tooltip,
-  IconButton,
-  Avatar,
-  Menu,
-  MenuItem,
-  Typography,
-  Button,
-} from "@mui/material";
-import React, {
-  ChangeEvent,
-  useState,
-  MouseEvent,
-  ChangeEventHandler,
-} from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { IconButton, Avatar, Menu, MenuItem, Typography } from "@mui/material";
+import React, { useState, MouseEvent } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../../store/slices/userSlice";
-import { setImageProfile } from "../../store/slices/userDataSlice";
-import ImageCropper from "../ImageCropper/ImageCropper";
 import DialogImageCropp from "./DialogImageCropp";
 
 export default function ProfileTopInfo({

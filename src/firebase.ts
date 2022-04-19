@@ -30,10 +30,10 @@ const storage = getStorage();
 
 export const getFirebaseData = (colection: string, document: string) =>
   getDoc(doc(db, colection, document)).then((data) => {
-    if (data.exists()) {
-      return data.data();
-    } else {
+    if (!data.exists()) {
       throw "Загрузить данные не удалось, попробуйте еще раз";
+    } else {
+      return data.data();
     }
   });
 

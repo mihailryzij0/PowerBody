@@ -5,7 +5,7 @@ import {
   setFirebaseImage,
   updateFirebaseData,
 } from "../../firebase";
-import { Post } from "./postSlice";
+import { Post } from "./types";
 
 export interface userData {
   workout: Post | null;
@@ -41,14 +41,12 @@ export const setImageProfile = createAsyncThunk(
 
 export const updateUserData = createAsyncThunk(
   "userWorkout/updateData",
-  async (_, { getState, rejectWithValue }) => {
+  async (_, { getState }) => {
     const {
       user,
       userData: { workout },
     } = getState() as any;
-    updateFirebaseData("users", user.email, "workout", workout).catch(() => {
-      rejectWithValue("Что-то пошло не так");
-    });
+    return updateFirebaseData("users", user.email, "workout", workout);
   }
 );
 
@@ -59,12 +57,8 @@ export const getUserData: any = createAsyncThunk(
       user: { email },
     } = getState() as any;
     return getFirebaseData("users", `${email}`)
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        rejectWithValue(error);
-      });
+      .then((response) => response)
+      .catch((error) => rejectWithValue(error));
   }
 );
 
@@ -90,8 +84,9 @@ const userDataSlice = createSlice({
     builder.addCase(getUserData.pending, (state) => {
       state.status = "data-pending";
     });
-    builder.addCase(getUserData.rejected, (state) => {
+    builder.addCase(getUserData.rejected, (state, action) => {
       state.status = "data-rejected";
+      state.error = action.payload;
     });
 
     builder.addCase(setImageProfile.fulfilled, (state, action) => {
@@ -103,7 +98,6 @@ const userDataSlice = createSlice({
     });
     builder.addCase(setImageProfile.rejected, (state, action) => {
       state.error = action.payload as string;
-      console.log(action.payload);
       state.status = "img-rejected";
     });
   },

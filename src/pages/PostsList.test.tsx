@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PostsList from "./PostsList";
 import userEvent from "@testing-library/user-event";
@@ -43,20 +43,15 @@ describe("PostList", () => {
   });
 
   it("PostList render", () => {
-    const tab1 = screen.getByLabelText(/Тренировки/i);
-    const tab2 = screen.getByLabelText(/Витамины/i);
-    expect(tab1).toBeInTheDocument();
-    expect(tab2).toBeInTheDocument();
+    expect(screen.getByLabelText(/Тренировки/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Витамины/i)).toBeInTheDocument();
   });
   it("Cards render", () => {
-    const card = screen.getByTestId("Card");
-    const titleCard = screen.getByText(/тренировка по шейко/i);
-    const ratingCard = screen.getByText(/2/i);
-    expect(titleCard).toBeInTheDocument();
-    expect(ratingCard).toBeInTheDocument();
-    expect(card).toBeInTheDocument();
+    expect(screen.getByText(/тренировка по шейко/i)).toBeInTheDocument();
+    expect(screen.getByText(/2/i)).toBeInTheDocument();
+    expect(screen.getByTestId("Card")).toBeInTheDocument();
   });
-  it("when you click on the tab , the component is displayed", () => {
+  it("when you click on the tab , the component is displayed", async () => {
     const tabPonel1 = screen.getByTestId("cards-1-list");
     const tabPonel2 = screen.queryByTestId("cards-2-list");
     expect(tabPonel2).not.toBeInTheDocument();

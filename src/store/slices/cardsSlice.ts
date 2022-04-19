@@ -24,12 +24,8 @@ export const getPostCards: any = createAsyncThunk(
   "cards/getPostCards",
   async (_, { rejectWithValue }) => {
     return getFirebaseData("postCards", "cards")
-      .then((respons) => {
-        return respons;
-      })
-      .catch((error) => {
-        rejectWithValue(error);
-      });
+      .then((respons) => respons)
+      .catch((error) => rejectWithValue(error));
   }
 );
 
@@ -37,19 +33,19 @@ const cardsSlice = createSlice({
   name: "cards",
   initialState,
   reducers: {},
-  extraReducers: {
-    [getPostCards.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getPostCards.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.postCards.vitamins = action.payload.vitamins;
       state.postCards.workouts = action.payload.workouts;
-    },
-    [getPostCards.pending]: (state) => {
+    });
+    builder.addCase(getPostCards.pending, (state, action) => {
       state.status = "pending";
-    },
-    [getPostCards.rejected]: (state, action) => {
+    });
+    builder.addCase(getPostCards.rejected, (state, action) => {
       state.status = "rejected";
       state.error = action.payload;
-    },
+    });
   },
 });
 
