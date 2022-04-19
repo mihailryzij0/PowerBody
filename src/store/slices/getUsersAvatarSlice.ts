@@ -1,4 +1,3 @@
-import { CasinoOutlined } from "@mui/icons-material";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getFirebaseData } from "../../firebase";
 
@@ -19,10 +18,9 @@ const initialState: State = {
   error: "",
 };
 
-export const getUserAvatar: any = createAsyncThunk(
+export const getUserAvatar = createAsyncThunk(
   "post/getUserAvatar",
   async (userId: string, { rejectWithValue }) => {
-    if (userId !== null) {
       return getFirebaseData("usersAvatar", userId)
         .then((respons) => {
           return {
@@ -30,9 +28,8 @@ export const getUserAvatar: any = createAsyncThunk(
             avatarImage: respons.avatarImg,
           };
         })
-        .catch();
+        .catch((error)=> rejectWithValue(error));
     }
-  }
 );
 
 const getUsersAvatarSlice = createSlice({
@@ -50,7 +47,7 @@ const getUsersAvatarSlice = createSlice({
     });
     builder.addCase(getUserAvatar.rejected, (state, action) => {
       state.status = "rejected";
-      state.error = action.payload;
+      state.error = action.payload as string;
     });
   },
 });

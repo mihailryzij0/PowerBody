@@ -12,14 +12,11 @@ export const createPost: any = createAsyncThunk(
   "post/setDataPost",
   async (
     { postData, postKey }: any,
-    { rejectWithValue, getState, dispatch }
+    { rejectWithValue, getState}
   ) => {
-    if (postData) {
       setFirebaseImage(postData.image[0], postData.image[0].name, "imagePosts")
         .then((url) => {
           postData.image = url;
-        })
-        .then(() => {
           setFirebaseData("posts", `${postData.id}`, postData);
         })
         .then(() => {
@@ -37,7 +34,6 @@ export const createPost: any = createAsyncThunk(
           rejectWithValue(postData);
         });
     }
-  }
 );
 
 const initialState = {
@@ -49,13 +45,9 @@ const initialState = {
 const createPostSlice = createSlice({
   name: "createPost",
   initialState,
-  reducers: {
-    consollle: (state, action) => {
-      console.log(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: {
-    [createPost.fulfilled]: (state, action) => {
+    [createPost.fulfilled]: (state) => {
       state.status = "fulfilled";
     },
     [createPost.pending]: (state) => {
@@ -68,6 +60,6 @@ const createPostSlice = createSlice({
   },
 });
 
-export const { consollle } = createPostSlice.actions;
+export const {} = createPostSlice.actions;
 
 export default createPostSlice.reducer;
