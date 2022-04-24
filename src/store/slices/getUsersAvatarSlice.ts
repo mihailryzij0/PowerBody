@@ -1,19 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getFirebaseData } from "../../firebase";
 
-interface userAvatar {
-  userId: string;
-  avatarImage: string;
-}
-
 interface State {
-  usersAvatar: Array<userAvatar> | [];
+  usersAvatar: Record<string, string>;
   status: "" | "pending" | "fulfilled" | "rejected";
   error: string;
 }
 
 const initialState: State = {
-  usersAvatar: [],
+  usersAvatar: {},
   status: "",
   error: "",
 };
@@ -24,8 +19,7 @@ export const getUserAvatar = createAsyncThunk(
     return getFirebaseData("usersAvatar", userId)
       .then((respons) => {
         return {
-          userId: userId,
-          avatarImage: respons.avatarImg,
+          [userId]: respons.avatarImg,
         };
       })
       .catch((error) => rejectWithValue(error));
@@ -39,7 +33,7 @@ const getUsersAvatarSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUserAvatar.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      const newUserAvatsr = [...state.usersAvatar, action.payload];
+      const newUserAvatsr = { ...state.usersAvatar, ...action.payload };
       state.usersAvatar = newUserAvatsr;
     });
     builder.addCase(getUserAvatar.pending, (state) => {

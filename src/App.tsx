@@ -1,41 +1,85 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginFormPage from "./pages/LoginFormPage";
 import Profile from "./pages/Profile";
 import PostsList from "./pages/PostsList";
 import RequireAutch from "./components/hoc/RequireAutch";
-import AdminWorkout from "./pages/AdminWorkout";
+const AdminWorkout = lazy(() => import("./pages/AdminWorkout"));
+const GeneratorWorkout = lazy(() => import("./pages/GeneratorWorkout"));
 import PostPage from "./pages/PostPage";
 import { useAppDispatch, useAppSelector } from "./hooks/redux-hooks";
-import { getPostCards } from "./store/slices/cardsSlice";
 import { getUserData } from "./store/slices/userDataSlice";
-import GeneratorWorkout from "./pages/GeneratorWorkout";
+import { Backdrop, CircularProgress } from "@mui/material";
+import NavPanel from "./components/NavPanel/NavPanel";
+import WithSuspense from "./components/hoc/WithSuspense";
 
+const AdminWorkoutSuspense = WithSuspense(AdminWorkout);
+const GeneratorWorkoutSuspense = WithSuspense(GeneratorWorkout);
 function App() {
+  const { user, userData } = useAppSelector((state) => state);
+
   const dispach = useAppDispatch();
-  const { user } = useAppSelector((state) => state);
+
   useEffect(() => {
     if (user.isAuth) {
-      dispach(getPostCards());
       dispach(getUserData());
     }
   }, []);
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <RequireAutch>
-            <Profile />
-          </RequireAutch>
-        }
-      />
-      <Route path="/addWorkout" element={<AdminWorkout />} />
-      <Route path="/posts" element={<PostsList />} />
-      <Route path="/posts/:id" element={<PostPage />} />
-      <Route path="/generator" element={<GeneratorWorkout />} />
-      <Route path="/login" element={<LoginFormPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RequireAutch>
+              <Profile />
+            </RequireAutch>
+          }
+        />
+        <Route
+          path="/addWorkout"
+          element={
+            <RequireAutch>
+              <AdminWorkoutSuspense />
+            </RequireAutch>
+          }
+        />
+        <Route
+          path="/posts"
+          element={
+            <RequireAutch>
+              <PostsList />
+            </RequireAutch>
+          }
+        />
+        <Route
+          path="/posts/:id"
+          element={
+            <RequireAutch>
+              <PostPage />
+            </RequireAutch>
+          }
+        />
+        <Route
+          path="/generator"
+          element={
+            <RequireAutch>
+              <GeneratorWorkoutSuspense />
+            </RequireAutch>
+          }
+        />
+        <Route path="/login" element={<LoginFormPage />} />
+      </Routes>
+      {userData.status === "data-pending" && (
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={true}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
+      <NavPanel />
+    </>
   );
 }
 

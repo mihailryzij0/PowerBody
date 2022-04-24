@@ -1,20 +1,16 @@
 import {
   Button,
-  Snackbar,
+  MenuItem,
   styled,
   TextareaAutosize,
   TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
-import {
-  EventType,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../hooks/redux-hooks";
-import { Post, Workout } from "../../store/slices/types";
+import { Workout } from "../../store/slices/types";
+import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
 import InputFileImgPreview from "./InputFileImgPreview";
 import InputGrupWorkout from "./InputGrupWorkout";
 
@@ -22,7 +18,9 @@ export interface WorkoutForm {
   authorId: string | null;
   author: string;
   image: File[] | null;
+  vidio: string | null;
   description: string;
+  typeWorkout: string;
   rating: string;
   title: string;
   id: number;
@@ -66,6 +64,7 @@ export default function FormCreateWorkout({
     defaultValues: {
       title: "",
       description: "",
+      typeWorkout: "",
       authorId: idUser,
       author: nickname,
       id: new Date().valueOf(),
@@ -77,14 +76,23 @@ export default function FormCreateWorkout({
         },
       ],
       image: null,
+      vidio: null,
     },
   });
-  const { register, handleSubmit, reset } = methods;
-
+  const { register, handleSubmit, reset, watch } = methods;
+  const vidio = watch("vidio")?.split("=").pop() as string;
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputFileImgPreview />
+        <TextField
+          fullWidth={true}
+          label="Ссылка видио youtube"
+          margin="normal"
+          variant="outlined"
+          {...register(`vidio`)}
+        />
+        <YoutubeEmbed embedId={vidio} />
         <TextField
           fullWidth={true}
           label="Заголовок"
@@ -95,6 +103,23 @@ export default function FormCreateWorkout({
           })}
         />
 
+        <TextField
+          select
+          variant="outlined"
+          fullWidth
+          label="Тип тренировки"
+          defaultValue=""
+          inputProps={register("typeWorkout", {
+            required: "Please enter currency",
+          })}
+          // error={errors.currency}
+          // helperText={errors.currency?.message}
+        >
+          <MenuItem value="Стандарт">Стандарт</MenuItem>
+          <MenuItem value={"На массу"}>На массу</MenuItem>
+          <MenuItem value={"На сушку"}>На сушку</MenuItem>
+          <MenuItem value={"На выносливость"}>На выносливость</MenuItem>
+        </TextField>
         <AdminTextareaAutosize
           {...register("description", {
             required: "поле обьзательо для заполнения",

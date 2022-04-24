@@ -1,16 +1,14 @@
-import { Backdrop, Container } from "@mui/material";
-import React, { useEffect } from "react";
-import Header from "../components/header/Header";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { getUserData } from "../store/slices/userDataSlice";
+import { Backdrop } from "@mui/material";
+import React from "react";
+import { useAppSelector } from "../hooks/redux-hooks";
 import CircularProgress from "@mui/material/CircularProgress";
 import ProfileContent from "../components/profile/ProfileContent";
 
 export default function Profile() {
-  const { user, userData } = useAppSelector((state) => state);
+  const { userData } = useAppSelector((state) => state);
 
   return (
-    <Container maxWidth={"sm"}>
+    <div className="container">
       {userData.status == "pending" ? (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -21,7 +19,6 @@ export default function Profile() {
       ) : (
         <ProfileContent />
       )}
-      <Header></Header>
-    </Container>
+    </div>
   );
 }

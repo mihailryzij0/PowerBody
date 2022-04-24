@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setFirebaseData, setFirebaseImage } from "../../firebase";
-import { CreatePostProps, Post } from "./types";
 
 interface initialState {
   status: string;
@@ -11,7 +10,7 @@ interface initialState {
 export const createPost: any = createAsyncThunk(
   "post/setDataPost",
   async ({ postData, postKey }: any, { rejectWithValue, getState }) => {
-    setFirebaseImage(postData.image[0], postData.image[0].name, "imagePosts")
+    setFirebaseImage(postData.image, postData.id, "imagePosts")
       .then((url) => {
         postData.image = url;
         setFirebaseData("posts", `${postData.id}`, postData);
@@ -23,7 +22,7 @@ export const createPost: any = createAsyncThunk(
         } = getState() as any;
         const newCards = {
           ...postCards,
-          [`${postKey}`]: [...postCards[`${postKey}`], dataCards],
+          [postKey]: [...postCards[postKey], dataCards],
         };
         setFirebaseData("postCards", "cards", newCards);
       })

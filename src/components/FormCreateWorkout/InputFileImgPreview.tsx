@@ -1,7 +1,14 @@
 import { Box, Button } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useFormContext } from "react-hook-form";
 import { UseFormRegister } from "react-hook-form/dist/types/form";
+import DialogCropper from "../ImageCropper/DialogCropper";
 
 export interface inputFileProps {
   register: UseFormRegister<any>;
@@ -9,28 +16,64 @@ export interface inputFileProps {
   InputFileButton: any;
   inputFileButtonContent: string | SVGViewElement;
 }
-
+interface Event<T = EventTarget> {
+  target: T;
+}
 export default function InputFileImgPreview() {
-  const { register, watch } = useFormContext();
-  const uploadedImage = useRef<HTMLImageElement>(null);
+  const { setValue } = useFormContext();
+  const [inputImg, setInputImg] = useState<string>("");
+  const [open, setOpen] = React.useState(false);
 
-  const watchImage = watch("image");
-  if (watchImage) {
+  const setStateOpen: Dispatch<SetStateAction<boolean>> = (open) => {
+    setOpen(open);
+    console.log(open);
+  };
+  const createImageUrl = (file: File | Blob) => {
     const reader = new FileReader();
-    const { current }: any = uploadedImage;
-    if (current) current.file = watchImage[0];
-    reader.onload = (e: any) => {
-      current.src = e.target.result;
-    };
-    reader.readAsDataURL(watchImage[0]);
-  }
+
+    reader.addEventListener(
+      "load",
+      () => {
+        if (typeof reader.result === "string") {
+          setInputImg(reader.result);
+        }
+      },
+      false
+    );
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const onInputChange = (e: Event<HTMLInputElement>) => {
+    if (e && e.target && e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      createImageUrl(file);
+      setOpen(true);
+    }
+  };
+  const handleImage = (blob: Blob | null) => {
+    if (blob) {
+      setValue("image", blob);
+      createImageUrl(blob);
+    }
+  };
 
   return (
     <>
       <Box className="preview" component="label">
-        <img className="preview__img" ref={uploadedImage} />
-        <input type="file" {...register("image")} accept="image/*" hidden />
+        <img className="preview__img" src={inputImg} />
+        <input type="file" onChange={onInputChange} accept="image/*" hidden />
       </Box>
+      <DialogCropper
+        handlerImage={handleImage}
+        open={open}
+        setStateOpen={setStateOpen}
+        imageSrc={inputImg}
+        cropShape={"rect"}
+        aspect={5 / 3}
+      />
     </>
   );
 }

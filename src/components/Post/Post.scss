@@ -1,0 +1,17 @@
+.post-baner {
+  position: relative;
+  overflow: contain;
+  height: 200px;
+
+  &__img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__rating {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}

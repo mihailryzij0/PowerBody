@@ -9,7 +9,6 @@ import {
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/header/Header";
 import FormCreateWorkout, {
   WorkoutForm,
 } from "../components/FormCreateWorkout/FormCreateWorkout";
@@ -41,7 +40,7 @@ export default function AdminWorkout() {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth={"sm"} sx={{ textAlign: "center", marginBottom: 20 }}>
+    <div className="container">
       <MyBox>
         <ToggleButtonGroup
           color="primary"
@@ -63,12 +62,11 @@ export default function AdminWorkout() {
           color: "black",
         }}
         onClick={() => {
-          navigate(-1);
+          navigate("/posts");
         }}
       >
         <ArrowCircleLeftOutlinedIcon sx={{ fontSize: 40 }} />
       </IconButton>
-      <Header></Header>
-    </Container>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Header from "../components/header/Header";
+import Header from "../components/NavPanel/NavPanel";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { getPostData } from "../store/slices/postSlice";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
@@ -32,15 +32,13 @@ export default function Singlepage() {
               color: "white",
             }}
             onClick={() => {
-              navigate(-1);
+              navigate("/posts");
             }}
           >
             <ArrowCircleLeftOutlinedIcon sx={{ fontSize: 40 }} />
           </IconButton>
         </>
       )}
-
-      <Header />
     </>
   );
 }

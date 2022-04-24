@@ -19,7 +19,7 @@ min-width: 100%;
   }
 `;
 
-export default function Header() {
+export default function NavPanel() {
   return (
     <AppBar position="fixed" color="primary" sx={{ top: "auto", bottom: 0 }}>
       <Container maxWidth={"sm"}>

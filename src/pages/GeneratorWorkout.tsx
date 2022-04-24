@@ -1,7 +1,6 @@
 import { Box, Button, Container, styled, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/header/Header";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import { Post } from "../store/slices/types";
@@ -97,8 +96,6 @@ export default function GeneratorWorkout() {
           ""
         )}
       </MyBox>
-
-      <Header></Header>
     </Container>
   );
 }

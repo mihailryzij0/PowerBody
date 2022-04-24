@@ -63,6 +63,7 @@ describe("formAuth", () => {
     expect(screen.getByText("пароль минимум 6 символов")).toBeInTheDocument();
   });
 });
+
 jest.mock("../../../hooks/redux-hooks", () => ({
   useAppSelector: jest.fn().mockImplementation(() => {
     return {

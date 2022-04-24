@@ -13,32 +13,32 @@ import { Workbox } from "workbox-window";
 import { useAppDispatch } from "./hooks/redux-hooks";
 import { getPostCards } from "./store/slices/cardsSlice";
 
-if ("serviceWorker" in navigator) {
-  const wb = new Workbox("/sw.js");
+// if ("serviceWorker" in navigator) {
+//   const wb = new Workbox("/sw.js");
 
-  wb.addEventListener("installed", (event) => {
-    if (event.isUpdate) {
-      if (confirm(`New app update is available!. Click OK to refresh`)) {
-        window.location.reload();
-      }
-    }
-  });
-  wb.register();
-}
+//   wb.addEventListener("installed", (event) => {
+//     if (event.isUpdate) {
+//       if (confirm(`New app update is available!. Click OK to refresh`)) {
+//         window.location.reload();
+//       }
+//     }
+//   });
+//   wb.register();
+// }
 let theme = createTheme();
 theme = createTheme({
-  palette: {
-    primary: {
-      main: "#121216",
-      contrastText: "#ffffff",
-    },
-    secondary: {
-      main: "#f50057",
-    },
-    background: {
-      default: "#293b30",
-    },
-  },
+  // palette: {
+  //   primary: {
+  //     main: "#121216",
+  //     contrastText: "#ffffff",
+  //   },
+  //   secondary: {
+  //     main: "#f50057",
+  //   },
+  //   background: {
+  //     default: "#293b30",
+  //   },
+  // },
 });
 theme = responsiveFontSizes(theme);
 

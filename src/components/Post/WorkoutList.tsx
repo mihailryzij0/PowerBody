@@ -7,7 +7,7 @@ import {
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WorkoutListItem from "../WorkoutListItem.tsx/WorkoutListItem";
-import { Post } from "../../store/slices/postSlice";
+import { Post } from "../../store/slices/types";
 
 export default function WorkoutList({ workouts }: Pick<Post, "workouts">) {
   return (

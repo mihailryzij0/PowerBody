@@ -1,6 +1,5 @@
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getFirebaseData } from "../../firebase";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { getUserAvatar } from "../../store/slices/getUsersAvatarSlice";
 
@@ -9,12 +8,20 @@ interface Props {
 }
 
 export default function AvatarDinamic({ authorId }: Props) {
-  const [avatar, setAvatar] = useState("");
   const { usersAvatar } = useAppSelector((state) => state.usersAvatar);
   const dispach = useAppDispatch();
   useEffect(() => {
-    const avatar = usersAvatar.find((item) => item.userId === authorId);
-    avatar ? setAvatar(avatar.avatarImage) : dispach(getUserAvatar(authorId));
+    if (!usersAvatar.authorId && authorId) {
+      dispach(getUserAvatar(authorId));
+    }
   }, []);
-  return <Avatar alt="avatar" src={avatar} />;
+  return authorId && usersAvatar[authorId] ? (
+    <Avatar
+      alt="avatar"
+      sx={{ transformTranslateZ: "0", marginRight: "10px" }}
+      src={usersAvatar[authorId]}
+    />
+  ) : (
+    <Avatar alt="avatar" sx={{ marginRight: "10px" }} />
+  );
 }

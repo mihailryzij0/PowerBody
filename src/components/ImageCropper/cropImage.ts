@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/types/utility";
 import { Point, Area } from "react-easy-crop/types";
 const createImage: (url: string) => Promise<HTMLImageElement> = (url: string) =>
   new Promise((resolve, reject) => {
@@ -8,7 +9,19 @@ const createImage: (url: string) => Promise<HTMLImageElement> = (url: string) =>
     image.src = url;
   });
 
-export async function getCroppedImg(imageSrc: string, pixelCrop: Area) {
+interface GetCroppedImgProps {
+  imageSrc: string;
+  pixelCrop: Area;
+  widthBlob?: number;
+  heightBlob?: number;
+}
+
+export async function getCroppedImg({
+  imageSrc,
+  pixelCrop,
+  widthBlob,
+  heightBlob,
+}: GetCroppedImgProps): Promise<Blob | null> {
   const image: HTMLImageElement = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -17,8 +30,13 @@ export async function getCroppedImg(imageSrc: string, pixelCrop: Area) {
     return null;
   }
 
-  canvas.width = 300;
-  canvas.height = 300;
+  if (widthBlob && heightBlob) {
+    canvas.width = widthBlob;
+    canvas.height = heightBlob;
+  } else {
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+  }
 
   ctx.drawImage(
     image,

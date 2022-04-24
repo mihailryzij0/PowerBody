@@ -9,8 +9,9 @@ const { NODE_ENV } = process.env;
 module.exports = {
   entry: resolve(__dirname, "./src/index"),
   output: {
-    filename: "[name].bundle.[chunkhash].js",
+    filename: "[name].bundle.js",
     path: resolve(`${__dirname}/dist`),
+    publicPath: "/",
     clean: true,
     environment: {
       arrowFunction: false,

@@ -12,7 +12,7 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 
 interface FormProps {
   title: string;
-  onSubmit: (userData: UserDataForm | Required<UserDataForm>) => void;
+  onSubmit: (userData: UserDataForm) => void;
 }
 
 export function FormAuth({ onSubmit, title }: FormProps) {

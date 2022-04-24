@@ -19,19 +19,16 @@ export default function ProfileContent() {
 
   const { workout, avatarImg } = useAppSelector((state) => state.userData);
   return workout ? (
-    <Container>
+    <>
       <ProfileTopInfo image={avatarImg} />
       <MyBox>
         <ProfileText sx={{ maxWidth: "60%" }} variant="h4">
           {workout.title}
         </ProfileText>
         <Rating name="size-medium" defaultValue={Number(workout.rating)} />
-        <ProfileText variant="subtitle1" gutterBottom sx={{ maxWidth: "70%" }}>
-          {workout.description}
-        </ProfileText>
       </MyBox>
       <ProfileWorkoutList workout={workout}></ProfileWorkoutList>
-    </Container>
+    </>
   ) : (
     <Typography>Здесб будет ваша тренировка</Typography>
   );

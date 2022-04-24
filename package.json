@@ -59,7 +59,6 @@
     "postcss-preset-env": "^7.0.1",
     "prettier": "2.4.1",
     "puppeteer": "^13.0.0",
-    "redux-mock-store": "^1.5.4",
     "sass": "^1.45.0",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",

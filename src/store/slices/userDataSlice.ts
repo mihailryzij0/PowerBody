@@ -50,7 +50,7 @@ export const updateUserData = createAsyncThunk(
   }
 );
 
-export const getUserData: any = createAsyncThunk(
+export const getUserData = createAsyncThunk(
   "userWorkout/getUserData",
   async (_, { rejectWithValue, getState }) => {
     const {
@@ -86,7 +86,7 @@ const userDataSlice = createSlice({
     });
     builder.addCase(getUserData.rejected, (state, action) => {
       state.status = "data-rejected";
-      state.error = action.payload;
+      state.error = action.payload as string;
     });
 
     builder.addCase(setImageProfile.fulfilled, (state, action) => {
