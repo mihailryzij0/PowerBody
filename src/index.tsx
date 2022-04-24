@@ -28,16 +28,7 @@ import { getPostCards } from "./store/slices/cardsSlice";
 let theme = createTheme();
 theme = createTheme({
   // palette: {
-  //   primary: {
-  //     main: "#121216",
-  //     contrastText: "#ffffff",
-  //   },
-  //   secondary: {
-  //     main: "#f50057",
-  //   },
-  //   background: {
-  //     default: "#293b30",
-  //   },
+  //   mode: 'dark',
   // },
 });
 theme = responsiveFontSizes(theme);

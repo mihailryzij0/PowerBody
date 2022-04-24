@@ -1,8 +1,9 @@
-import { Box, Container, Rating, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../hooks/redux-hooks";
+import { Post } from "../../store/slices/types";
 import ProfileTopInfo from "./ProfileTopInfo";
-import ProfileWorkoutList from "./ProfileWorkoutList";
+import ProfileWorkouts from "./ProfileWorkouts";
 
 export default function ProfileContent() {
   const MyBox = styled(Box)`
@@ -12,22 +13,14 @@ export default function ProfileContent() {
     margin-top: 100px;
     text-align: center;
   `;
-  const ProfileText = styled(Typography)`
-    margin-top: 20px;
-    margin-bottom: 20px;
-  `;
 
   const { workout, avatarImg } = useAppSelector((state) => state.userData);
   return workout ? (
     <>
-      <ProfileTopInfo image={avatarImg} />
-      <MyBox>
-        <ProfileText sx={{ maxWidth: "60%" }} variant="h4">
-          {workout.title}
-        </ProfileText>
-        <Rating name="size-medium" defaultValue={Number(workout.rating)} />
-      </MyBox>
-      <ProfileWorkoutList workout={workout}></ProfileWorkoutList>
+      <div className="container">
+        <ProfileTopInfo image={avatarImg} />
+      </div>
+      <ProfileWorkouts workout={workout as Required<Post>} />
     </>
   ) : (
     <Typography>Здесб будет ваша тренировка</Typography>

@@ -8,7 +8,7 @@ export default function Profile() {
   const { userData } = useAppSelector((state) => state);
 
   return (
-    <div className="container">
+    <>
       {userData.status == "pending" ? (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -19,6 +19,6 @@ export default function Profile() {
       ) : (
         <ProfileContent />
       )}
-    </div>
+    </>
   );
 }

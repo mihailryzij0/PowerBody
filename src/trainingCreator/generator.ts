@@ -6,7 +6,7 @@ export function generator(...exercisesGroups: Array<Exercises>) {
     id: new Date().valueOf(),
     image: "",
     authorId: "",
-    author: "",
+    author: "PowerBody",
     description: "",
     rating: "4",
     title: "Индивидульная тренировка",
@@ -16,6 +16,7 @@ export function generator(...exercisesGroups: Array<Exercises>) {
         exercises: [],
       },
     ],
+    vidio: "",
   };
   let workouts: Array<Workout> = [];
   for (let i = 1; i <= 6; i++) {

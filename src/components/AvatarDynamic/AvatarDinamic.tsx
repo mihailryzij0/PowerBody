@@ -22,6 +22,10 @@ export default function AvatarDinamic({ authorId }: Props) {
       src={usersAvatar[authorId]}
     />
   ) : (
-    <Avatar alt="avatar" sx={{ marginRight: "10px" }} />
+    <Avatar
+      alt="avatar"
+      src={require("../../assets/icon/icon-48x48.png")}
+      sx={{ marginRight: "10px" }}
+    />
   );
 }

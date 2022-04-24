@@ -27,7 +27,7 @@ export const initialState: userData = {
 
 export const setImageProfile = createAsyncThunk(
   "userWorkout/updateImage",
-  async (image: HTMLImageElement, { rejectWithValue, getState }) => {
+  async (image: Blob, { rejectWithValue, getState }) => {
     const { user } = getState() as any;
     return setFirebaseImage(image, user.idUser, "imageUser")
       .then((url: string) => {
@@ -70,7 +70,11 @@ const userDataSlice = createSlice({
       state.workout = action.payload;
     },
     deleteUserWorkout(state, action) {
-      state.workout?.workouts?.splice(action.payload, 1);
+      if (state.workout?.workouts?.length === 1) {
+        state.workout = null;
+      } else {
+        state.workout?.workouts?.splice(action.payload, 1);
+      }
     },
   },
   extraReducers: (builder) => {
