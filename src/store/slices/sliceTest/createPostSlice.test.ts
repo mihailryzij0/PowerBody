@@ -6,7 +6,7 @@ const receivedData = {
   postData: {
     authorId: "test123",
     author: "Михаил",
-    image: [{ name: "image", width: 400, haight: 500 }],
+    image: { name: "image", width: 400, haight: 500 },
     description: "test",
     rating: "5",
     title: "test",
@@ -38,7 +38,7 @@ describe("createPostSlice", () => {
         name: "image",
         width: 400,
       },
-      "image",
+       123,
       "imagePosts"
     );
     expect(setFirebaseData).toHaveBeenCalledWith(

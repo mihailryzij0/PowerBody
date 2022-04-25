@@ -72,7 +72,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
               message: "email введен не правильно",
             },
           })}
-          data-testid="input-email"
+          inputProps={{ "data-testid": "input-email" }}
           type="email"
           label="email"
           variant="outlined"
@@ -89,7 +89,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
               message: "пароль минимум 6 символов",
             },
           })}
-          data-testid="input-pass"
+          inputProps={{ "data-testid": "input-pass" }}
           fullWidth={true}
           type="password"
           label="password"

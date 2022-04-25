@@ -42,7 +42,7 @@ describe("treningCreator", () => {
       expect(workout?.rating).toBe("4");
       expect(workout?.image).toBe("");
       expect(workout?.authorId).toBe("");
-      expect(workout?.author).toBe("");
+      expect(workout?.author).toBe("PowerBody");
     });
   });
 });
