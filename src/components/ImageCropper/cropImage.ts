@@ -1,5 +1,4 @@
-import { type } from "@testing-library/user-event/dist/types/utility";
-import { Point, Area } from "react-easy-crop/types";
+import { Area } from "react-easy-crop/types";
 const createImage: (url: string) => Promise<HTMLImageElement> = (url: string) =>
   new Promise((resolve, reject) => {
     const image = new Image();
@@ -53,6 +52,6 @@ export async function getCroppedImg({
   return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
       resolve(file);
-    }, "image/jpeg");
+    }, "image/webp");
   });
 }

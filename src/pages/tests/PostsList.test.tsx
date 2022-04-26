@@ -17,7 +17,7 @@ const valueReturnFirebase = {
 };
 jest.mock("../../hooks/redux-hooks", () => ({
   useAppSelector: jest.fn().mockImplementation(() => valueReturnFirebase.cards),
-  useAppDispatch: jest.fn(()=> ()=>{})
+  useAppDispatch: jest.fn(() => () => {}),
 }));
 
 jest.mock("../../components/card/Card", () => {

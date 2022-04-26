@@ -1,6 +1,6 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup";
@@ -12,7 +12,7 @@ describe("formAuth", () => {
   let user: UserEvent;
   beforeEach(() => {
     user = userEvent.setup();
-    renderWithReduxAndRouter(<FormAuth title="test" onSubmit={mockSubmit} />);
+    render(<FormAuth title="test" onSubmit={mockSubmit} />);
   });
 
   it("FormAuth render", () => {

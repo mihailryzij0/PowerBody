@@ -1,4 +1,11 @@
-import { IconButton, Avatar, Menu, MenuItem, Typography } from "@mui/material";
+import {
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Typography,
+  Button,
+} from "@mui/material";
 import React, { useState, MouseEvent, Dispatch, SetStateAction } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
@@ -65,13 +72,13 @@ export default function ProfileTopInfo({
       setOpenCropper(true);
     }
   };
-  console.log(inputImg);
 
   return (
     <div className="profile-top">
       <div className="profile-top__info">
-        <Typography>Пройденно: 5/10 </Typography>
-        <Typography>Каллорий на день: 5000 </Typography>
+        <Button onClick={() => navigate("/userCreateWorkout")}>
+          Создать свою тренировку
+        </Button>
       </div>
       <div className="profile-top__avatar">
         <IconButton onClick={handleClick} sx={{ p: 0 }}>

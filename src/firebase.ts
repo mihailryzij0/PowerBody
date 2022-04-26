@@ -25,12 +25,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
-// enableIndexedDbPersistence(db);
-
 const storage = getStorage();
 
-
-
+enableIndexedDbPersistence(db).catch((err) => {
+  console.log(err);
+});
 
 export const getFirebaseData = (colection: string, document: string) =>
   getDoc(doc(db, colection, document)).then((data) => {

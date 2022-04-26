@@ -1,16 +1,17 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { resolve } = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const workboxPlugin = require("workbox-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const path = require("path");
 
 const { NODE_ENV } = process.env;
 module.exports = {
-  entry: resolve(__dirname, "./src/index"),
+  entry: path.resolve(__dirname, "./src/index.tsx"),
   output: {
-    filename: "[name].bundle.js",
-    path: resolve(`${__dirname}/dist`),
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
     publicPath: "/",
     clean: true,
     environment: {
@@ -20,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
-  devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
+  // devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
   module: {
     rules: [
       {
@@ -62,10 +63,10 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
         type: "asset/resource",
         generator: {
-          filename: "img/[name][ext]",
+          filename: "./img/[name][ext]",
         },
       },
     ],
@@ -75,7 +76,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "PowerBody",
-      template: resolve(__dirname, "./src/index.html"),
+      template: path.relative(__dirname, "./src/index.html"),
     }),
 
     new MiniCssExtractPlugin({
@@ -85,18 +86,24 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: "./src/manifest.json", to: "" },
-        { from: "./src/assets/icon", to: "img/" },
+        { from: "./src/assets/icon", to: "./img/icons" },
       ],
     }),
     new workboxPlugin.InjectManifest({
-      maximumFileSizeToCacheInBytes: 5000 * 50000,
       swSrc: "./src/sw.ts",
       swDest: "sw.js",
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     }),
   ],
 
   optimization: {
-    minimizer: ["...", new CssMinimizerPlugin()],
+    minimizer: [
+      "...",
+      new CssMinimizerPlugin(),
+      new TerserPlugin({
+        extractComments: false,
+      }),
+    ],
   },
   devServer: {
     compress: true,

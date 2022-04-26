@@ -10,10 +10,10 @@ interface initialState {
 export const createPost: any = createAsyncThunk(
   "post/setDataPost",
   async ({ postData, postKey }: any, { rejectWithValue, getState }) => {
-    setFirebaseImage(postData.image, postData.id, "imagePosts")
+    return setFirebaseImage(postData.image, postData.id, "imagePosts")
       .then((url) => {
         postData.image = url;
-        setFirebaseData("posts", `${postData.id}`, postData);
+        return setFirebaseData("posts", `${postData.id}`, postData);
       })
       .then(() => {
         const { workouts, ...dataCards } = postData;
@@ -24,7 +24,7 @@ export const createPost: any = createAsyncThunk(
           ...postCards,
           [postKey]: [...postCards[postKey], dataCards],
         };
-        setFirebaseData("postCards", "cards", newCards);
+        return setFirebaseData("postCards", "cards", newCards);
       })
       .catch(() => {
         rejectWithValue(postData);

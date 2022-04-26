@@ -9,22 +9,6 @@ import "./firebase";
 
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material";
 
-import { Workbox } from "workbox-window";
-import { useAppDispatch } from "./hooks/redux-hooks";
-import { getPostCards } from "./store/slices/cardsSlice";
-
-// if ("serviceWorker" in navigator) {
-//   const wb = new Workbox("/sw.js");
-
-//   wb.addEventListener("installed", (event) => {
-//     if (event.isUpdate) {
-//       if (confirm(`New app update is available!. Click OK to refresh`)) {
-//         window.location.reload();
-//       }
-//     }
-//   });
-//   wb.register();
-// }
 let theme = createTheme();
 theme = createTheme({
   // palette: {

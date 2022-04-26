@@ -1,11 +1,13 @@
 import {
   Button,
   MenuItem,
+  Slider,
   styled,
   TextareaAutosize,
   TextField,
   Typography,
 } from "@mui/material";
+import { setUIValue } from "@testing-library/user-event/dist/types/document";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../hooks/redux-hooks";
@@ -13,6 +15,7 @@ import { Workout } from "../../store/slices/types";
 import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
 import InputFileImgPreview from "./InputFileImgPreview";
 import InputGrupWorkout from "./InputGrupWorkout";
+import { FormInputSlider } from "./SliderForm";
 
 export interface WorkoutForm {
   authorId: string | null;
@@ -24,6 +27,7 @@ export interface WorkoutForm {
   rating: string;
   title: string;
   id: number;
+  weeks: number;
   workouts?: Array<Workout>;
 }
 
@@ -69,6 +73,7 @@ export default function FormCreateWorkout({
       author: nickname,
       id: new Date().valueOf(),
       rating: "4",
+      weeks: 6,
       workouts: [
         {
           exercises: [""],
@@ -85,6 +90,7 @@ export default function FormCreateWorkout({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputFileImgPreview />
+        <FormInputSlider name="weeks" />
         <TextField
           fullWidth={true}
           label="Ссылка видио youtube"
@@ -102,7 +108,6 @@ export default function FormCreateWorkout({
             required: "поле обьзательо для заполнения",
           })}
         />
-
         <TextField
           select
           variant="outlined"
@@ -112,8 +117,6 @@ export default function FormCreateWorkout({
           inputProps={register("typeWorkout", {
             required: "Please enter currency",
           })}
-          // error={errors.currency}
-          // helperText={errors.currency?.message}
         >
           <MenuItem value="Стандарт">Стандарт</MenuItem>
           <MenuItem value={"На массу"}>На массу</MenuItem>

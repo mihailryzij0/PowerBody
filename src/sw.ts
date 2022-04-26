@@ -22,22 +22,46 @@ registerRoute(
     cacheName: "static-resources",
   })
 );
+// registerRoute(
+//   new RegExp (/https:\/\/firebasestorage.googleapis.com(.*)/g),
+//   new StaleWhileRevalidate({
+//     cacheName: "firebasestorage",
+//     // plugins: [
+//     //   new CacheableResponsePlugin({
+//     //     statuses: [0, 200],
+//     //   }),
+//       // new ExpirationPlugin({
+//       //   maxAgeSeconds: 60 * 60 * 24 * 365,
+//       //   maxEntries: 30,
+//       // }),
+//   }),
+// );
+// registerRoute(
+//   ({ url }) =>
+//   url.origin === 'https://firestore.googleapis.com' ||
+//   url.origin === 'https://firebasestorage.googleapis.com',
+//   new CacheFirst({
+//     cacheName: "firestore",
+//     plugins: [
+//       new CacheableResponsePlugin({ statuses: [200] }),
+//     ],
+//     matchOptions: {
+//       ignoreSearch: true,
+//       ignoreVary: true
+//     }
+// }),
+
+// );
 registerRoute(
-  ({ url }) => url.origin === "https://firestore.googleapis.com",
+  ({ url }) =>
+    url.origin === "https://fonts.googleapis.com" ||
+    url.origin === "https://fonts.gstatic.com",
   new CacheFirst({
-    cacheName: "google-fonts-webfonts",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      // new ExpirationPlugin({
-      //   maxAgeSeconds: 60 * 60 * 24 * 365,
-      //   maxEntries: 30,
-      // }),
-    ],
-  }),
-  "GET"
+    cacheName: "google-fonts",
+    plugins: [new ExpirationPlugin({ maxEntries: 20 })],
+  })
 );
+
 registerRoute(
   ({ request }) => request.destination === "image",
   new CacheFirst({
@@ -47,8 +71,7 @@ registerRoute(
         statuses: [0, 200],
       }),
       new ExpirationPlugin({
-        maxEntries: 60,
-        maxAgeSeconds: 30 * 24 * 60 * 60,
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 дней
       }),
     ],
   })

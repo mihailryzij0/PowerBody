@@ -26,7 +26,7 @@ export const initialState: userData = {
 };
 
 export const setImageProfile = createAsyncThunk(
-  "userWorkout/updateImage",
+  "userData/updateImage",
   async (image: Blob, { rejectWithValue, getState }) => {
     const { user } = getState() as any;
     return setFirebaseImage(image, user.idUser, "imageUser")
@@ -40,18 +40,22 @@ export const setImageProfile = createAsyncThunk(
 );
 
 export const updateUserData = createAsyncThunk(
-  "userWorkout/updateData",
-  async (_, { getState }) => {
+  "userData/updateUserData",
+  async (_, { getState, rejectWithValue }) => {
     const {
       user,
       userData: { workout },
     } = getState() as any;
-    return updateFirebaseData("users", user.email, "workout", workout);
+    return updateFirebaseData("users", user.email, "workout", workout).catch(
+      (e) => {
+        rejectWithValue(e);
+      }
+    );
   }
 );
 
 export const getUserData = createAsyncThunk(
-  "userWorkout/getUserData",
+  "userData/getUserData",
   async (_, { rejectWithValue, getState }) => {
     const {
       user: { email },
@@ -63,7 +67,7 @@ export const getUserData = createAsyncThunk(
 );
 
 const userDataSlice = createSlice({
-  name: "userWorkout",
+  name: "userData",
   initialState,
   reducers: {
     updateUserWorkout(state, action) {
@@ -83,13 +87,13 @@ const userDataSlice = createSlice({
       state.isAdmin = action.payload.isAdmin;
       state.nickname = action.payload.nickname;
       state.avatarImg = action.payload.avatarImg;
-      state.status = "data-fulfilled";
+      state.status = "getData-fulfilled";
     });
     builder.addCase(getUserData.pending, (state) => {
-      state.status = "data-pending";
+      state.status = "getData-pending";
     });
     builder.addCase(getUserData.rejected, (state, action) => {
-      state.status = "data-rejected";
+      state.status = "getData-rejected";
       state.error = action.payload as string;
     });
 
@@ -103,6 +107,17 @@ const userDataSlice = createSlice({
     builder.addCase(setImageProfile.rejected, (state, action) => {
       state.error = action.payload as string;
       state.status = "img-rejected";
+    });
+
+    builder.addCase(updateUserData.fulfilled, (state, action) => {
+      state.status = "setData-fulfilled";
+    });
+    builder.addCase(updateUserData.pending, (state) => {
+      state.status = "setData-pending";
+    });
+    builder.addCase(updateUserData.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.status = "setData-rejected";
     });
   },
 });

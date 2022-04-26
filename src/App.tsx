@@ -12,6 +12,7 @@ import { getUserData } from "./store/slices/userDataSlice";
 import { Backdrop, CircularProgress } from "@mui/material";
 import NavPanel from "./components/NavPanel/NavPanel";
 import WithSuspense from "./components/hoc/WithSuspense";
+import UserCreateWorkout from "./pages/UserCreateWorkout";
 
 const AdminWorkoutSuspense = WithSuspense(AdminWorkout);
 const GeneratorWorkoutSuspense = WithSuspense(GeneratorWorkout);
@@ -23,6 +24,15 @@ function App() {
   useEffect(() => {
     if (user.isAuth) {
       dispach(getUserData());
+    }
+    if (process.env.NODE_ENV !== "development") {
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").then((registration) => {
+            console.log("SW registered: ", registration);
+          });
+        });
+      }
     }
   }, []);
   return (
@@ -65,6 +75,14 @@ function App() {
           element={
             <RequireAutch>
               <GeneratorWorkoutSuspense />
+            </RequireAutch>
+          }
+        />
+        <Route
+          path="/userCreateWorkout"
+          element={
+            <RequireAutch>
+              <UserCreateWorkout />
             </RequireAutch>
           }
         />
