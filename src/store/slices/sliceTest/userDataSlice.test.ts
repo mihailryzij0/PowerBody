@@ -31,9 +31,7 @@ describe("CardSlice", () => {
   beforeEach(() => {});
 
   it("asyncThunk setImageProfile", async () => {
-    let image = new Image();
-    image.src = "https://123test";
-    image.alt = "test";
+    let image = new Blob();
     await store.dispatch(setImageProfile(image));
     const { userData } = store.getState();
     expect(userData.avatarImg).toBe("https://google.firestore.com");
@@ -42,7 +40,7 @@ describe("CardSlice", () => {
   it("asyncThunk getUserData fulfilled", async () => {
     await store.dispatch(getUserData());
     const { userData } = store.getState();
-    expect(userData.status).toBe("data-fulfilled");
+    expect(userData.status).toBe("getData-fulfilled");
     expect(userData.workout).toEqual(result.workout);
     expect(userData.avatarImg).toEqual(result.avatarImg);
     expect(userData.nickname).toEqual(result.nickname);
@@ -50,7 +48,7 @@ describe("CardSlice", () => {
   it("asyncThunk getUserData rejected", async () => {
     await store.dispatch(getUserData());
     const { userData } = store.getState();
-    expect(userData.status).toBe("data-rejected");
+    expect(userData.status).toBe("getData-rejected");
     expect(userData.error).toEqual("ошибка");
   });
 });

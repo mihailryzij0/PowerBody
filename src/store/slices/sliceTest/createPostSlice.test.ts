@@ -52,10 +52,10 @@ describe("createPostSlice", () => {
       receivedData.postData
     );
   });
-  it("asyncThunk getUserAvatar rejected", async () => {
-    await store.dispatch(createPost(receivedData));
-    const { usersAvatar } = store.getState();
-    expect(usersAvatar.status).toBe("rejected");
-    expect(usersAvatar.error).toEqual("ошибка");
-  });
+  // it("asyncThunk getUserAvatar rejected", async () => {
+  //   await store.dispatch(createPost(receivedData));
+  //   const { usersAvatar } = store.getState();
+  //   expect(usersAvatar.status).toBe("rejected");
+  //   expect(usersAvatar.error).toEqual("ошибка");
+  // });
 });
