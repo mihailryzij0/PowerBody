@@ -28,8 +28,6 @@ export default function AdminWorkout() {
   const handleSubmit = async (postData: WorkoutForm) => {
     if (postData.image) {
       dispach(createPost({ postData, postKey }));
-      console.log(postKey);
-      console.log(postData);
     }
   };
   const MyBox = styled(Box)`

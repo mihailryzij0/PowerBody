@@ -1,5 +1,5 @@
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
-import { clientsClaim } from "workbox-core";
+import { clientsClaim, skipWaiting } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
@@ -10,9 +10,11 @@ import {
 } from "workbox-strategies";
 
 clientsClaim();
-declare let self: WorkerGlobalScope & typeof globalThis;
+declare let self: ServiceWorkerGlobalScope & typeof globalThis;
 
-self.skipWaiting();
+clientsClaim();
+skipWaiting();
+
 precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
