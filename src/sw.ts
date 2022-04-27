@@ -9,7 +9,6 @@ import {
   NetworkFirst,
 } from "workbox-strategies";
 
-clientsClaim();
 declare let self: ServiceWorkerGlobalScope & typeof globalThis;
 
 clientsClaim();

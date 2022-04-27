@@ -1,13 +1,11 @@
 import {
   Button,
   MenuItem,
-  Slider,
   styled,
   TextareaAutosize,
   TextField,
   Typography,
 } from "@mui/material";
-import { setUIValue } from "@testing-library/user-event/dist/types/document";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../hooks/redux-hooks";
@@ -85,7 +83,6 @@ export default function FormCreateWorkout({
     },
   });
   const { register, handleSubmit, reset, watch } = methods;
-  const vidio = watch("vidio")?.split("=").pop() as string;
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +95,7 @@ export default function FormCreateWorkout({
           variant="outlined"
           {...register(`vidio`)}
         />
-        <YoutubeEmbed embedId={vidio} />
+        <YoutubeEmbed linkYouTubeVidio={watch("vidio")} />
         <TextField
           fullWidth={true}
           label="Заголовок"

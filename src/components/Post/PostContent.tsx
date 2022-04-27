@@ -63,7 +63,7 @@ export default function PostContent({ postData }: postData) {
         <Typography mt={2} mb={2} variant="body2" align="center">
           {description}
         </Typography>
-        <YoutubeEmbed embedId={vidio} />
+        <YoutubeEmbed linkYouTubeVidio={vidio} />
         {previwWorkot && (
           <>
             <Box sx={{ mt: "50px" }}>
