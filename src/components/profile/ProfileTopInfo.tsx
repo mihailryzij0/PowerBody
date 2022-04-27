@@ -76,7 +76,10 @@ export default function ProfileTopInfo({
   return (
     <div className="profile-top">
       <div className="profile-top__info">
-        <Button onClick={() => navigate("/userCreateWorkout")}>
+        <Button
+          variant="outlined"
+          onClick={() => navigate("/userCreateWorkout")}
+        >
           Создать свою тренировку
         </Button>
       </div>
