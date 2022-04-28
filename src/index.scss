@@ -3,6 +3,7 @@
 @use "./components/YoutubeEmbed/YoutubeEmbed.scss";
 @use "./components/Post/Post.scss";
 @use "./pages/style-scss/UserCreateWorkout.scss";
+@use "./components/cards/cards.scss";
 
 * {
   margin: 0;
@@ -11,6 +12,8 @@
 
 body {
   overflow-x: hidden;
+
+  // background-image: url('./assets/bg-dark.png');
 }
 
 .container {

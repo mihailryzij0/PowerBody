@@ -2,6 +2,8 @@
   position: relative;
   overflow: contain;
   height: 200px;
+  max-width: 600px;
+  margin: 0 auto;
 
   &__img {
     object-fit: cover;

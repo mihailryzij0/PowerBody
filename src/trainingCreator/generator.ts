@@ -10,6 +10,7 @@ export function generator(...exercisesGroups: Array<Exercises>) {
     description: "",
     rating: "4",
     title: "Индивидульная тренировка",
+    typeWorkout: "Стандарт",
     workouts: [
       {
         workoutName: "",

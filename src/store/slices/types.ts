@@ -14,6 +14,7 @@ export interface Post {
   rating: string;
   title: string;
   id: number;
+  typeWorkout: string;
   workouts?: Array<Workout>;
 }
 

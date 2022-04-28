@@ -1,10 +1,11 @@
-import { TextField, Typography } from "@mui/material";
+import { IconButton, TextField, Typography } from "@mui/material";
 import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { Post, Workout } from "../store/slices/types";
 import InputGrupWorkout from "../components/FormCreateWorkout/InputGrupWorkout";
 import { FormInputSlider } from "../components/FormCreateWorkout/SliderForm";
+import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import {
   updateUserData,
   updateUserWorkout,
@@ -95,6 +96,19 @@ export default function UserCreateWorkout() {
             )}
           </form>
         </FormProvider>
+        <IconButton
+          sx={{
+            position: "fixed",
+            top: "20px",
+            left: "10px",
+            color: "white",
+          }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <ArrowCircleLeftOutlinedIcon sx={{ fontSize: 40 }} />
+        </IconButton>
       </div>
     </div>
   );

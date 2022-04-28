@@ -12,8 +12,10 @@
 // }
 
 .profile-workout {
-  margin-top: 100px;
+  border-top: 5px solid rgb(0 0 0 / 80%);
+  border-bottom: 5px solid rgb(0 0 0 / 80%);
   max-width: 600px;
+  margin: 0 auto;
 
   &__title {
     display: flex;
@@ -22,7 +24,6 @@
   }
 
   &__header {
-    background-color: rgb(0 0 0 / 80%);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,6 +35,10 @@
       align-items: center;
     }
   }
+}
+
+.profile-vidio {
+  margin-top: 30px;
 }
 
 .workout-box {
