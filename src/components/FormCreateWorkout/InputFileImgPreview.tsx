@@ -1,11 +1,5 @@
-import { Box, Button } from "@mui/material";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Box } from "@mui/material";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { UseFormRegister } from "react-hook-form/dist/types/form";
 import DialogCropper from "../ImageCropper/DialogCropper";
@@ -26,7 +20,6 @@ export default function InputFileImgPreview() {
 
   const setStateOpen: Dispatch<SetStateAction<boolean>> = (open) => {
     setOpen(open);
-    console.log(open);
   };
   const createImageUrl = (file: File | Blob) => {
     const reader = new FileReader();

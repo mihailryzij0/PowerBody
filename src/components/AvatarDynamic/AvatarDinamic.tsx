@@ -15,17 +15,14 @@ export default function AvatarDinamic({ authorId }: Props) {
       dispach(getUserAvatar(authorId));
     }
   }, []);
-  return authorId && usersAvatar[authorId] ? (
-    <Avatar
-      alt="avatar"
-      sx={{ transformTranslateZ: "0", marginRight: "10px" }}
-      src={usersAvatar[authorId]}
-    />
-  ) : (
-    <Avatar
-      alt="avatar"
-      src={require("../../assets/icon/icon-48x48.png")}
-      sx={{ marginRight: "10px" }}
-    />
+  return (
+    <>
+      <Avatar
+        alt="avatar"
+        sx={{ transformTranslateZ: "0", marginRight: "10px" }}
+        src={authorId && usersAvatar[authorId] ? usersAvatar[authorId] : ""}
+      />
+      <div> {JSON.stringify(usersAvatar)} </div>
+    </>
   );
 }

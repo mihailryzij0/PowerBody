@@ -116,9 +116,9 @@ export default function FormCreateWorkout({
           })}
         >
           <MenuItem value="Стандарт">Стандарт</MenuItem>
-          <MenuItem value={"На массу"}>На массу</MenuItem>
-          <MenuItem value={"На сушку"}>На сушку</MenuItem>
-          <MenuItem value={"На выносливость"}>На выносливость</MenuItem>
+          <MenuItem value="На массу">На массу</MenuItem>
+          <MenuItem value="На сушку">На сушку</MenuItem>
+          <MenuItem value="На выносливость">На выносливость</MenuItem>
         </TextField>
         <AdminTextareaAutosize
           {...register("description", {

@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup";
 import { renderWithReduxAndRouter } from "../../test-utils";
 import PostsList from "../PostsList";
-import { store } from "../../store/store";
 
 const valueReturnFirebase = {
   cards: {

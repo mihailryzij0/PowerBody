@@ -10,7 +10,7 @@ export const FormInputSlider = ({ name }: Record<string, string>) => {
     if (sliderValue) setValue("weeks", sliderValue);
   }, [sliderValue]);
 
-  const handleChange = (event: any, newValue: number | number[]) => {
+  const handleChange = (_: any, newValue: number | number[]) => {
     setSliderValue(newValue as number);
   };
 

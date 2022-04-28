@@ -10,11 +10,6 @@ export default function CardsFilter() {
     postCards,
     filteredCards: { filtredParams },
   } = useAppSelector((state) => state.cards);
-
-  // const [filtredParams, setFiltredParams] = useState({
-  //   author: "Весь список",
-  //   typeWorkout: "Весь список",
-  // });
   const [autors, setAutors] = useState<Array<string> | []>([]);
 
   useEffect(() => {
