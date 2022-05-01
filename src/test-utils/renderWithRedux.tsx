@@ -8,8 +8,9 @@ import getUsersAvatarSlice from "../store/slices/getUsersAvatarSlice";
 import postSlice from "../store/slices/postSlice";
 import userDataSlice from "../store/slices/userDataSlice";
 import userReducer from "../store/slices/userSlice";
+import { store } from "../store/store";
 
-export let testStore;
+export let testStore: typeof store;
 export const renderWithRedux = (
   component: JSX.Element,
   preloadedState?: Record<any, any>
