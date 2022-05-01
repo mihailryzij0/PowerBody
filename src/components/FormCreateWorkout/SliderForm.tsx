@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export const FormInputSlider = ({ name }: Record<string, string>) => {
-  const [sliderValue, setSliderValue] = React.useState(2);
+  const [sliderValue, setSliderValue] = React.useState(4);
   const { setValue, control } = useFormContext();
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export const FormInputSlider = ({ name }: Record<string, string>) => {
         control={control}
         render={() => (
           <Slider
+            data-testid="slider"
             aria-label="Always visible"
             value={sliderValue}
             onChange={handleChange}
