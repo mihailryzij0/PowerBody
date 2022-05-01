@@ -3,8 +3,8 @@ import { screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup";
-import { renderWithReduxAndRouter } from "../../test-utils";
 import PostsList from "../PostsList";
+import { renderWithReduxAndRouter } from "../../test-utils/renderWithReduxAndRouter";
 
 const valueReturnFirebase = {
   cards: {

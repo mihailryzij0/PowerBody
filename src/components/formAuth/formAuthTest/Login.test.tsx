@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import Login from "../Login";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup";
-import { renderWithReduxAndRouter } from "../../../test-utils";
+import { renderWithReduxAndRouter } from "../../../test-utils/renderWithReduxAndRouter";
 
 describe("DefultPage", () => {
   let user: UserEvent;

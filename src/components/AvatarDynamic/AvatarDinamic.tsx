@@ -16,13 +16,10 @@ export default function AvatarDinamic({ authorId }: Props) {
     }
   }, []);
   return (
-    <>
-      <Avatar
-        alt="avatar"
-        sx={{ transformTranslateZ: "0", marginRight: "10px" }}
-        src={authorId && usersAvatar[authorId] ? usersAvatar[authorId] : ""}
-      />
-      <div> {JSON.stringify(usersAvatar)} </div>
-    </>
+    <Avatar
+      alt="avatar"
+      sx={{ transformTranslateZ: "0", marginRight: "10px" }}
+      src={authorId && usersAvatar[authorId] ? usersAvatar[authorId] : ""}
+    />
   );
 }

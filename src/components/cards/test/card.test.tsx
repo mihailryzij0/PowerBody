@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Card, { CardProps } from "./Card";
+import Card, { CardProps } from "../Card";
 
-jest.mock("../AvatarDynamic/AvatarDinamic", () => {
+jest.mock("../../AvatarDynamic/AvatarDinamic", () => {
   return function AvatarDinamic({ authorId }: Record<string, string>) {
     return <div data-testid="map">{authorId}</div>;
   };

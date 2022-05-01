@@ -33,6 +33,7 @@ export default function CardsFilter() {
   return (
     <div className="cards-filter">
       <Select
+        inputProps={{ "data-testid": "select-1" }}
         className="cards-filter__item"
         fullWidth={true}
         value={filtredParams.typeWorkout}
@@ -46,6 +47,7 @@ export default function CardsFilter() {
       </Select>
 
       <Select
+        data-testid="select-2"
         className="cards-filter__item"
         fullWidth={true}
         value={filtredParams.author}

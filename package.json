@@ -1,10 +1,9 @@
 {
   "name": "webpack-2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --silent --coverage --coverageReporters='text' --coverageReporters='text-summary'",
+    "test": "jest",
     "lint": "eslint . && stylelint \"**/*.scss\" && prettier --check . && tsc --noEmit",
     "lint:fix": "eslint . --fix && stylelint \"**/*.scss\" --fix && prettier --write .",
     "prepare": "husky install",
@@ -92,5 +91,14 @@
     "*.js,.ts": "eslint --cache --fix",
     "*.{js,.ts,tsx,css,md, yml}": "prettier --write",
     "*.scss": "stylelint --fix"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mihailryzij0/PowerBody.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mihailryzij0/PowerBody/issues"
+  },
+  "homepage": "https://github.com/mihailryzij0/PowerBody#readme",
+  "description": ""
 }

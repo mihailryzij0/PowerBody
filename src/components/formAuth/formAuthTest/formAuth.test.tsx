@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup";
 import { FormAuth } from "../FormAuth";
-import { renderWithReduxAndRouter } from "../../../test-utils";
+import { renderWithReduxAndRouter } from "../../../test-utils/renderWithReduxAndRouter";
 
 const mockSubmit = jest.fn();
 describe("formAuth", () => {
