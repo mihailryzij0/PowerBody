@@ -89,6 +89,7 @@ export default function FormCreateWorkout({
         <InputFileImgPreview />
         <FormInputSlider name="weeks" />
         <TextField
+          inputProps={{ "data-testid": "inputYoutube" }}
           fullWidth={true}
           label="Ссылка видио youtube"
           margin="normal"
@@ -97,6 +98,7 @@ export default function FormCreateWorkout({
         />
         <YoutubeEmbed linkYouTubeVidio={watch("vidio")} />
         <TextField
+          inputProps={{ "data-testid": "title" }}
           fullWidth={true}
           label="Заголовок"
           margin="normal"
@@ -124,6 +126,7 @@ export default function FormCreateWorkout({
           {...register("description", {
             required: "поле обьзательо для заполнения",
           })}
+          data-testid={"description"}
           aria-label="minimum height"
           placeholder="Описание тренировки"
         />
@@ -131,6 +134,7 @@ export default function FormCreateWorkout({
           <InputGrupWorkout />
         ) : (
           <Button
+            data-testid={"buttonSubmit"}
             sx={{ marginTop: "20px" }}
             variant="outlined"
             color="secondary"

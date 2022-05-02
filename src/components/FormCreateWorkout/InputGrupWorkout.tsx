@@ -113,7 +113,12 @@ export default function InputGrupWorkout() {
         >
           <AddIcon />
         </Fab>
-        <Button variant="outlined" color="secondary" type="submit">
+        <Button
+          variant="outlined"
+          color="secondary"
+          type="submit"
+          data-testid={"buttonSubmit"}
+        >
           Создать
         </Button>
       </div>

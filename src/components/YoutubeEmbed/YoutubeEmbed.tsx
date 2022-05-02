@@ -9,6 +9,7 @@ export default function YoutubeEmbed({ linkYouTubeVidio }: props) {
       {embedId != "" && embedId && (
         <div className="video-responsive">
           <iframe
+            data-testid={"youtubeEmbed"}
             width="853"
             height="480"
             src={`https://www.youtube.com/embed/${embedId}`}
