@@ -51,6 +51,7 @@ export default function InputGrupWorkout() {
       {typeFilds.map((inputsBlock, indexBlock) => (
         <Accordion key={indexBlock} sx={{ marginBottom: "10px" }}>
           <AccordionSummary
+            data-testid={"accordionBtn"}
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
@@ -59,6 +60,7 @@ export default function InputGrupWorkout() {
           </AccordionSummary>
           <AccordionDetails>
             <TextField
+              inputProps={{ "data-testid": "inputNameComplex" }}
               fullWidth={true}
               label="Название комплекса"
               margin="normal"
@@ -69,8 +71,9 @@ export default function InputGrupWorkout() {
             />
             {inputsBlock.exercises.map((input, index: number) => (
               <TextField
+                inputProps={{ "data-testid": "inputNameExercise" }}
                 fullWidth={true}
-                key={index + 5}
+                key={index}
                 label="Упражнение"
                 margin="normal"
                 variant="outlined"
@@ -83,10 +86,12 @@ export default function InputGrupWorkout() {
               onClick={() => addTextField(indexBlock)}
               color="primary"
               aria-label="add"
+              data-testid={"addExerciseInputBtn"}
             >
               <AddIcon />
             </IconButton>
             <IconButton
+              data-testid={"deleteExerciseInputBtn"}
               disabled={inputsBlock.exercises.length < 2}
               onClick={() => deleteLastTextField(indexBlock)}
             >
@@ -97,6 +102,7 @@ export default function InputGrupWorkout() {
       ))}
       <div className="form-workout__bottom">
         <Fab
+          data-testid={"addinputNameComplexBtn"}
           color="secondary"
           onClick={() => {
             append({

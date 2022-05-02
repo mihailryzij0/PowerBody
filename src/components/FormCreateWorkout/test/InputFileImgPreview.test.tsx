@@ -46,13 +46,11 @@ describe("InputFileImgPreview", () => {
 
   beforeEach(() => {
     renderWithReactHookForm(<InputFileImgPreview />);
-
     file = new File([new ArrayBuffer(1)], "file.jpg");
 
     readFileMock = jest
       .spyOn(ReadFileAsDataURL, "default")
       .mockResolvedValue("image content");
-
     jest.clearAllMocks();
   });
 
