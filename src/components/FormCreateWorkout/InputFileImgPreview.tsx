@@ -1,8 +1,15 @@
 import { Box } from "@mui/material";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useFormContext } from "react-hook-form";
 import { UseFormRegister } from "react-hook-form/dist/types/form";
 import DialogCropper from "../ImageCropper/DialogCropper";
+import readFileAsDataURL from "../ImageCropper/readFileAsDataURL";
 
 export interface inputFileProps {
   register: UseFormRegister<any>;
@@ -21,43 +28,39 @@ export default function InputFileImgPreview() {
   const setStateOpen: Dispatch<SetStateAction<boolean>> = (open) => {
     setOpen(open);
   };
-  const createImageUrl = (file: File | Blob) => {
-    const reader = new FileReader();
 
-    reader.addEventListener(
-      "load",
-      () => {
-        if (typeof reader.result === "string") {
-          setInputImg(reader.result);
-        }
-      },
-      false
-    );
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const onInputChange = (e: Event<HTMLInputElement>) => {
-    if (e && e.target && e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      createImageUrl(file);
+  const onInputChange = useCallback(({ target }) => {
+    async function doFileRead() {
+      const result = await readFileAsDataURL(target.files[0]);
+      setInputImg(result as string);
       setOpen(true);
     }
-  };
-  const handleImage = (blob: Blob | null) => {
-    if (blob) {
-      setValue("image", blob);
-      createImageUrl(blob);
+    doFileRead();
+  }, []);
+
+  const handleImage = useCallback((blob: Blob | null) => {
+    async function doFileRead() {
+      if (blob) {
+        setValue("image", blob);
+        const url = await readFileAsDataURL(blob);
+        setInputImg(url);
+      }
+      setOpen(false);
     }
-  };
+    doFileRead();
+  }, []);
 
   return (
     <>
       <Box className="preview" component="label">
-        <img className="preview__img" src={inputImg} />
-        <input type="file" onChange={onInputChange} accept="image/*" hidden />
+        <img data-testid="image" className="preview__img" src={inputImg} />
+        <input
+          data-testid="input"
+          type="file"
+          onChange={onInputChange}
+          accept="image/*"
+          hidden
+        />
       </Box>
       <DialogCropper
         handlerImage={handleImage}

@@ -5,7 +5,6 @@ import {
   IconButton,
   Slide,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,7 +26,7 @@ interface Event<T = EventTarget> {
   target: T;
 }
 
-interface Props {
+export interface PropsDialogCropp {
   handlerImage: (blob: Blob | null) => void;
   open: boolean;
   setStateOpen: Dispatch<SetStateAction<boolean>>;
@@ -47,7 +46,7 @@ export default function DialogCropp({
   heightBlob,
   aspect,
   cropShape,
-}: Props) {
+}: PropsDialogCropp) {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [blob, setBlob] = useState<Blob | null>(null);
@@ -62,6 +61,9 @@ export default function DialogCropp({
 
     setBlob(croppedImage);
   };
+  const handleClick = () => {
+    handlerImage(blob);
+  };
   return (
     <>
       <Dialog
@@ -73,6 +75,7 @@ export default function DialogCropp({
         <AppBar sx={{ position: "relative" }}>
           <Toolbar>
             <IconButton
+              data-testid={"closeButton"}
               edge="start"
               color="inherit"
               onClick={() => setStateOpen(false)}
@@ -80,17 +83,11 @@ export default function DialogCropp({
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Отменить
-            </Typography>
             <Button
+              data-testid={"saveButton"}
               autoFocus
               color="inherit"
-              onClick={() => {
-                setStateOpen(false);
-                handlerImage(blob);
-                console.log(blob);
-              }}
+              onClick={handleClick}
             >
               Сохранить
             </Button>

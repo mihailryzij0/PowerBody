@@ -49,7 +49,7 @@ export default function InputGrupWorkout() {
   return (
     <div className="form-workout-box">
       {typeFilds.map((inputsBlock, indexBlock) => (
-        <Accordion sx={{ marginBottom: "10px" }}>
+        <Accordion key={indexBlock} sx={{ marginBottom: "10px" }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -70,6 +70,7 @@ export default function InputGrupWorkout() {
             {inputsBlock.exercises.map((input, index: number) => (
               <TextField
                 fullWidth={true}
+                key={index + 5}
                 label="Упражнение"
                 margin="normal"
                 variant="outlined"
