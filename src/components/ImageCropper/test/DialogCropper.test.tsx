@@ -22,14 +22,14 @@ describe("DialogCropp", () => {
     jest.clearAllMocks();
   });
 
-  it("FormCreateWorkout render", () => {
+  it("DialogCropp render", () => {
     expect(screen.getByTestId("closeButton")).toBeInTheDocument();
     expect(screen.getByTestId("saveButton")).toBeInTheDocument();
     expect(screen.getByTestId("cropper")).toBeInTheDocument();
     expect(screen.getByTestId("container")).toBeInTheDocument();
   });
 
-  it("FormCreateWorkout button click close", () => {
+  it("DialogCropp button click close", () => {
     const closeButton = screen.getByTestId("closeButton");
     fireEvent.click(closeButton);
     expect(mockSetStateOpen).toHaveBeenCalledWith(false);

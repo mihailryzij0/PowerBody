@@ -53,5 +53,8 @@ export async function getCroppedImg({
     canvas.toBlob((file) => {
       resolve(file);
     }, "image/webp");
+    if (!canvas) {
+      reject("ошибка");
+    }
   });
 }
