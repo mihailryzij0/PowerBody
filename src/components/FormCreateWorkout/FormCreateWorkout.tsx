@@ -27,6 +27,7 @@ export interface WorkoutForm {
   id: number;
   weeks: number;
   workouts?: Array<Workout>;
+  comments: [];
 }
 
 export interface AdminWorkoutProps {
@@ -80,6 +81,7 @@ export default function FormCreateWorkout({
       ],
       image: null,
       vidio: null,
+      comments: [],
     },
   });
   const { register, handleSubmit, reset, watch } = methods;

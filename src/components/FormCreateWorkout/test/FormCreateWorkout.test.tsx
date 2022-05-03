@@ -61,6 +61,7 @@ describe("InputGrupWorkout with the vitamins key", () => {
       rating: "4",
       weeks: 4,
       image: null,
+      comments: [],
       vidio: "https://www.youtube.com/watch?v=yoqqBJYMNcY",
     });
   });
@@ -134,6 +135,7 @@ describe("InputGrupWorkout with the workouts key", () => {
       weeks: 4,
       image: null,
       vidio: "https://www.youtube.com/watch?v=yoqqBJYMNcY",
+      comments: [],
       workouts: [
         {
           exercises: ["testExercise"],

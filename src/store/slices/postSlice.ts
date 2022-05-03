@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getFirebaseData } from "../../firebase";
+import { getFirebaseData, updateFirebaseData } from "../../firebase";
 import { Post } from "./types";
 
 interface State {
@@ -23,10 +23,29 @@ export const getPostData: any = createAsyncThunk(
   }
 );
 
+export const updateComments = createAsyncThunk(
+  "post/updateComments",
+  async (postId: number, { rejectWithValue, getState }) => {
+    const {
+      post: { postData },
+    } = getState() as any;
+    return updateFirebaseData(
+      "posts",
+      `${postId}`,
+      "comments",
+      postData.comments
+    );
+  }
+);
+
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    setComments: (state, action) => {
+      state.postData?.comments.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getPostData.fulfilled, (state, action) => {
       state.status = "fulfilled";
@@ -42,6 +61,6 @@ const postSlice = createSlice({
   },
 });
 
-export const {} = postSlice.actions;
+export const { setComments } = postSlice.actions;
 
 export default postSlice.reducer;

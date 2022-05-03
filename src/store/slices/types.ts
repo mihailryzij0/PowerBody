@@ -5,6 +5,12 @@ export interface Workout {
   exercises: Array<string>;
 }
 
+type comment = {
+  commentText: string;
+  authorCommentId: string;
+  authorCommentName: string;
+};
+
 export interface Post {
   authorId: string | null;
   author: string;
@@ -16,6 +22,7 @@ export interface Post {
   id: number;
   typeWorkout: string;
   workouts?: Array<Workout>;
+  comments: Array<comment>;
 }
 
 export type Card = Omit<Post, "workouts">;
