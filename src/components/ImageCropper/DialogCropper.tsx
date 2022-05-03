@@ -93,7 +93,7 @@ export default function DialogCropp({
             </Button>
           </Toolbar>
         </AppBar>
-        <div className="profole-crppper-box">
+        <div data-testid={"cropper"} className="profole-crppper-box">
           <Cropper
             image={imageSrc}
             crop={crop}
