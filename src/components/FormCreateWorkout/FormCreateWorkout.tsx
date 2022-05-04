@@ -22,9 +22,8 @@ export interface WorkoutForm {
   vidio: string | null;
   description: string;
   typeWorkout: string;
-  rating: string;
   title: string;
-  id: number;
+  id: string;
   weeks: number;
   workouts?: Array<Workout>;
   comments: [];
@@ -70,8 +69,7 @@ export default function FormCreateWorkout({
       typeWorkout: "",
       authorId: idUser,
       author: nickname,
-      id: new Date().valueOf(),
-      rating: "4",
+      id: new Date().valueOf().toString(),
       weeks: 6,
       workouts: [
         {

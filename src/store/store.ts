@@ -6,6 +6,7 @@ import userDataSlice from "./slices/userDataSlice";
 import { User } from "./slices/userSlice";
 import createPostSlice from "./slices/createPostSlice";
 import getUsersAvatarSlice from "./slices/getUsersAvatarSlice";
+import ratingSlice from "./slices/ratingSlice";
 let userAutch = localStorage.getItem("user");
 let user: User | undefined = undefined;
 if (userAutch !== null) user = JSON.parse(userAutch);
@@ -18,6 +19,7 @@ export const store = configureStore({
     userData: userDataSlice,
     createPost: createPostSlice,
     usersAvatar: getUsersAvatarSlice,
+    ratings: ratingSlice,
   },
   preloadedState: {
     user: user,

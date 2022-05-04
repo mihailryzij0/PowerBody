@@ -2,7 +2,6 @@ import { Backdrop, Typography } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../hooks/redux-hooks";
 import CircularProgress from "@mui/material/CircularProgress";
-import ProfileContent from "../components/profile/ProfileContent";
 import ProfileTopInfo from "../components/profile/ProfileTopInfo";
 import ProfileWorkouts from "../components/profile/ProfileWorkouts";
 import YoutubeEmbed from "../components/YoutubeEmbed/YoutubeEmbed";

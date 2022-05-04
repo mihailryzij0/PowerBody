@@ -1,14 +1,15 @@
-import { Box, Typography, Rating, Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Typography, Button } from "@mui/material";
+import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux-hooks";
-import { getPostCards } from "../../store/slices/cardsSlice";
+import { setRating } from "../../store/slices/ratingSlice";
 import { Post, Workout } from "../../store/slices/types";
 import {
   updateUserData,
   updateUserWorkout,
 } from "../../store/slices/userDataSlice";
 import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
+import RatingDinamic from "../RatingDinamic/RatingDinamic";
 import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
 import FormCreateComment from "./FormCreateComent";
 import PostComments from "./PostComments";
@@ -21,7 +22,6 @@ export default function PostContent({ postData }: postData) {
     title,
     description,
     workouts,
-    rating,
     image,
     vidio,
     authorId,
@@ -30,6 +30,7 @@ export default function PostContent({ postData }: postData) {
     id,
   } = postData;
   const previwWorkot: Workout[] | undefined = workouts?.slice(0, 3);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [successButton, setSuccessButton] = useState(false);
@@ -41,6 +42,15 @@ export default function PostContent({ postData }: postData) {
       dispatch(updateUserWorkout(postData));
       dispatch(updateUserData());
       setSuccessButton(true);
+    }
+  };
+
+  const changeRating = (
+    event: SyntheticEvent<Element, Event>,
+    newValue: number | null
+  ) => {
+    if (newValue) {
+      dispatch(setRating({ newValue, id }));
     }
   };
 
@@ -77,11 +87,7 @@ export default function PostContent({ postData }: postData) {
           {description}
         </Typography>
         <div className="post-rating">
-          <Rating
-            name="size-large"
-            disabled={true}
-            defaultValue={Number(rating)}
-          />
+          <RatingDinamic id={id} handleChange={changeRating} />
         </div>
         <YoutubeEmbed linkYouTubeVidio={vidio} />
         {previwWorkot && (

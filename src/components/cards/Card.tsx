@@ -7,20 +7,21 @@ import {
 import React from "react";
 import { CardImg } from "./card.style";
 import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
+import RatingDinamic from "../RatingDinamic/RatingDinamic";
 export interface CardProps {
   title: string;
-  rating: string;
   image: string;
   author: string;
   authorId: string | null;
+  id: string;
 }
 
 export default function Card({
   title,
-  rating,
   image,
   author,
   authorId,
+  id,
 }: CardProps) {
   const [imageLoaded, setImageLoaded] = React.useState(false);
   return (
@@ -44,13 +45,7 @@ export default function Card({
       )}
       <ImageListItemBar
         title={title}
-        actionIcon={
-          <Rating
-            name="size-medium"
-            disabled={true}
-            defaultValue={Number(rating)}
-          />
-        }
+        actionIcon={<RatingDinamic id={id} disabled={true} />}
       ></ImageListItemBar>
       <ImageListItemBar
         sx={{

@@ -9,6 +9,7 @@ import postSlice from "../store/slices/postSlice";
 import userDataSlice from "../store/slices/userDataSlice";
 import userReducer from "../store/slices/userSlice";
 import { store } from "../store/store";
+import ratingSlice from "../store/slices/ratingSlice";
 
 export let testStore: typeof store;
 export const renderWithRedux = (
@@ -23,6 +24,7 @@ export const renderWithRedux = (
       userData: userDataSlice,
       createPost: createPostSlice,
       usersAvatar: getUsersAvatarSlice,
+      ratings: ratingSlice,
     },
     preloadedState: preloadedState,
     middleware: (getDefaultMiddleware) =>

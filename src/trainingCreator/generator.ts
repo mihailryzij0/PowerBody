@@ -3,12 +3,11 @@ import { Exercises } from "./trainingCreator";
 
 export function generator(...exercisesGroups: Array<Exercises>) {
   let workout: Required<Post> = {
-    id: new Date().valueOf(),
+    id: "1",
     image: "",
     authorId: "",
     author: "PowerBody",
     description: "",
-    rating: "4",
     title: "Индивидульная тренировка",
     typeWorkout: "Стандарт",
     workouts: [
@@ -18,6 +17,7 @@ export function generator(...exercisesGroups: Array<Exercises>) {
       },
     ],
     vidio: "",
+    comments: [],
   };
   let workouts: Array<Workout> = [];
   for (let i = 1; i <= 6; i++) {

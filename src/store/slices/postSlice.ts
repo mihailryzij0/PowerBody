@@ -25,16 +25,11 @@ export const getPostData: any = createAsyncThunk(
 
 export const updateComments = createAsyncThunk(
   "post/updateComments",
-  async (postId: number, { rejectWithValue, getState }) => {
+  async (postId: string, { rejectWithValue, getState }) => {
     const {
       post: { postData },
     } = getState() as any;
-    return updateFirebaseData(
-      "posts",
-      `${postId}`,
-      "comments",
-      postData.comments
-    );
+    return updateFirebaseData("posts", postId, "comments", postData.comments);
   }
 );
 

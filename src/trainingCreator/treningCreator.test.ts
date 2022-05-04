@@ -39,7 +39,6 @@ describe("treningCreator", () => {
       const workout = trainingCreator(parametr);
       expect(workout?.workouts?.length).toBe(18);
       expect(workout?.title).toBe("Индивидульная тренировка");
-      expect(workout?.rating).toBe("4");
       expect(workout?.image).toBe("");
       expect(workout?.authorId).toBe("");
       expect(workout?.author).toBe("PowerBody");

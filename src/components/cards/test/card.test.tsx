@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Card, { CardProps } from "../Card";
+import { renderWithRedux } from "../../../test-utils/renderWithRedux";
 
 jest.mock("../../AvatarDynamic/AvatarDinamic", () => {
   return function AvatarDinamic({ authorId }: Record<string, string>) {
@@ -12,14 +13,18 @@ jest.mock("../../AvatarDynamic/AvatarDinamic", () => {
 describe("DefultPage", () => {
   const cardsProps: CardProps = {
     title: "Тренировка",
-    rating: "4",
     image: "https://firebasestorage.googleapis.com",
     author: "Михаил",
     authorId: "32345sdfbb",
+    id: "1",
   };
 
   it("Card render", () => {
-    render(<Card {...cardsProps} />);
+    renderWithRedux(<Card {...cardsProps} />, {
+      ratings: {
+        ratings: { "1": { rating: 5, voted: 0, sumRating: 5 } },
+      },
+    });
     const cardsTitle = screen.getByText(/Тренировка/i);
     const cardsRating = screen.getByText(/4 Stars/i);
     const cardsAuthor = screen.getByText(/Михаил/i);

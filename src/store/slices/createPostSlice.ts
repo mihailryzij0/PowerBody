@@ -13,7 +13,21 @@ export const createPost: any = createAsyncThunk(
     return setFirebaseImage(postData.image, postData.id, "imagePosts")
       .then((url) => {
         postData.image = url;
-        return setFirebaseData("posts", `${postData.id}`, postData);
+        if (postKey === "workouts") {
+          postData.workouts = [].concat(
+            ...(Array.from({ length: postData.weeks }).fill(
+              postData.workouts
+            ) as [])
+          );
+        }
+        return setFirebaseData("posts", postData.id, postData);
+      })
+      .then(() => {
+        return setFirebaseData("rating", postData.id, {
+          rating: 5,
+          voted: 0,
+          sumRating: 5,
+        });
       })
       .then(() => {
         const { workouts, ...dataCards } = postData;

@@ -9,7 +9,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { Post } from "../../store/slices/types";
 import {
@@ -17,14 +17,24 @@ import {
   updateUserData,
 } from "../../store/slices/userDataSlice";
 import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
+import PopupRateWorkout from "./PopupRateWorkout";
 
 export default function ProfileWorkouts({
   workout,
 }: Record<string, Required<Post>>) {
   const { workouts } = workout;
   const [activeStep, setActiveStep] = React.useState(0);
+  const [openPopup, setOpenPopup] = React.useState(false);
   const maxSteps = workouts.length;
   const theme = useTheme();
+
+  const setStateOpen: Dispatch<SetStateAction<boolean>> = (open) => {
+    if (workouts.length === 1) {
+      dispatch(deleteUserWorkout(0));
+      dispatch(updateUserData());
+    }
+    setOpenPopup(open);
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -36,8 +46,12 @@ export default function ProfileWorkouts({
 
   const dispatch = useAppDispatch();
   const hendleClick = (index: number) => {
-    dispatch(deleteUserWorkout(index));
-    dispatch(updateUserData());
+    if (workouts.length === 1) {
+      setOpenPopup(true);
+    } else {
+      dispatch(deleteUserWorkout(index));
+      dispatch(updateUserData());
+    }
   };
 
   return (
@@ -111,6 +125,9 @@ export default function ProfileWorkouts({
           />
         </Box>
       </div>
+      {openPopup && (
+        <PopupRateWorkout closePopup={setStateOpen} id={workout.id} />
+      )}
     </div>
   );
 }

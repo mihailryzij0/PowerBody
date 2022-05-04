@@ -5,7 +5,7 @@ import { setComments, updateComments } from "../../store/slices/postSlice";
 import { comment } from "../../store/slices/types";
 
 interface FormCreateComment {
-  postId: number;
+  postId: string;
 }
 
 export default function FormCreateComment({ postId }: FormCreateComment) {

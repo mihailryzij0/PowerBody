@@ -10,7 +10,10 @@ const receivedData = {
     description: "test",
     rating: "5",
     title: "test",
-    id: 123,
+    weeks: 6,
+    id: "123",
+    vidio: null,
+    comments: [],
   },
   postKey: "vitamons",
 };
@@ -38,8 +41,13 @@ describe("createPostSlice", () => {
         name: "image",
         width: 400,
       },
-      123,
+      "123",
       "imagePosts"
+    );
+    expect(setFirebaseData).toHaveBeenCalledWith(
+      "posts",
+      "123",
+      receivedData.postData
     );
     expect(setFirebaseData).toHaveBeenCalledWith(
       "posts",

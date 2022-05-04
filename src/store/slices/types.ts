@@ -5,7 +5,7 @@ export interface Workout {
   exercises: Array<string>;
 }
 
-type comment = {
+export type comment = {
   commentText: string;
   authorCommentId: string;
   authorCommentName: string;
@@ -17,9 +17,8 @@ export interface Post {
   image: string;
   vidio: string;
   description: string;
-  rating: string;
   title: string;
-  id: number;
+  id: string;
   typeWorkout: string;
   workouts?: Array<Workout>;
   comments: Array<comment>;
