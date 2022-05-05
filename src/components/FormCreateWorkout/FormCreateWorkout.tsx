@@ -91,7 +91,7 @@ export default function FormCreateWorkout({
         <TextField
           inputProps={{ "data-testid": "inputYoutube" }}
           fullWidth={true}
-          label="Ссылка видио youtube"
+          label="Ссылка видео youtube"
           margin="normal"
           variant="outlined"
           {...register(`video`)}

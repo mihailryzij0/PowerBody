@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { Dispatch, SetStateAction, SyntheticEvent } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import RatingDinamic from "../RatingDynamic/RatingDynamic";
+import RatingDynamic from "../RatingDynamic/RatingDynamic";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { setRating } from "../../store/slices/ratingSlice";
 interface PopupRateWorkout {
@@ -53,7 +53,7 @@ export default function PopupRateWorkout({ closePopup, id }: PopupRateWorkout) {
         <Typography textAlign={"center"} mb={2} variant="h4">
           Оцени тренировку
         </Typography>
-        <RatingDinamic id={id} handleChange={changeRating} />
+        <RatingDynamic id={id} handleChange={changeRating} />
       </div>
     </Dialog>
   );

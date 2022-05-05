@@ -23,6 +23,7 @@ export interface WorkoutForm {
   title: string;
   id: number;
   workouts?: Array<Workout>;
+  weeks: number;
 }
 
 export default function UserCreateWorkout() {
@@ -49,12 +50,16 @@ export default function UserCreateWorkout() {
           workoutName: "",
         },
       ],
+      weeks: 6,
       image: null,
       video: null,
     },
   });
 
   const onSubmit = (workout: Required<WorkoutForm>) => {
+    workout.workouts = [].concat(
+      ...(Array.from({ length: workout.weeks }).fill(workout.workouts) as [])
+    );
     dispatch(updateUserWorkout(workout));
     dispatch(updateUserData());
   };

@@ -43,19 +43,17 @@ export const setRating = createAsyncThunk(
       ratings: { ratings },
     } = getState() as any;
     const newVoted = ratings[id].voted + 1;
-    const newSumRating = ratings[id].rating + newValue;
-
+    const newSumRating = ratings[id].sumRating + newValue;
     const exposedObject = {
       sumRating: newSumRating,
       voted: newVoted,
       rating: newSumRating / newVoted,
     };
     setFirebaseData("rating", id, exposedObject);
-
     dispatch(
       updateRating({
         [id]: {
-          sumRating: ratings[id].rating,
+          sumRating: ratings[id].sumRating,
           voted: ratings[id].voted,
           rating: newValue,
         },

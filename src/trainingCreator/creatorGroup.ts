@@ -9,7 +9,7 @@ export const creatorGroup = (
       exercises: [
         ...newExercises.back,
         ...newExercises.biceps,
-        ...newExercises.additiona,
+        ...newExercises.additional,
       ],
     },
     legsAndShoulder: {
@@ -17,7 +17,7 @@ export const creatorGroup = (
       exercises: [
         ...newExercises.legs,
         ...newExercises.shoulder,
-        ...newExercises.additiona,
+        ...newExercises.additional,
       ],
     },
     pectoralAndTriceps: {
@@ -25,31 +25,31 @@ export const creatorGroup = (
       exercises: [
         ...newExercises.pectoral,
         ...newExercises.triceps,
-        ...newExercises.additiona,
+        ...newExercises.additional,
       ],
     },
     pectoral: {
       workoutName: "Грудь",
       exercises: [
         ...newExercises.pectoral,
-        ...newExercises.additiona,
-        ...newExercises.additiona,
+        ...newExercises.additional,
+        ...newExercises.additional,
       ],
     },
     legs: {
       workoutName: "Ноги",
       exercises: [
         ...newExercises.legs,
-        ...newExercises.additiona,
-        ...newExercises.additiona,
+        ...newExercises.additional,
+        ...newExercises.additional,
       ],
     },
     back: {
       workoutName: "Спина",
       exercises: [
         ...newExercises.back,
-        ...newExercises.additiona,
-        ...newExercises.additiona,
+        ...newExercises.additional,
+        ...newExercises.additional,
       ],
     },
   };

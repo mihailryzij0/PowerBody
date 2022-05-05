@@ -1,14 +1,17 @@
 import { IconButton, Avatar, Menu, MenuItem, Button } from "@mui/material";
-import React, { useState, MouseEvent, Dispatch, SetStateAction } from "react";
+import React, {
+  useState,
+  MouseEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+} from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../../store/slices/userSlice";
 import DialogCropper from "../ImageCropper/DialogCropper";
 import { setImageProfile } from "../../store/slices/userDataSlice";
-
-interface Event<T = EventTarget> {
-  target: T;
-}
+import readFileAsDataURL from "../ImageCropper/readFileAsDataURL";
 
 export default function ProfileTopInfo({
   image,
@@ -34,37 +37,26 @@ export default function ProfileTopInfo({
   const setStateOpen: Dispatch<SetStateAction<boolean>> = (open) => {
     setOpenCropper(open);
   };
-  const handleImage = (blob: Blob | null) => {
-    if (blob) {
-      dispatch(setImageProfile(blob));
-      createImageUrl(blob);
+  const handleImage = useCallback((blob: Blob | null) => {
+    async function doFileRead() {
+      if (blob) {
+        dispatch(setImageProfile(blob));
+        const url = await readFileAsDataURL(blob);
+        setInputImg(url);
+      }
+      setOpenCropper(false);
     }
-  };
-  const createImageUrl = (file: File | Blob) => {
-    const reader = new FileReader();
+    doFileRead();
+  }, []);
 
-    reader.addEventListener(
-      "load",
-      () => {
-        if (typeof reader.result === "string") {
-          setInputImg(reader.result);
-        }
-      },
-      false
-    );
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const onInputChange = (e: Event<HTMLInputElement>) => {
-    if (e && e.target && e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      createImageUrl(file);
+  const onInputChange = useCallback(({ target }) => {
+    async function doFileRead() {
+      const result = await readFileAsDataURL(target.files[0]);
+      setInputImg(result as string);
       setOpenCropper(true);
     }
-  };
+    doFileRead();
+  }, []);
 
   return (
     <div className="profile-top">

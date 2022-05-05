@@ -1,11 +1,5 @@
 import { Box } from "@mui/material";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { UseFormRegister } from "react-hook-form/dist/types/form";
 import DialogCropper from "../ImageCropper/DialogCropper";
@@ -17,9 +11,7 @@ export interface inputFileProps {
   InputFileButton: any;
   inputFileButtonContent: string | SVGViewElement;
 }
-interface Event<T = EventTarget> {
-  target: T;
-}
+
 export default function InputFileImgPreview() {
   const { setValue } = useFormContext();
   const [inputImg, setInputImg] = useState<string>("");

@@ -51,6 +51,7 @@ export default function GeneratorWorkout() {
   });
   const [error, setError] = useState(false);
   const [workout, setWorkout] = useState<null | Post>(null);
+  const ID_GENERATOR_WORKOUT = "1";
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -93,7 +94,7 @@ export default function GeneratorWorkout() {
           Тренировка рассчитывается для спортсменов начального и среднего
           уровня.
         </Typography>
-        <RatingDynamic id={"1"} handleChange={changeRating} />
+        <RatingDynamic id={ID_GENERATOR_WORKOUT} handleChange={changeRating} />
         {!workout ? (
           <>
             <SelectGroup

@@ -1,6 +1,5 @@
 import {
   Box,
-  Container,
   IconButton,
   styled,
   ToggleButton,
@@ -24,10 +23,10 @@ export default function AdminWorkout() {
   ) => {
     setPostKey(newChoice);
   };
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
   const handleSubmit = async (postData: WorkoutForm) => {
     if (postData.image) {
-      dispach(createPost({ postData, postKey }));
+      dispatch(createPost({ postData, postKey }));
     }
   };
   const MyBox = styled(Box)`

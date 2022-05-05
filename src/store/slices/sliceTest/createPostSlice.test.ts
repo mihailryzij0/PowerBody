@@ -6,16 +6,16 @@ const receivedData = {
   postData: {
     authorId: "test123",
     author: "Михаил",
-    image: { name: "image", width: 400, haight: 500 },
+    image: { name: "image", width: 400, height: 500 },
     description: "test",
     rating: "5",
     title: "test",
     weeks: 6,
     id: "123",
-    vidio: null,
+    video: null,
     comments: [],
   },
-  postKey: "vitamons",
+  postKey: "vitamins",
 };
 
 jest.mock("../../../firebase", () => ({
@@ -37,7 +37,7 @@ describe("createPostSlice", () => {
     await store.dispatch(createPost(receivedData));
     expect(setFirebaseImage).toHaveBeenCalledWith(
       {
-        haight: 500,
+        height: 500,
         name: "image",
         width: 400,
       },
