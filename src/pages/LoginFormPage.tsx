@@ -4,7 +4,7 @@ import { Button, Container } from "@mui/material";
 import Login from "../components/formAuth/Login";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Location } from "../components/hoc/RequireAutch";
+import { Location } from "../components/hoc/RequireAuth";
 export default function LoginFormPage() {
   const [inputSwitch, setInputSwitch] = useState(false);
   const handleClick = () => {

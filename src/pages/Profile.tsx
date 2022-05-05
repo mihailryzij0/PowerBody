@@ -24,8 +24,8 @@ export default function Profile() {
       ) : userData.workout ? (
         <>
           <ProfileWorkouts workout={userData.workout as Required<Post>} />
-          <div className="profile-vidio container">
-            <YoutubeEmbed linkYouTubeVidio={userData.workout.video} />
+          <div className="profile-video container">
+            <YoutubeEmbed linkYouTubeVideo={userData.workout.video} />
           </div>
         </>
       ) : (
@@ -34,7 +34,7 @@ export default function Profile() {
             Здесь будет ваша тренировка
           </Typography>
           <Typography textAlign={"center"} variant="body1">
-            Вы можите создать свою тренировку, создать тренировку в генераторе,
+            Вы можете создать свою тренировку, создать тренировку в генераторе,
             либо выбрать авторскую тренировку!
           </Typography>
         </div>

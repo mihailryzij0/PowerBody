@@ -26,7 +26,7 @@ interface Event<T = EventTarget> {
   target: T;
 }
 
-export interface PropsDialogCrop {
+export interface PropsDialogCropper {
   handlerImage: (blob: Blob | null) => void;
   open: boolean;
   setStateOpen: Dispatch<SetStateAction<boolean>>;
@@ -37,7 +37,7 @@ export interface PropsDialogCrop {
   aspect: number;
 }
 
-export default function DialogCrop({
+export default function DialogCropper({
   handlerImage,
   imageSrc,
   open,
@@ -46,7 +46,7 @@ export default function DialogCrop({
   heightBlob,
   aspect,
   cropShape,
-}: PropsDialogCrop) {
+}: PropsDialogCropper) {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [blob, setBlob] = useState<Blob | null>(null);

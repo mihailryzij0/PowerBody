@@ -5,7 +5,7 @@ import { renderWithReactHookForm } from "../../../test-utils/renderWithReactHook
 import InputFileImgPreview from "../InputFileImgPreview";
 import { act } from "react-dom/test-utils";
 import * as ReadFileAsDataURL from "../../ImageCropper/readFileAsDataURL";
-import { PropsDialogCropp } from "../../ImageCropper/DialogCropper";
+import { PropsDialogCropper } from "../../ImageCropper/DialogCropper";
 
 jest.mock("../../ImageCropper/DialogCropper", () => {
   return function DialogCropper({
@@ -15,7 +15,7 @@ jest.mock("../../ImageCropper/DialogCropper", () => {
     setStateOpen,
     aspect,
     cropShape,
-  }: PropsDialogCropp) {
+  }: PropsDialogCropper) {
     return (
       <>
         {open && (

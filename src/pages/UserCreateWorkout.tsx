@@ -2,8 +2,8 @@ import { IconButton, TextField, Typography } from "@mui/material";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { Post, Workout } from "../store/slices/types";
-import InputGrupWorkout from "../components/FormCreateWorkout/InputGrupWorkout";
+import { Workout } from "../store/slices/types";
+import InputGroupWorkout from "../components/FormCreateWorkout/InputGroupWorkout";
 import { FormInputSlider } from "../components/FormCreateWorkout/SliderForm";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import {
@@ -16,7 +16,7 @@ export interface WorkoutForm {
   authorId: string | null;
   author: string;
   image: File[] | null;
-  vidio: string | null;
+  video: string | null;
   description: string;
   typeWorkout: string;
   rating: string;
@@ -50,7 +50,7 @@ export default function UserCreateWorkout() {
         },
       ],
       image: null,
-      vidio: null,
+      video: null,
     },
   });
 
@@ -81,15 +81,15 @@ export default function UserCreateWorkout() {
               margin="normal"
               variant="outlined"
               {...register(`title`, {
-                required: "поле обьзательо для заполнения",
+                required: "поле обязательно для заполнения",
               })}
             />
-            <InputGrupWorkout />
+            <InputGroupWorkout />
             {status === "setData-fulfilled" && (
               <Typography> Готово!! </Typography>
             )}
             {status === "setData-pending" && (
-              <Typography>Loadimg...</Typography>
+              <Typography>Loading...</Typography>
             )}
             {status === "setData-rejected" && (
               <Typography>Загрузка не удалась попробуйте позже</Typography>
