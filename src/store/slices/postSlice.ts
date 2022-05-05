@@ -25,7 +25,7 @@ export const getPostData: any = createAsyncThunk(
 
 export const updateComments = createAsyncThunk(
   "post/updateComments",
-  async (postId: string, { rejectWithValue, getState }) => {
+  async (postId: string, { getState }) => {
     const {
       post: { postData },
     } = getState() as any;

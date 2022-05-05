@@ -5,7 +5,6 @@ import {
   List,
   ListItem,
   MobileStepper,
-  Paper,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -16,7 +15,7 @@ import {
   deleteUserWorkout,
   updateUserData,
 } from "../../store/slices/userDataSlice";
-import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
+import AvatarDynamic from "../AvatarDynamic/AvatarDynamic";
 import PopupRateWorkout from "./PopupRateWorkout";
 
 export default function ProfileWorkouts({
@@ -45,7 +44,7 @@ export default function ProfileWorkouts({
   };
 
   const dispatch = useAppDispatch();
-  const hendleClick = (index: number) => {
+  const handleClick = (index: number) => {
     if (workouts.length === 1) {
       setOpenPopup(true);
     } else {
@@ -62,7 +61,7 @@ export default function ProfileWorkouts({
           <div className="profile-workout__header">
             <Typography>{workout.title}</Typography>
             <div className="profile-workout__header_right">
-              <AvatarDinamic authorId={workout.authorId} />
+              <AvatarDynamic authorId={workout.authorId} />
               <Typography variant="subtitle1">{workout.author}</Typography>
             </div>
           </div>
@@ -75,7 +74,7 @@ export default function ProfileWorkouts({
                 ))}
               </List>
               <Button
-                onClick={() => hendleClick(activeStep)}
+                onClick={() => handleClick(activeStep)}
                 variant="outlined"
                 sx={{
                   position: "absolute",

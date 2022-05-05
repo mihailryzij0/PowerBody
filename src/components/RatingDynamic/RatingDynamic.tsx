@@ -3,7 +3,7 @@ import React, { SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { getRating } from "../../store/slices/ratingSlice";
 
-interface RatingDinamicProps {
+interface RatingDynamicProps {
   id: string;
   disabled?: boolean;
   handleChange?: (
@@ -12,16 +12,16 @@ interface RatingDinamicProps {
   ) => void;
 }
 
-export default function RatingDinamic({
+export default function RatingDynamic({
   id,
   disabled,
   handleChange,
-}: RatingDinamicProps) {
+}: RatingDynamicProps) {
   const { ratings } = useAppSelector((state) => state.ratings);
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (ratings && !ratings[id] && id) {
-      dispach(getRating(id));
+      dispatch(getRating(id));
     }
   }, []);
   return (

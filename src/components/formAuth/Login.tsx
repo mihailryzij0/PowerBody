@@ -10,9 +10,9 @@ export interface UserDataForm {
 }
 
 export default function Login() {
-  const dispach = useAppDispatch();
-  const hendleLogin = (userData: UserDataForm) => {
-    dispach(signInUser(userData));
+  const dispatch = useAppDispatch();
+  const handleLogin = (userData: UserDataForm) => {
+    dispatch(signInUser(userData));
   };
-  return <FormAuth title="Войти" onSubmit={hendleLogin} />;
+  return <FormAuth title="Войти" onSubmit={handleLogin} />;
 }

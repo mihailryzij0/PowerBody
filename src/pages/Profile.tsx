@@ -25,7 +25,7 @@ export default function Profile() {
         <>
           <ProfileWorkouts workout={userData.workout as Required<Post>} />
           <div className="profile-vidio container">
-            <YoutubeEmbed linkYouTubeVidio={userData.workout.vidio} />
+            <YoutubeEmbed linkYouTubeVidio={userData.workout.video} />
           </div>
         </>
       ) : (

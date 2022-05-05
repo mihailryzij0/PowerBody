@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  getFirebaseData,
-  setFirebaseData,
-  updateFirebaseData,
-} from "../../firebase";
+import { getFirebaseData, setFirebaseData } from "../../firebase";
 
 interface Rating {
   voted: number;

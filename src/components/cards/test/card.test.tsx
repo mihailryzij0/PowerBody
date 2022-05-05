@@ -1,16 +1,16 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Card, { CardProps } from "../Card";
 import { renderWithRedux } from "../../../test-utils/renderWithRedux";
 
-jest.mock("../../AvatarDynamic/AvatarDinamic", () => {
-  return function AvatarDinamic({ authorId }: Record<string, string>) {
+jest.mock("../../AvatarDynamic/AvatarDynamic", () => {
+  return function AvatarDynamic({ authorId }: Record<string, string>) {
     return <div data-testid="map">{authorId}</div>;
   };
 });
 
-describe("DefultPage", () => {
+describe("DefaultPage", () => {
   const cardsProps: CardProps = {
     title: "Тренировка",
     image: "https://firebasestorage.googleapis.com",

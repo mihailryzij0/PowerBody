@@ -1,5 +1,5 @@
 import { SelectGroupState } from "../pages/GeneratorWorkout";
-import { exercises } from "./exercisStorage";
+import { exercises } from "./exercisesStorage";
 import { creatorGroup } from "./creatorGroup";
 import { generator } from "./generator";
 
@@ -50,7 +50,7 @@ export function trainingCreator(parameters: SelectGroupState) {
               basicRepetitionGroup = 4;
               secondaryRepetitionGroup = 2;
             }
-          } else if (key === "additiona") {
+          } else if (key === "additional") {
             basicIntensityGroup = secondaryIntensity + 6;
             basicRepetitionGroup = 2;
           }

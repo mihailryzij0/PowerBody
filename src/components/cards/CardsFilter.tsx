@@ -8,27 +8,27 @@ export default function CardsFilter() {
   const dispatch = useAppDispatch();
   const {
     postCards,
-    filteredCards: { filtredParams },
+    filteredCards: { filteredParams: filteredParams },
   } = useAppSelector((state) => state.cards);
-  const [autors, setAutors] = useState<Array<string> | []>([]);
+  const [authors, setAuthors] = useState<Array<string> | []>([]);
 
   useEffect(() => {
-    let newListAutors: Array<string> = [];
+    let newListAuthors: Array<string> = [];
     for (let value of Object.values(postCards)) {
       value.forEach((element: Card) => {
-        newListAutors.push(element.author);
+        newListAuthors.push(element.author);
       });
     }
-    setAutors(Array.from(new Set(newListAutors)));
+    setAuthors(Array.from(new Set(newListAuthors)));
   }, [postCards]);
 
   const handleChangeWorkoutType = (param: SelectChangeEvent) => {
     dispatch(
-      filterCards({ ...filtredParams, typeWorkout: param.target.value })
+      filterCards({ ...filteredParams, typeWorkout: param.target.value })
     );
   };
-  const handleChangeAotors = (param: SelectChangeEvent) => {
-    dispatch(filterCards({ ...filtredParams, author: param.target.value }));
+  const handleChangeAuthors = (param: SelectChangeEvent) => {
+    dispatch(filterCards({ ...filteredParams, author: param.target.value }));
   };
   return (
     <div className="cards-filter">
@@ -36,7 +36,7 @@ export default function CardsFilter() {
         inputProps={{ "data-testid": "select-1" }}
         className="cards-filter__item"
         fullWidth={true}
-        value={filtredParams.typeWorkout}
+        value={filteredParams.typeWorkout}
         onChange={handleChangeWorkoutType}
       >
         <MenuItem value={"Стандарт"}>Стандарт</MenuItem>
@@ -50,13 +50,13 @@ export default function CardsFilter() {
         data-testid="select-2"
         className="cards-filter__item"
         fullWidth={true}
-        value={filtredParams.author}
-        onChange={handleChangeAotors}
+        value={filteredParams.author}
+        onChange={handleChangeAuthors}
       >
         <MenuItem value={"Весь список"}>Весь список</MenuItem>
-        {autors.map((autor, index) => (
-          <MenuItem key={index} value={autor}>
-            {autor}
+        {authors.map((author, index) => (
+          <MenuItem key={index} value={author}>
+            {author}
           </MenuItem>
         ))}
       </Select>

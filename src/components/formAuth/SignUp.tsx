@@ -5,9 +5,9 @@ import { signUpUser } from "../../store/slices/userSlice";
 import { UserDataForm } from "./Login";
 
 export default function SignUp() {
-  const dispach = useAppDispatch();
-  const hendleRegistr = (userData: UserDataForm) => {
-    dispach(signUpUser(userData));
+  const dispatch = useAppDispatch();
+  const handleRegister = (userData: UserDataForm) => {
+    dispatch(signUpUser(userData));
   };
-  return <FormAuth title="Регистрация" onSubmit={hendleRegistr} />;
+  return <FormAuth title="Регистрация" onSubmit={handleRegister} />;
 }

@@ -3,7 +3,7 @@ import { setFirebaseData, setFirebaseImage } from "../../firebase";
 
 interface initialState {
   status: string;
-  progres: string;
+  progress: string;
   error: null;
 }
 
@@ -48,7 +48,7 @@ export const createPost: any = createAsyncThunk(
 
 const initialState = {
   status: "",
-  progres: "",
+  progress: "",
   error: null,
 };
 

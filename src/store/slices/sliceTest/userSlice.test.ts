@@ -8,11 +8,6 @@ const result = {
   idUser: "testID",
 };
 
-const parametrs = {
-  email: "test123@gmail.com",
-  pass: "123456",
-};
-
 jest.mock("../../../firebase", () => ({
   signIn: jest
     .fn()
@@ -25,15 +20,9 @@ jest.mock("../../../firebase", () => ({
 }));
 
 describe("userSlice signIn", () => {
-  let result: { email: any; token: any; idUser: any };
-  let parametrs: UserDataForm;
+  let parameters: UserDataForm;
   beforeEach(() => {
-    result = {
-      email: "test123@gmail.com",
-      token: "testToken",
-      idUser: "testID",
-    };
-    parametrs = {
+    parameters = {
       email: "test123@gmail.com",
       pass: "123456",
     };
@@ -43,7 +32,7 @@ describe("userSlice signIn", () => {
   });
 
   it("asyncThunk signIn fulfilled", async () => {
-    await store.dispatch(signInUser(parametrs));
+    await store.dispatch(signInUser(parameters));
     const { user } = store.getState();
     expect(user.status).toBe("fulfilled");
     expect(user.email).toBe(result.email);
@@ -53,7 +42,7 @@ describe("userSlice signIn", () => {
   });
 
   it("asyncThunk signIn rejected", async () => {
-    await store.dispatch(signInUser(parametrs));
+    await store.dispatch(signInUser(parameters));
     const { user } = store.getState();
     expect(user.status).toBe("rejected");
     expect(user.error).toBe("ошибка");
@@ -62,14 +51,14 @@ describe("userSlice signIn", () => {
 
 describe("userSlice signUp", () => {
   let result: { email: any; token: any; idUser: any };
-  let parametrs: Required<UserDataForm>;
+  let parameters: Required<UserDataForm>;
   beforeEach(() => {
     result = {
       email: "test123@gmail.com",
       token: "testToken",
       idUser: "testID",
     };
-    parametrs = {
+    parameters = {
       email: "test123@gmail.com",
       pass: "123456",
       nickname: "Михаил",
@@ -80,7 +69,7 @@ describe("userSlice signUp", () => {
   });
 
   it("asyncThunk signUp fulfilled and removeUser", async () => {
-    await store.dispatch(signUpUser(parametrs));
+    await store.dispatch(signUpUser(parameters));
     const { user } = store.getState();
     expect(user.status).toBe("fulfilled");
     expect(localStorage.getItem("user")).toBe(JSON.stringify(result));
@@ -94,7 +83,7 @@ describe("userSlice signUp", () => {
   });
 
   it("asyncThunk signUp rejected", async () => {
-    await store.dispatch(signUpUser(parametrs));
+    await store.dispatch(signUpUser(parameters));
     const { user } = store.getState();
     expect(user.status).toBe("rejected");
     expect(user.error).toBe("ошибка");

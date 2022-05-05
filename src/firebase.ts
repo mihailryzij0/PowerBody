@@ -33,8 +33,8 @@ if (window.indexedDB) {
   });
 }
 
-export const getFirebaseData = (colection: string, document: string) =>
-  getDoc(doc(db, colection, document)).then((data) => {
+export const getFirebaseData = (collection: string, document: string) =>
+  getDoc(doc(db, collection, document)).then((data) => {
     if (!data.exists()) {
       throw "Загрузить данные не удалось, попробуйте еще раз";
     } else {
@@ -43,21 +43,21 @@ export const getFirebaseData = (colection: string, document: string) =>
   });
 
 export const setFirebaseData = async (
-  colection: string,
+  collection: string,
   document: string,
   data: Record<any, any>
 ) => {
   console.log(data);
-  setDoc(doc(db, `${colection}`, `${document}`), data);
+  setDoc(doc(db, `${collection}`, `${document}`), data);
 };
 
 export const updateFirebaseData = async (
-  colection: string,
+  collection: string,
   document: string,
   updateDocumentKey: string,
   data: Record<any, any> | string
 ) => {
-  const ref = doc(db, `${colection}`, `${document}`);
+  const ref = doc(db, `${collection}`, `${document}`);
   updateDoc(ref, {
     [`${updateDocumentKey}`]: data,
   });

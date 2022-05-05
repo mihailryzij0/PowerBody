@@ -12,14 +12,14 @@ import { useAppSelector } from "../../hooks/redux-hooks";
 import { Workout } from "../../store/slices/types";
 import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
 import InputFileImgPreview from "./InputFileImgPreview";
-import InputGrupWorkout from "./InputGrupWorkout";
+import InputGroupWorkout from "./InputGroupWorkout";
 import { FormInputSlider } from "./SliderForm";
 
 export interface WorkoutForm {
   authorId: string | null;
   author: string;
   image: File[] | null;
-  vidio: string | null;
+  video: string | null;
   description: string;
   typeWorkout: string;
   title: string;
@@ -78,7 +78,7 @@ export default function FormCreateWorkout({
         },
       ],
       image: null,
-      vidio: null,
+      video: null,
       comments: [],
     },
   });
@@ -94,9 +94,9 @@ export default function FormCreateWorkout({
           label="Ссылка видио youtube"
           margin="normal"
           variant="outlined"
-          {...register(`vidio`)}
+          {...register(`video`)}
         />
-        <YoutubeEmbed linkYouTubeVidio={watch("vidio")} />
+        <YoutubeEmbed linkYouTubeVideo={watch("video")} />
         <TextField
           inputProps={{ "data-testid": "title" }}
           fullWidth={true}
@@ -104,7 +104,7 @@ export default function FormCreateWorkout({
           margin="normal"
           variant="outlined"
           {...register(`title`, {
-            required: "поле обьзательо для заполнения",
+            required: "поле обязательно для заполнения",
           })}
         />
         <TextField
@@ -124,14 +124,14 @@ export default function FormCreateWorkout({
         </TextField>
         <AdminTextareaAutosize
           {...register("description", {
-            required: "поле обьзательо для заполнения",
+            required: "поле обязательно для заполнения",
           })}
           data-testid={"description"}
           aria-label="minimum height"
           placeholder="Описание тренировки"
         />
         {postKey === "workouts" ? (
-          <InputGrupWorkout />
+          <InputGroupWorkout />
         ) : (
           <Button
             data-testid={"buttonSubmit"}
@@ -144,7 +144,7 @@ export default function FormCreateWorkout({
           </Button>
         )}
         {status === "fulfilled" && <Typography> Готово!! </Typography>}
-        {status === "pending" && <Typography>Loadimg...</Typography>}
+        {status === "pending" && <Typography>Loading...</Typography>}
       </form>
     </FormProvider>
   );

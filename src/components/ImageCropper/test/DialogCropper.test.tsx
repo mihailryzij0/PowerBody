@@ -2,15 +2,15 @@ import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { renderWithRedux } from "../../../test-utils/renderWithRedux";
-import DialogCropp from "../DialogCropper";
+import DialogCropper from "../DialogCropper";
 
 const mockHandlerImage = jest.fn();
 const mockSetStateOpen = jest.fn();
 
-describe("DialogCropp", () => {
+describe("DialogCropper", () => {
   beforeEach(() => {
     render(
-      <DialogCropp
+      <DialogCropper
         handlerImage={mockHandlerImage}
         open={true}
         setStateOpen={mockSetStateOpen}
@@ -22,14 +22,14 @@ describe("DialogCropp", () => {
     jest.clearAllMocks();
   });
 
-  it("DialogCropp render", () => {
+  it("DialogCropper render", () => {
     expect(screen.getByTestId("closeButton")).toBeInTheDocument();
     expect(screen.getByTestId("saveButton")).toBeInTheDocument();
     expect(screen.getByTestId("cropper")).toBeInTheDocument();
     expect(screen.getByTestId("container")).toBeInTheDocument();
   });
 
-  it("DialogCropp button click close", () => {
+  it("DialogCropper button click close", () => {
     const closeButton = screen.getByTestId("closeButton");
     fireEvent.click(closeButton);
     expect(mockSetStateOpen).toHaveBeenCalledWith(false);

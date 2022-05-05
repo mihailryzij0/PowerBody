@@ -7,9 +7,9 @@ import { User } from "./slices/userSlice";
 import createPostSlice from "./slices/createPostSlice";
 import getUsersAvatarSlice from "./slices/getUsersAvatarSlice";
 import ratingSlice from "./slices/ratingSlice";
-let userAutch = localStorage.getItem("user");
+let userAuth = localStorage.getItem("user");
 let user: User | undefined = undefined;
-if (userAutch !== null) user = JSON.parse(userAutch);
+if (userAuth !== null) user = JSON.parse(userAuth);
 
 export const store = configureStore({
   reducer: {

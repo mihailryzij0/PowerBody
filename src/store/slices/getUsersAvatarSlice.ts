@@ -17,9 +17,9 @@ export const getUserAvatar = createAsyncThunk(
   "post/getUserAvatar",
   async (userId: string, { rejectWithValue }) => {
     return getFirebaseData("usersAvatar", userId)
-      .then((respons) => {
+      .then((response) => {
         return {
-          [userId]: respons.avatarImg,
+          [userId]: response.avatarImg,
         };
       })
       .catch((error) => rejectWithValue(error));
@@ -33,8 +33,8 @@ const getUsersAvatarSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUserAvatar.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      const newUserAvatsr = { ...state.usersAvatar, ...action.payload };
-      state.usersAvatar = newUserAvatsr;
+      const newUserAvatars = { ...state.usersAvatar, ...action.payload };
+      state.usersAvatar = newUserAvatars;
     });
     builder.addCase(getUserAvatar.pending, (state) => {
       state.status = "pending";

@@ -1,9 +1,11 @@
 import React from "react";
 
-type props = { linkYouTubeVidio: string | null };
+type props = { linkYouTubeVideo: string | null };
 
-export default function YoutubeEmbed({ linkYouTubeVidio }: props) {
-  const embedId = linkYouTubeVidio?.split("=").pop();
+export default function YoutubeEmbed({
+  linkYouTubeVideo: linkYouTubeVideo,
+}: props) {
+  const embedId = linkYouTubeVideo?.split("=").pop();
   return (
     <>
       {embedId != "" && embedId && (

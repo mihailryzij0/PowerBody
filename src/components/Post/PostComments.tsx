@@ -1,7 +1,7 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import React from "react";
 import { comment } from "../../store/slices/types";
-import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
+import AvatarDynamic from "../AvatarDynamic/AvatarDynamic";
 
 export default function PostComments({
   comments,
@@ -9,9 +9,9 @@ export default function PostComments({
   return (
     <>
       {comments.map((comment, index) => (
-        <div key={index} className="comments-list__coment comment">
+        <div key={index} className="comments-list__comment comment">
           <div className="comment__info">
-            <AvatarDinamic authorId={comment.authorCommentId} />
+            <AvatarDynamic authorId={comment.authorCommentId} />
             <Typography variant="body2">{comment.authorCommentName}</Typography>
           </div>
           <Typography mt={2} className="comment__text" variant="body1">

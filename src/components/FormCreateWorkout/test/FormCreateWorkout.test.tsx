@@ -7,7 +7,7 @@ import { renderWithRedux } from "../../../test-utils/renderWithRedux";
 
 const mockHandlerForm = jest.fn();
 
-describe("InputGrupWorkout with the vitamins key", () => {
+describe("InputGroupWorkout with the vitamins key", () => {
   beforeEach(() => {
     renderWithRedux(
       <FormCreateWorkout handlerForm={mockHandlerForm} postKey="vitamins" />
@@ -30,7 +30,7 @@ describe("InputGrupWorkout with the vitamins key", () => {
     const inputTitle = screen.getByTestId("title");
     const inputDescription = screen.getByTestId("description");
     const buttonSubmit = screen.getByTestId("buttonSubmit");
-    const selectTyptWorkout = screen.getByLabelText(/Тип тренировки/i);
+    const selectTypWorkout = screen.getByLabelText(/Тип тренировки/i);
 
     await act(async () => {
       fireEvent.change(inputYoutube, {
@@ -42,7 +42,7 @@ describe("InputGrupWorkout with the vitamins key", () => {
       });
 
       await waitFor(() => {
-        fireEvent.mouseDown(selectTyptWorkout);
+        fireEvent.mouseDown(selectTypWorkout);
       });
       fireEvent.click(await screen.findByText(/На сушку/i));
     });
@@ -61,12 +61,12 @@ describe("InputGrupWorkout with the vitamins key", () => {
       weeks: 4,
       image: null,
       comments: [],
-      vidio: "https://www.youtube.com/watch?v=yoqqBJYMNcY",
+      video: "https://www.youtube.com/watch?v=yoqqBJYMNcY",
     });
   });
 });
 
-describe("InputGrupWorkout with the workouts key", () => {
+describe("InputGroupWorkout with the workouts key", () => {
   beforeEach(() => {
     renderWithRedux(
       <FormCreateWorkout handlerForm={mockHandlerForm} postKey="workouts" />
@@ -82,7 +82,7 @@ describe("InputGrupWorkout with the workouts key", () => {
     expect(screen.getByTestId("description")).toBeInTheDocument();
     expect(screen.getByTestId("buttonSubmit")).toBeInTheDocument();
     expect(screen.getByTestId("slider")).toBeInTheDocument();
-    expect(screen.getByTestId("addinputNameComplexBtn")).toBeInTheDocument();
+    expect(screen.getByTestId("addInputNameComplexBtn")).toBeInTheDocument();
     expect(screen.getByTestId("deleteExerciseInputBtn")).toBeInTheDocument();
     expect(screen.getByTestId("addExerciseInputBtn")).toBeInTheDocument();
     expect(screen.getByTestId("inputNameExercise")).toBeInTheDocument();
@@ -98,7 +98,7 @@ describe("InputGrupWorkout with the workouts key", () => {
     const inputsExercise = screen.getByTestId("inputNameExercise");
     const inputNameComplex = screen.getByTestId("inputNameComplex");
     const buttonSubmit = screen.getByTestId("buttonSubmit");
-    const selectTyptWorkout = screen.getByLabelText(/Тип тренировки/i);
+    const selectTypWorkout = screen.getByLabelText(/Тип тренировки/i);
 
     await act(async () => {
       fireEvent.change(inputYoutube, {
@@ -114,7 +114,7 @@ describe("InputGrupWorkout with the workouts key", () => {
       });
 
       await waitFor(() => {
-        fireEvent.mouseDown(selectTyptWorkout);
+        fireEvent.mouseDown(selectTypWorkout);
       });
       fireEvent.click(await screen.findByText(/На сушку/i));
     });
@@ -132,7 +132,7 @@ describe("InputGrupWorkout with the workouts key", () => {
       id: "1577836800000",
       weeks: 4,
       image: null,
-      vidio: "https://www.youtube.com/watch?v=yoqqBJYMNcY",
+      video: "https://www.youtube.com/watch?v=yoqqBJYMNcY",
       comments: [],
       workouts: [
         {

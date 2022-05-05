@@ -27,7 +27,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
       case "Firebase: Error (auth/invalid-email).":
         return "email введен не правильно";
       default:
-        return "Чтото пошло не так";
+        return "Что-то пошло не так";
     }
   }
 
@@ -53,7 +53,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
         {title === "Регистрация" && (
           <TextField
             {...register("nickname", {
-              required: "поле обьзательно для заполнения",
+              required: "поле обязательно для заполнения",
             })}
             type="text"
             data-testid="input-nickname"
@@ -65,7 +65,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
         )}
         <TextField
           {...register("email", {
-            required: "поле обьзательо для заполнения",
+            required: "поле обязательно для заполнения",
             pattern: {
               value:
                 /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
@@ -83,7 +83,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
         />
         <TextField
           {...register("pass", {
-            required: "поле обьзательно для заполнения",
+            required: "поле обязательно для заполнения",
             minLength: {
               value: 6,
               message: "пароль минимум 6 символов",

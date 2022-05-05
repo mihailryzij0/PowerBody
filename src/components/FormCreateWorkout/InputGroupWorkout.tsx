@@ -14,7 +14,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function InputGrupWorkout() {
+export default function InputGroupWorkout() {
   const { register, getValues, control } = useFormContext();
 
   const { fields, update, append } = useFieldArray({
@@ -39,16 +39,16 @@ export default function InputGrupWorkout() {
 
   type TypeField = [
     {
-      workotName: string;
+      workoutName: string;
       exercises: Array<string>;
     }
   ];
 
-  const typeFilds = fields as unknown as TypeField;
+  const typeFields = fields as unknown as TypeField;
 
   return (
     <div className="form-workout-box">
-      {typeFilds.map((inputsBlock, indexBlock) => (
+      {typeFields.map((inputsBlock, indexBlock) => (
         <Accordion key={indexBlock} sx={{ marginBottom: "10px" }}>
           <AccordionSummary
             data-testid={"accordionBtn"}
@@ -66,7 +66,7 @@ export default function InputGrupWorkout() {
               margin="normal"
               variant="outlined"
               {...register(`workouts.${indexBlock}.workoutName`, {
-                required: "поле обьзательо для заполнения",
+                required: "поле обязательно для заполнения",
               })}
             />
             {inputsBlock.exercises.map((input, index: number) => (
@@ -78,7 +78,7 @@ export default function InputGrupWorkout() {
                 margin="normal"
                 variant="outlined"
                 {...register(`workouts.${indexBlock}.exercises.${index}`, {
-                  required: "поле обьзательо для заполнения",
+                  required: "поле обязательно для заполнения",
                 })}
               />
             ))}
@@ -102,7 +102,7 @@ export default function InputGrupWorkout() {
       ))}
       <div className="form-workout__bottom">
         <Fab
-          data-testid={"addinputNameComplexBtn"}
+          data-testid={"addInputNameComplexBtn"}
           color="secondary"
           onClick={() => {
             append({

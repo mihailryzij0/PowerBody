@@ -1,16 +1,9 @@
-import {
-  IconButton,
-  Avatar,
-  Menu,
-  MenuItem,
-  Typography,
-  Button,
-} from "@mui/material";
+import { IconButton, Avatar, Menu, MenuItem, Button } from "@mui/material";
 import React, { useState, MouseEvent, Dispatch, SetStateAction } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../../store/slices/userSlice";
-import DialogCropp from "../ImageCropper/DialogCropper";
+import DialogCropper from "../ImageCropper/DialogCropper";
 import { setImageProfile } from "../../store/slices/userDataSlice";
 
 interface Event<T = EventTarget> {
@@ -23,7 +16,7 @@ export default function ProfileTopInfo({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [inputImg, setInputImg] = useState<string>("");
   const [openCropper, setOpenCropper] = React.useState(false);
-  const dicpatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const openMenu = Boolean(anchorEl);
@@ -33,8 +26,8 @@ export default function ProfileTopInfo({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const hendleMenuLogout = () => {
-    dicpatch(removeUser());
+  const handleMenuLogout = () => {
+    dispatch(removeUser());
     navigate("/");
     handleClose();
   };
@@ -43,7 +36,7 @@ export default function ProfileTopInfo({
   };
   const handleImage = (blob: Blob | null) => {
     if (blob) {
-      dicpatch(setImageProfile(blob));
+      dispatch(setImageProfile(blob));
       createImageUrl(blob);
     }
   };
@@ -105,13 +98,13 @@ export default function ProfileTopInfo({
           open={openMenu}
           onClose={handleClose}
         >
-          <MenuItem onClick={hendleMenuLogout}>Выйти</MenuItem>
+          <MenuItem onClick={handleMenuLogout}>Выйти</MenuItem>
           <MenuItem component="label">
             Мое фото
             <input onChange={onInputChange} type="file" hidden />
           </MenuItem>
         </Menu>
-        <DialogCropp
+        <DialogCropper
           handlerImage={handleImage}
           open={openCropper}
           setStateOpen={setStateOpen}

@@ -41,7 +41,7 @@ export const preloadedStateCards = {
     filteredCards: {
       vitamins: null,
       workouts: null,
-      filtredParams: {
+      filteredParams: {
         author: "Весь список",
         typeWorkout: "Весь список",
       },

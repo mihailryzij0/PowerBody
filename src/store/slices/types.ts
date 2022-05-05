@@ -15,7 +15,7 @@ export interface Post {
   authorId: string | null;
   author: string;
   image: string;
-  vidio: string;
+  video: string;
   description: string;
   title: string;
   id: string;

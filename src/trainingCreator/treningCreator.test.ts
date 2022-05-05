@@ -1,7 +1,7 @@
 import { trainingCreator } from "./trainingCreator";
 
 describe("treningCreator", () => {
-  const parametrs = [
+  const parameters = [
     {
       level: "Начинающий",
       purpose: "Повысить силовые",
@@ -35,10 +35,10 @@ describe("treningCreator", () => {
   ];
 
   it("a training session for 18 days is being created", () => {
-    parametrs.forEach((parametr) => {
-      const workout = trainingCreator(parametr);
+    parameters.forEach((parameter) => {
+      const workout = trainingCreator(parameter);
       expect(workout?.workouts?.length).toBe(18);
-      expect(workout?.title).toBe("Индивидульная тренировка");
+      expect(workout?.title).toBe("Индивидуальная тренировка");
       expect(workout?.image).toBe("");
       expect(workout?.authorId).toBe("");
       expect(workout?.author).toBe("PowerBody");

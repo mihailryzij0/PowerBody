@@ -1,17 +1,17 @@
 import { Box, Typography, Button } from "@mui/material";
-import React, { ChangeEvent, SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { setRating } from "../../store/slices/ratingSlice";
-import { Post, Workout } from "../../store/slices/types";
+import { Post } from "../../store/slices/types";
 import {
   updateUserData,
   updateUserWorkout,
 } from "../../store/slices/userDataSlice";
-import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
-import RatingDinamic from "../RatingDinamic/RatingDinamic";
+import AvatarDynamic from "../AvatarDynamic/AvatarDynamic";
+import RatingDynamic from "../RatingDynamic/RatingDynamic";
 import YoutubeEmbed from "../YoutubeEmbed/YoutubeEmbed";
-import FormCreateComment from "./FormCreateComent";
+import FormCreateComment from "./FormCreateComment";
 import PostComments from "./PostComments";
 import WorkoutList from "./WorkoutList";
 
@@ -23,13 +23,12 @@ export default function PostContent({ postData }: postData) {
     description,
     workouts,
     image,
-    vidio,
+    video: video,
     authorId,
     author,
     comments,
     id,
   } = postData;
-  const previwWorkot: Workout[] | undefined = workouts?.slice(0, 3);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -70,10 +69,10 @@ export default function PostContent({ postData }: postData) {
 
   return (
     <>
-      <div className="post-baner">
-        <img className="post-baner__img" src={image} />
-        <div className="post-baner__footer">
-          <AvatarDinamic authorId={authorId} />
+      <div className="post-banner">
+        <img className="post-banner__img" src={image} />
+        <div className="post-banner__footer">
+          <AvatarDynamic authorId={authorId} />
           <Typography variant="body1" align="center">
             {author}
           </Typography>
@@ -87,13 +86,13 @@ export default function PostContent({ postData }: postData) {
           {description}
         </Typography>
         <div className="post-rating">
-          <RatingDinamic id={id} handleChange={changeRating} />
+          <RatingDynamic id={id} handleChange={changeRating} />
         </div>
-        <YoutubeEmbed linkYouTubeVidio={vidio} />
-        {previwWorkot && (
+        <YoutubeEmbed linkYouTubeVideo={video} />
+        {workouts && (
           <>
             <Box sx={{ mt: "50px" }}>
-              <WorkoutList workouts={previwWorkot} />
+              <WorkoutList workouts={workouts} />
             </Box>
             <Box sx={{ m: "0 auto", width: "max-content" }}>
               <MyButton />

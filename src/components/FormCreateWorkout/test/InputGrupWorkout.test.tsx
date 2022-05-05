@@ -5,7 +5,7 @@ import {
   FormProviderMethods,
   renderWithReactHookForm,
 } from "../../../test-utils/renderWithReactHookForm";
-import InputGrupWorkout from "../InputGrupWorkout";
+import InputGroupWorkout from "../InputGroupWorkout";
 import { act } from "react-dom/test-utils";
 
 const defaultValues = {
@@ -17,16 +17,16 @@ const defaultValues = {
   ],
 };
 
-describe("InputGrupWorkout", () => {
+describe("InputGroupWorkout", () => {
   beforeEach(() => {
-    renderWithReactHookForm(<InputGrupWorkout />, {
+    renderWithReactHookForm(<InputGroupWorkout />, {
       defaultValues: defaultValues,
     });
     jest.clearAllMocks();
   });
 
-  it("InputGrupWorkout render", () => {
-    expect(screen.getByTestId("addinputNameComplexBtn")).toBeInTheDocument();
+  it("InputGroupWorkout render", () => {
+    expect(screen.getByTestId("addInputNameComplexBtn")).toBeInTheDocument();
     expect(screen.getByTestId("deleteExerciseInputBtn")).toBeInTheDocument();
     expect(screen.getByTestId("addExerciseInputBtn")).toBeInTheDocument();
     expect(screen.getByTestId("inputNameExercise")).toBeInTheDocument();
@@ -52,18 +52,18 @@ describe("InputGrupWorkout", () => {
     let inputNameComplex = screen.getAllByTestId("inputNameComplex");
     expect(inputNameComplex.length).toBe(1);
 
-    fireEvent.click(screen.getByTestId("addinputNameComplexBtn"));
+    fireEvent.click(screen.getByTestId("addInputNameComplexBtn"));
     inputNameComplex = await screen.findAllByTestId("inputNameComplex");
     expect(inputNameComplex.length).toBe(2);
 
-    fireEvent.click(screen.getByTestId("addinputNameComplexBtn"));
+    fireEvent.click(screen.getByTestId("addInputNameComplexBtn"));
     inputNameComplex = await screen.findAllByTestId("inputNameComplex");
     expect(inputNameComplex.length).toBe(3);
   });
 
   it("input change data entry in React-Hook-Form state", async () => {
     fireEvent.click(screen.getByTestId("addExerciseInputBtn"));
-    fireEvent.click(screen.getByTestId("addinputNameComplexBtn"));
+    fireEvent.click(screen.getByTestId("addInputNameComplexBtn"));
 
     const inputsExercise = await screen.findAllByTestId("inputNameExercise");
     const inputNameComplex = await screen.findAllByTestId("inputNameComplex");

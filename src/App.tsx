@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginFormPage from "./pages/LoginFormPage";
 import Profile from "./pages/Profile";
 import PostsList from "./pages/PostsList";
-import RequireAutch from "./components/hoc/RequireAutch";
+import RequireAuth from "./components/hoc/RequireAuth";
 const AdminWorkout = lazy(() => import("./pages/AdminWorkout"));
 const GeneratorWorkout = lazy(() => import("./pages/GeneratorWorkout"));
 import PostPage from "./pages/PostPage";
@@ -19,11 +19,11 @@ const GeneratorWorkoutSuspense = WithSuspense(GeneratorWorkout);
 function App() {
   const { user, userData } = useAppSelector((state) => state);
 
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (user.isAuth) {
-      dispach(getUserData());
+      dispatch(getUserData());
     }
     if (process.env.NODE_ENV !== "development") {
       if ("serviceWorker" in navigator) {
@@ -41,49 +41,49 @@ function App() {
         <Route
           path="/"
           element={
-            <RequireAutch>
+            <RequireAuth>
               <Profile />
-            </RequireAutch>
+            </RequireAuth>
           }
         />
         <Route
           path="/addWorkout"
           element={
-            <RequireAutch>
+            <RequireAuth>
               <AdminWorkoutSuspense />
-            </RequireAutch>
+            </RequireAuth>
           }
         />
         <Route
           path="/posts"
           element={
-            <RequireAutch>
+            <RequireAuth>
               <PostsList />
-            </RequireAutch>
+            </RequireAuth>
           }
         />
         <Route
           path="/posts/:id"
           element={
-            <RequireAutch>
+            <RequireAuth>
               <PostPage />
-            </RequireAutch>
+            </RequireAuth>
           }
         />
         <Route
           path="/generator"
           element={
-            <RequireAutch>
+            <RequireAuth>
               <GeneratorWorkoutSuspense />
-            </RequireAutch>
+            </RequireAuth>
           }
         />
         <Route
           path="/userCreateWorkout"
           element={
-            <RequireAutch>
+            <RequireAuth>
               <UserCreateWorkout />
-            </RequireAutch>
+            </RequireAuth>
           }
         />
         <Route path="/login" element={<LoginFormPage />} />

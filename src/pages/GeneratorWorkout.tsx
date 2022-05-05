@@ -1,8 +1,11 @@
-import { Box, Button, Container, styled, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Button, Typography } from "@mui/material";
+import React, { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WorkoutList from "../components/Post/WorkoutList";
+import RatingDynamic from "../components/RatingDynamic/RatingDynamic";
 import SelectGroup from "../components/SelectGroup/SelectGroup";
 import { useAppDispatch } from "../hooks/redux-hooks";
+import { setRating } from "../store/slices/ratingSlice";
 import { Post } from "../store/slices/types";
 
 import {
@@ -17,13 +20,13 @@ export interface SelectGroupState {
   muscleGroup: string;
 }
 
-export interface SelectGrupItems {
+export interface SelectGroupItems {
   criteria: keyof SelectGroupState;
   placeholder: string;
   items: Array<string>;
 }
 export default function GeneratorWorkout() {
-  const selectGrupItems: SelectGrupItems[] = [
+  const selectGroupItems: SelectGroupItems[] = [
     {
       criteria: "level",
       placeholder: "Уровень подготовки",
@@ -41,61 +44,102 @@ export default function GeneratorWorkout() {
     },
   ];
 
-  const [criteria, setСriteria] = useState<SelectGroupState>({
+  const [criteria, setCriteria] = useState<SelectGroupState>({
     level: "",
     purpose: "",
     muscleGroup: "",
   });
-  const [helperText, setHelperText] = useState(false);
+  const [error, setError] = useState(false);
+  const [workout, setWorkout] = useState<null | Post>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const hendleClick = () => {
+  const handleClickGeneratingButton = () => {
     if (
       criteria.level !== "" &&
       criteria.purpose !== "" &&
       criteria.muscleGroup !== ""
     ) {
-      setHelperText(false);
-      const workout = trainingCreator(criteria) as Post;
-      dispatch(updateUserWorkout(workout));
-      dispatch(updateUserData());
-      navigate("/");
+      setError(false);
+      const createdTraining = trainingCreator(criteria) as Post;
+      setWorkout(createdTraining);
     } else {
-      setHelperText(true);
+      setError(true);
     }
   };
-  const MyBox = styled(Box)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
-    text-align: center;
-  `;
+
+  const handleClickAddButton = () => {
+    dispatch(updateUserWorkout(workout));
+    dispatch(updateUserData());
+    navigate("/");
+  };
+
+  const changeRating = (
+    event: SyntheticEvent<Element, Event>,
+    newValue: number | null
+  ) => {
+    if (newValue) {
+      dispatch(setRating({ newValue, id: "1" }));
+    }
+  };
 
   return (
-    <Container maxWidth={"sm"}>
-      <MyBox mt={"200px"}>
+    <div className="container generator-workout">
+      <div className="generator-workout__box">
         <Typography mt={1} variant="h3">
           Генератор тренировок
         </Typography>
-        <Typography mt={1}>
-          Тренировка расчитывается для спорсменов начального и среднего уровня
+        <Typography maxWidth={"440px"} textAlign={"center"} mt={1}>
+          Тренировка рассчитывается для спортсменов начального и среднего
+          уровня.
         </Typography>
-        <SelectGroup
-          state={criteria}
-          onCriteriaChange={setСriteria}
-          selectGrupItems={selectGrupItems}
-        />
-        <Button onClick={hendleClick} sx={{ mt: "40px" }} variant="contained">
-          Создать тренировку
-        </Button>
-        {helperText ? (
-          <Typography sx={{ color: "red" }}>Заполните все формы</Typography>
+        <RatingDynamic id={"1"} handleChange={changeRating} />
+        {!workout ? (
+          <>
+            <SelectGroup
+              state={criteria}
+              onCriteriaChange={setCriteria}
+              selectGroupItems={selectGroupItems}
+              error={error}
+            />
+            <Button
+              onClick={handleClickGeneratingButton}
+              sx={{ mt: "30px" }}
+              variant="contained"
+            >
+              Создать тренировку
+            </Button>
+          </>
         ) : (
-          ""
+          <div className="generator-workout__preview">
+            <WorkoutList workouts={workout.workouts} />
+            <Button
+              onClick={() => setWorkout(null)}
+              variant="contained"
+              color="secondary"
+              sx={{ mt: "20px", mr: "10px" }}
+            >
+              Попробовать еще раз
+            </Button>
+            <Button
+              onClick={handleClickAddButton}
+              variant="contained"
+              color="success"
+              sx={{ mt: "20px", ml: "10px" }}
+            >
+              Добавить тренировку
+            </Button>
+          </div>
         )}
-      </MyBox>
-    </Container>
+        {error && (
+          <Typography sx={{ color: "red" }}>Заполните все формы</Typography>
+        )}
+      </div>
+      <Typography variant="body2" textAlign={"center"} mt={1}>
+        На основе выбранных критериев происходит создание уникальной тренировки
+        с поддержкой периодизации на протяжении всего комплекса, количество
+        подходов и повторений тоже рассчитывается динамически
+      </Typography>
+    </div>
   );
 }

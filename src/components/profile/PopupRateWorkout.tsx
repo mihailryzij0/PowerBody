@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { Dispatch, SetStateAction, SyntheticEvent } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import RatingDinamic from "../RatingDinamic/RatingDinamic";
+import RatingDinamic from "../RatingDynamic/RatingDynamic";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { setRating } from "../../store/slices/ratingSlice";
 interface PopupRateWorkout {

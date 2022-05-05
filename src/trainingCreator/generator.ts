@@ -8,7 +8,7 @@ export function generator(...exercisesGroups: Array<Exercises>) {
     authorId: "",
     author: "PowerBody",
     description: "",
-    title: "Индивидульная тренировка",
+    title: "Индивидуальная тренировка",
     typeWorkout: "Стандарт",
     workouts: [
       {
@@ -16,7 +16,7 @@ export function generator(...exercisesGroups: Array<Exercises>) {
         exercises: [],
       },
     ],
-    vidio: "",
+    video: "",
     comments: [],
   };
   let workouts: Array<Workout> = [];

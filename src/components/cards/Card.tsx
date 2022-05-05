@@ -1,13 +1,8 @@
-import {
-  ImageListItem,
-  ImageListItemBar,
-  Rating,
-  Skeleton,
-} from "@mui/material";
+import { ImageListItem, ImageListItemBar, Skeleton } from "@mui/material";
 import React from "react";
 import { CardImg } from "./card.style";
-import AvatarDinamic from "../AvatarDynamic/AvatarDinamic";
-import RatingDinamic from "../RatingDinamic/RatingDinamic";
+import AvatarDynamic from "../AvatarDynamic/AvatarDynamic";
+import RatingDynamic from "../RatingDynamic/RatingDynamic";
 export interface CardProps {
   title: string;
   image: string;
@@ -45,7 +40,7 @@ export default function Card({
       )}
       <ImageListItemBar
         title={title}
-        actionIcon={<RatingDinamic id={id} disabled={true} />}
+        actionIcon={<RatingDynamic id={id} disabled={true} />}
       ></ImageListItemBar>
       <ImageListItemBar
         sx={{
@@ -57,7 +52,7 @@ export default function Card({
         position="top"
         title={author}
         actionPosition="left"
-        actionIcon={<AvatarDinamic authorId={authorId} />}
+        actionIcon={<AvatarDynamic authorId={authorId} />}
       ></ImageListItemBar>
     </ImageListItem>
   );

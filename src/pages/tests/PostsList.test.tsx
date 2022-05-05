@@ -10,12 +10,12 @@ const valueReturnFirebase = {
   cards: {
     postCards: {
       vitamins: [{ title: "курс тестостерон", rating: "2", id: 7 }],
-      workouts: [{ title: "тренировка по шейко", rating: "2", id: 8 }],
+      workouts: [{ title: "тренировка по Шейко", rating: "2", id: 8 }],
     },
     filteredCards: {
       vitamins: [{ title: "курс тестостерон", rating: "2", id: 7 }],
-      workouts: [{ title: "тренировка по шейко", rating: "2", id: 8 }],
-      filtredParams: {
+      workouts: [{ title: "тренировка по Шейко", rating: "2", id: 8 }],
+      filteredParams: {
         author: "Весь список",
         typeWorkout: "Весь список",
       },
@@ -55,7 +55,7 @@ describe("PostList", () => {
     expect(screen.getByLabelText(/Витамины/i)).toBeInTheDocument();
   });
   it("Cards render", () => {
-    expect(screen.getByText(/тренировка по шейко/i)).toBeInTheDocument();
+    expect(screen.getByText(/тренировка по Шейко/i)).toBeInTheDocument();
     expect(screen.getByText(/2/i)).toBeInTheDocument();
     expect(screen.getByTestId("Card")).toBeInTheDocument();
   });

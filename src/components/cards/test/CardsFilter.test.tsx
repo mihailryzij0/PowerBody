@@ -54,7 +54,7 @@ describe("CardsFilter", () => {
     });
     fireEvent.click(await screen.findByText(/Вася/i));
 
-    expect(testStore.getState().cards.filteredCards.filtredParams).toEqual({
+    expect(testStore.getState().cards.filteredCards.filteredParams).toEqual({
       author: "Вася",
       typeWorkout: "Весь список",
     });
@@ -70,7 +70,7 @@ describe("CardsFilter", () => {
     });
     fireEvent.click(await screen.findByText(/На сушку/i));
 
-    expect(testStore.getState().cards.filteredCards.filtredParams).toEqual({
+    expect(testStore.getState().cards.filteredCards.filteredParams).toEqual({
       author: "Весь список",
       typeWorkout: "На сушку",
     });
@@ -90,7 +90,7 @@ describe("CardsFilter", () => {
     });
     fireEvent.click(await screen.findByText(/На массу/i));
 
-    expect(testStore.getState().cards.filteredCards.filtredParams).toEqual({
+    expect(testStore.getState().cards.filteredCards.filteredParams).toEqual({
       author: "Михаил",
       typeWorkout: "На массу",
     });

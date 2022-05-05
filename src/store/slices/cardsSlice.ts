@@ -10,7 +10,7 @@ interface State {
   filteredCards: {
     vitamins: Card[] | null;
     workouts: Card[] | null;
-    filtredParams: {
+    filteredParams: {
       author: string;
       typeWorkout: string;
     };
@@ -27,7 +27,7 @@ const initialState: State = {
   filteredCards: {
     vitamins: null,
     workouts: null,
-    filtredParams: {
+    filteredParams: {
       author: "Весь список",
       typeWorkout: "Весь список",
     },
@@ -38,10 +38,10 @@ const initialState: State = {
 
 export const getPostCards: any = createAsyncThunk(
   "cards/getPostCards",
-  async (_, { rejectWithValue, dispatch }) => {
+  async (_, { rejectWithValue }) => {
     return getFirebaseData("postCards", "cards")
-      .then((respons) => {
-        return respons;
+      .then((response) => {
+        return response;
       })
       .catch((error) => rejectWithValue(error));
   }
@@ -52,11 +52,11 @@ const cardsSlice = createSlice({
   initialState,
   reducers: {
     filterCards: (state, action) => {
-      const filtredTypeWorkout = action.payload.typeWorkout;
-      const filtredAuthor = action.payload.author;
+      const filteredTypeWorkout = action.payload.typeWorkout;
+      const filteredAuthor = action.payload.author;
       if (
-        filtredTypeWorkout == "Весь список" &&
-        filtredAuthor == "Весь список"
+        filteredTypeWorkout == "Весь список" &&
+        filteredAuthor == "Весь список"
       ) {
         state.filteredCards.vitamins = state.postCards.vitamins;
         state.filteredCards.workouts = state.postCards.workouts;
@@ -64,9 +64,9 @@ const cardsSlice = createSlice({
         for (let field in state.postCards) {
           const key = field as "vitamins" | "workouts";
           state.filteredCards[key] = state.postCards[key].filter((card) => {
-            if (filtredAuthor == "Весь список") {
+            if (filteredAuthor == "Весь список") {
               return card.typeWorkout === action.payload.typeWorkout;
-            } else if (filtredTypeWorkout == "Весь список") {
+            } else if (filteredTypeWorkout == "Весь список") {
               return card.author === action.payload.author;
             } else {
               return (
@@ -77,8 +77,8 @@ const cardsSlice = createSlice({
           });
         }
       }
-      state.filteredCards.filtredParams.author = filtredAuthor;
-      state.filteredCards.filtredParams.typeWorkout = filtredTypeWorkout;
+      state.filteredCards.filteredParams.author = filteredAuthor;
+      state.filteredCards.filteredParams.typeWorkout = filteredTypeWorkout;
     },
   },
   extraReducers: (builder) => {

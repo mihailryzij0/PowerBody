@@ -1,5 +1,5 @@
 import { Avatar } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { getUserAvatar } from "../../store/slices/getUsersAvatarSlice";
 
@@ -7,12 +7,12 @@ interface Props {
   authorId: string | null;
 }
 
-export default function AvatarDinamic({ authorId }: Props) {
+export default function AvatarDynamic({ authorId }: Props) {
   const { usersAvatar } = useAppSelector((state) => state.usersAvatar);
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (!usersAvatar.authorId && authorId) {
-      dispach(getUserAvatar(authorId));
+      dispatch(getUserAvatar(authorId));
     }
   }, []);
   return (

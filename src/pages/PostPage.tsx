@@ -7,14 +7,14 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import { CircularProgress, IconButton } from "@mui/material";
 import PostContent from "../components/Post/PostContent";
 
-export default function Singlepage() {
+export default function PostPage() {
   const { id } = useParams();
   useEffect(() => {
-    dispach(getPostData(id));
+    dispatch(getPostData(id));
   }, []);
   const navigate = useNavigate();
   const { post } = useAppSelector((state) => state);
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { postData, status, error } = post;
 
   return (

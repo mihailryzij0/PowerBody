@@ -4,21 +4,6 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
-const CustomizedSlide = styled(Menu)`
-  color: #20b2aa;
-  min-width: 100% !important
-  max-width: 100%;
-min-height: 16px;
-max-height: calc(100% - 32px);
-left:0;
-outline: 0;
-display:none
-min-width: 100%;
-  :hover {
-    color: #2e8b57;
-  }
-`;
-
 export default function NavPanel() {
   return (
     <AppBar position="fixed" color="primary" sx={{ top: "auto", bottom: 0 }}>

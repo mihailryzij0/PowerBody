@@ -7,13 +7,15 @@ import {
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WorkoutListItem from "../WorkoutListItem.tsx/WorkoutListItem";
-import { Post } from "../../store/slices/types";
+import { Post, Workout } from "../../store/slices/types";
 
 export default function WorkoutList({ workouts }: Pick<Post, "workouts">) {
+  const previewWorkout: Workout[] | undefined = workouts?.slice(0, 3);
+
   return (
     <>
-      {workouts?.map((workout, i) => (
-        <Accordion sx={{ marginBottom: "10px" }} key={i}>
+      {previewWorkout?.map((workout, i) => (
+        <Accordion sx={{ marginBottom: "10px", width: "100%" }} key={i}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"

@@ -1,5 +1,5 @@
 import { creatorGroup } from "./creatorGroup";
-import { exercises } from "./exercisStorage";
+import { exercises } from "./exercisesStorage";
 import { generator } from "./generator";
 
 describe("treningCreator", () => {
