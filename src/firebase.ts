@@ -79,7 +79,6 @@ export const signIn = (email: string, pass: string) =>
     const userData = {
       email: user.email,
       idUser: user.uid,
-      token: user.refreshToken,
       isAuth: true,
     };
     return userData;
@@ -90,7 +89,6 @@ export const signUp = (email: string, pass: string, nickname?: string) =>
     const userData = {
       email: user.email,
       idUser: user.uid,
-      token: user.refreshToken,
       isAuth: true,
     };
     setDoc(doc(db, "users", `${user.email}`), {

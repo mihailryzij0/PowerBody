@@ -1,44 +1,69 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { UserDataForm } from "../../components/formAuth/Login";
 import { signIn, signUp } from "../../firebase";
+import { getUserData } from "./userDataSlice";
 
 export interface User {
-  isAuth: boolean;
   email: string | null;
-  token: string | null;
+  isAuth: boolean;
   idUser: string | null;
   status: "pending" | "fulfilled" | "rejected" | "";
   error: string;
 }
 
+export const onAuthChanged = createAsyncThunk(
+  "userSlice/onAuthChanged",
+  async (_, { dispatch }) => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (data) => {
+      if (data) {
+        const { email, uid } = data;
+        const userData = {
+          email: email,
+          idUser: uid,
+          isAuth: true,
+        };
+        localStorage.setItem("isAuth", "true");
+        dispatch(setUser(userData));
+        dispatch(getUserData());
+      } else {
+        localStorage.removeItem("isAuth");
+      }
+    });
+  }
+);
+
 export const signInUser = createAsyncThunk(
   "userSlice/signInUser",
   async ({ email, pass }: UserDataForm, { rejectWithValue }) => {
-    return signIn(email, pass)
-      .then((user) => {
-        localStorage.setItem("user", JSON.stringify(user));
-        return user;
-      })
-      .catch((error) => rejectWithValue(error.message));
+    return signIn(email, pass).catch((error) => rejectWithValue(error.message));
   }
 );
 
 export const signUpUser = createAsyncThunk(
   "userSlice/signUpUser",
   async ({ email, pass, nickname }: UserDataForm, { rejectWithValue }) => {
-    return signUp(email, pass, nickname)
-      .then((user) => {
-        localStorage.setItem("user", JSON.stringify(user));
-        return user;
-      })
-      .catch((error) => rejectWithValue(error.message));
+    return signUp(email, pass, nickname).catch((error) =>
+      rejectWithValue(error.message)
+    );
+  }
+);
+
+export const signOutUser = createAsyncThunk(
+  "userSlice/signOutUser",
+  async (_, { dispatch }) => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      localStorage.removeItem("isAuth");
+      dispatch(removeUser());
+    });
   }
 );
 
 const initialState: User = {
-  isAuth: false,
   email: null,
-  token: null,
+  isAuth: false,
   idUser: null,
   status: "",
   error: "",
@@ -48,51 +73,42 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUser(state, action) {
+      state.email = action.payload.email;
+      state.isAuth = action.payload.isAuth;
+      state.idUser = action.payload.idUser;
+    },
     removeUser(state) {
       state.email = null;
-      state.token = null;
-      state.idUser = null;
       state.isAuth = false;
-      localStorage.removeItem("user");
+      state.idUser = null;
+      localStorage.removeItem("isAuth");
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signInUser.fulfilled, (state, action) => {
+    builder.addCase(signInUser.fulfilled, (state) => {
       state.status = "fulfilled";
-      const { email, token, idUser } = action.payload;
-      state.email = email;
-      state.token = token;
-      state.idUser = idUser;
-      state.isAuth = true;
     });
     builder.addCase(signInUser.pending, (state) => {
       state.status = "pending";
     });
     builder.addCase(signInUser.rejected, (state, action) => {
-      state.error = action.payload as string;
       state.status = "rejected";
+      state.error = action.payload as string;
     });
-
-    builder.addCase(signUpUser.fulfilled, (state, action) => {
+    builder.addCase(signUpUser.fulfilled, (state) => {
       state.status = "fulfilled";
-      if (action.payload) {
-        const { email, token, idUser } = action.payload;
-        state.email = email;
-        state.token = token;
-        state.idUser = idUser;
-        state.isAuth = true;
-      }
     });
     builder.addCase(signUpUser.pending, (state) => {
       state.status = "pending";
     });
     builder.addCase(signUpUser.rejected, (state, action) => {
-      state.error = action.payload as string;
       state.status = "rejected";
+      state.error = action.payload as string;
     });
   },
 });
 
-export const { removeUser } = userSlice.actions;
+export const { setUser, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

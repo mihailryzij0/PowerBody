@@ -18,12 +18,11 @@ export interface Location {
   hash: Hash;
 }
 
-export default function RequireAutch({
+export default function RequireAuth({
   children,
 }: Record<string, ReactElement>) {
-  const { isAuth, status } = useAppSelector((state) => state.user);
   const location = useLocation() as Location;
-
+  const isAuth = localStorage.getItem("isAuth");
   if (!isAuth) {
     return <Navigate to={"/login"} state={{ from: location }} />;
   }

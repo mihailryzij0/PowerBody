@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
-import { removeUser } from "../../store/slices/userSlice";
+import { removeUser, signOutUser } from "../../store/slices/userSlice";
 import DialogCropper from "../ImageCropper/DialogCropper";
 import { setImageProfile } from "../../store/slices/userDataSlice";
 import readFileAsDataURL from "../ImageCropper/readFileAsDataURL";
@@ -30,7 +30,7 @@ export default function ProfileTopInfo({
     setAnchorEl(null);
   };
   const handleMenuLogout = () => {
-    dispatch(removeUser());
+    dispatch(signOutUser());
     navigate("/");
     handleClose();
   };

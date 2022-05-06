@@ -13,18 +13,16 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import NavPanel from "./components/NavPanel/NavPanel";
 import WithSuspense from "./components/hoc/WithSuspense";
 import UserCreateWorkout from "./pages/UserCreateWorkout";
+import { onAuthChanged, setUser } from "./store/slices/userSlice";
 
 const AdminWorkoutSuspense = WithSuspense(AdminWorkout);
 const GeneratorWorkoutSuspense = WithSuspense(GeneratorWorkout);
 function App() {
-  const { user, userData } = useAppSelector((state) => state);
-
+  const { userData } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (user.isAuth) {
-      dispatch(getUserData());
-    }
+    dispatch(onAuthChanged());
     if (process.env.NODE_ENV !== "development") {
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
