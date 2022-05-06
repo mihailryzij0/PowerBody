@@ -60,7 +60,8 @@ export function FormAuth({ onSubmit, title }: FormProps) {
             label="nickname"
             variant="outlined"
             fullWidth={true}
-            margin="normal"
+            sx={{ mb: "10px" }}
+            helperText={" "}
           />
         )}
         <TextField
@@ -77,7 +78,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
           label="email"
           variant="outlined"
           fullWidth={true}
-          margin="normal"
+          sx={{ mb: "10px" }}
           error={!!errors?.email?.message}
           helperText={errors?.email?.message || " "}
         />
@@ -93,7 +94,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
           fullWidth={true}
           type="password"
           label="password"
-          margin="normal"
+          sx={{ mb: "10px" }}
           variant="outlined"
           error={!!errors?.pass?.message}
           helperText={errors?.pass?.message || " "}

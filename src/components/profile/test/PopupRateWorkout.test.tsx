@@ -5,8 +5,16 @@ import PopupRateWorkout from "../PopupRateWorkout";
 import { renderWithRedux } from "../../../test-utils/renderWithRedux";
 import { act } from "react-dom/test-utils";
 
+const usersRating = {
+  ratings: {
+    "123test": "4",
+    "234test": "5",
+    "345test": "3",
+  },
+};
+
 jest.mock("../../../hooks/redux-hooks", () => ({
-  useAppSelector: jest.fn(),
+  useAppSelector: jest.fn().mockReturnValue(usersRating),
   useAppDispatch: jest.fn(() => () => {}),
 }));
 const closePopup = jest.fn();
