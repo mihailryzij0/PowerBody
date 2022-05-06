@@ -57,7 +57,7 @@ export function FormAuth({ onSubmit, title }: FormProps) {
             })}
             type="text"
             data-testid="input-nickname"
-            label="псевдоним"
+            label="nickname"
             variant="outlined"
             fullWidth={true}
             margin="normal"

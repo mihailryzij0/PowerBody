@@ -26,7 +26,7 @@ export default function RatingDynamic({
   }, []);
   return (
     <Rating
-      value={ratings[id] ? ratings[id].rating : 0}
+      value={ratings[id] ? ratings[id].rating : 5}
       size="large"
       name="size-large"
       disabled={disabled}

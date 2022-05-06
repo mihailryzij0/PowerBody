@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Skeleton } from "@mui/material";
 import React, { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux-hooks";
@@ -33,7 +33,7 @@ export default function PostContent({ postData }: postData) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [successButton, setSuccessButton] = useState(false);
-
+  const [imageLoaded, setImageLoaded] = React.useState(false);
   const handleClick = () => {
     if (successButton) {
       navigate("/");
@@ -69,14 +69,22 @@ export default function PostContent({ postData }: postData) {
 
   return (
     <>
-      <div className="post-banner">
-        <img className="post-banner__img" src={image} />
-        <div className="post-banner__footer">
-          <AvatarDynamic authorId={authorId} />
-          <Typography variant="body1" align="center">
-            {author}
-          </Typography>
-        </div>
+      <div className="post__banner">
+        <img
+          src={image ? image : ""}
+          className={`post__banner-img smooth-image image-${
+            imageLoaded ? "visible" : "hidden"
+          }`}
+          onLoad={() => setImageLoaded(true)}
+        />
+        {!imageLoaded && (
+          <Skeleton
+            variant="rectangular"
+            width={"100%"}
+            height={"100%"}
+            sx={{ position: "absolute", top: "0" }}
+          />
+        )}
       </div>
       <div className="container">
         <Typography mt={2} variant="h4" align="center">
@@ -85,7 +93,13 @@ export default function PostContent({ postData }: postData) {
         <Typography mt={2} mb={2} variant="body2" align="center">
           {description}
         </Typography>
-        <div className="post-rating">
+        <div className="post__author">
+          <AvatarDynamic authorId={authorId} />
+          <Typography variant="body1" align="center">
+            {author}
+          </Typography>
+        </div>
+        <div className="post__rating">
           <RatingDynamic id={id} handleChange={changeRating} />
         </div>
         <YoutubeEmbed linkYouTubeVideo={video} />
@@ -102,7 +116,7 @@ export default function PostContent({ postData }: postData) {
         <div className="feedback-box">
           <Typography textAlign={"center"} variant="h4">
             {" "}
-            Оставь комментарий о тренировке{" "}
+            Оставь комментарий{" "}
           </Typography>
           <div className="feedback-box__comments comments-list">
             <PostComments comments={comments} />

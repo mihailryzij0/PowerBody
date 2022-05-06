@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
-import { removeUser, signOutUser } from "../../store/slices/userSlice";
+import { signOutUser } from "../../store/slices/userSlice";
 import DialogCropper from "../ImageCropper/DialogCropper";
 import { setImageProfile } from "../../store/slices/userDataSlice";
 import readFileAsDataURL from "../ImageCropper/readFileAsDataURL";
@@ -64,12 +64,17 @@ export default function ProfileTopInfo({
         <Button
           variant="outlined"
           onClick={() => navigate("/userCreateWorkout")}
+          data-testid="button-create-workout"
         >
           Создать свою тренировку
         </Button>
       </div>
       <div className="profile-top__avatar">
-        <IconButton onClick={handleClick} sx={{ p: 0 }}>
+        <IconButton
+          onClick={handleClick}
+          sx={{ p: 0 }}
+          data-testid="button-menu"
+        >
           {inputImg === "" ? (
             <Avatar
               sx={{ width: 60, height: 60, transform: "translateZ(0)" }}
@@ -93,7 +98,12 @@ export default function ProfileTopInfo({
           <MenuItem onClick={handleMenuLogout}>Выйти</MenuItem>
           <MenuItem component="label">
             Мое фото
-            <input onChange={onInputChange} type="file" hidden />
+            <input
+              onChange={onInputChange}
+              data-testid="input"
+              type="file"
+              hidden
+            />
           </MenuItem>
         </Menu>
         <DialogCropper

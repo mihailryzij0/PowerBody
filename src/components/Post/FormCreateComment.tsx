@@ -24,6 +24,7 @@ export default function FormCreateComment({ postId }: FormCreateComment) {
       dispatch(setComments(comment));
       dispatch(updateComments(postId));
       setError(false);
+      setMessage("");
     } else {
       setError(true);
     }

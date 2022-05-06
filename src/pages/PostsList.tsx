@@ -1,17 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { Link, useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import {
-  Button,
-  Fab,
-  ImageList,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Tab,
-} from "@mui/material";
+import { Fab, ImageList, Tab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SkeletonPostList from "../components/Skeleton/SkeletonPostList";
 import { filterCards, getPostCards } from "../store/slices/cardsSlice";
@@ -67,7 +59,7 @@ export default function PostsList() {
                   <Link
                     data-testid="cards-1-list"
                     key={post.id}
-                    to={`/posts/${Number(post.id)}`}
+                    to={`/posts/${post.id}`}
                   >
                     <Card {...post}></Card>
                   </Link>
@@ -78,7 +70,7 @@ export default function PostsList() {
                   <Link
                     data-testid="cards-2-list"
                     key={post.id}
-                    to={`/posts/${Number(post.id)}`}
+                    to={`/posts/${post.id}`}
                   >
                     <Card {...post}></Card>
                   </Link>
