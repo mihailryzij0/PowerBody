@@ -60,3 +60,11 @@
 .workout-list {
   color: white;
 }
+
+.profile-popup {
+  &__content {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid aqua;
+  }
+}

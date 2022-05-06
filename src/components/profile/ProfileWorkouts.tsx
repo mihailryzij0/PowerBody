@@ -45,7 +45,7 @@ export default function ProfileWorkouts({
 
   const dispatch = useAppDispatch();
   const handleClick = (index: number) => {
-    if (workouts.length === 1) {
+    if (workouts.length === 1 && workout.id !== "UserWorkout") {
       setOpenPopup(true);
     } else {
       dispatch(deleteUserWorkout(index));
