@@ -31,9 +31,7 @@ export default function PostPage() {
           <CircularProgress />
         </Box>
       ) : (
-        <>
-          <PostContent postData={postData} />
-        </>
+        <PostContent postData={postData} />
       )}
       <IconButton
         sx={{

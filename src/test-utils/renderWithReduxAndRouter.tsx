@@ -9,6 +9,7 @@ import getUsersAvatarSlice from "../store/slices/getUsersAvatarSlice";
 import postSlice from "../store/slices/postSlice";
 import userDataSlice from "../store/slices/userDataSlice";
 import userReducer from "../store/slices/userSlice";
+import ratingSlice from "../store/slices/ratingSlice";
 
 export const renderWithReduxAndRouter = (
   component: JSX.Element,
@@ -22,6 +23,7 @@ export const renderWithReduxAndRouter = (
       userData: userDataSlice,
       createPost: createPostSlice,
       usersAvatar: getUsersAvatarSlice,
+      ratings: ratingSlice,
     },
     preloadedState: preloadedState,
     middleware: (getDefaultMiddleware) =>
@@ -32,7 +34,7 @@ export const renderWithReduxAndRouter = (
   return {
     ...render(
       <MemoryRouter>
-        <Provider store={store}>{component}</Provider>
+        <Provider store={store}> {component}</Provider>
       </MemoryRouter>
     ),
   };

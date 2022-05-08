@@ -1,4 +1,21 @@
 export const preloadedStateCards = {
+  user: {
+    idUser: "123testId",
+    email: "test@gmail.com",
+    isAuth: true,
+    status: "fulfilled",
+    error: null,
+  },
+  userData: {
+    status: "setData-fulfilled",
+    isAdmin: true,
+    nickname: "Михаил Мирославович",
+    avatarImg: "https://firebasestorage.googleapis.com/",
+    error: null,
+  },
+  createPost: { status: "fulfilled" },
+  ratings: { ratings: { "123": 4, "234": 5, "1": 5 } },
+
   cards: {
     postCards: {
       vitamins: [

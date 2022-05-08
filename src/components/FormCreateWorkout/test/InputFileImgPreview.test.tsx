@@ -84,7 +84,6 @@ describe("InputFileImgPreview", () => {
     });
 
     expect(screen.queryByText(/Сохранить/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Сохранить/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Закрыть/i)).not.toBeInTheDocument();
   });
 

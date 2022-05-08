@@ -34,7 +34,7 @@ export default function SelectGroup({
             value={state[select.criteria]}
             onChange={(e) => handleSelectChange(e, select.criteria)}
             displayEmpty
-            inputProps={{ "aria-label": "Without label" }}
+            inputProps={{ "data-testid": "select" }}
           >
             <MenuItem key={"20"} value="">
               <em>{select.placeholder}</em>

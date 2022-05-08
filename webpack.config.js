@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-// const workboxPlugin = require("workbox-webpack-plugin");
+const workboxPlugin = require("workbox-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
@@ -21,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
-  // devtool: NODE_ENV === "production" ? "hidden-source-map" : "eval-source-map",
+  devtool: NODE_ENV === "production" ? "eval-source-map" : "hidden-source-map",
   module: {
     rules: [
       {
@@ -89,11 +89,15 @@ module.exports = {
         { from: "./src/assets/icon", to: "./img/icons" },
       ],
     }),
-    // new workboxPlugin.InjectManifest({
-    //   swSrc: "./src/sw.ts",
-    //   swDest: "sw.js",
-    //   maximumFileSizeToCacheInBytes: 5 * 1024 * 10024,
-    // }),
+    ...(NODE_ENV === "production"
+      ? [
+          new workboxPlugin.InjectManifest({
+            swSrc: "./src/sw.ts",
+            swDest: "sw.js",
+            maximumFileSizeToCacheInBytes: 5 * 1024 * 10024,
+          }),
+        ]
+      : []),
   ],
 
   optimization: {

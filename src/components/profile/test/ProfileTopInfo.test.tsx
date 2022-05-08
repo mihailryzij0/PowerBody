@@ -86,7 +86,6 @@ describe("ProfileTopInfo render", () => {
       const input = screen.getByTestId("input");
       fireEvent.change(input, { target: { files: [file] } });
     });
-    screen.debug();
     expect(screen.getByText(/Сохранить/i)).toBeInTheDocument();
     expect(screen.getByText(/Закрыть/i)).toBeInTheDocument();
   });

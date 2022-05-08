@@ -9,7 +9,7 @@
     "prepare": "husky install",
     "build": "webpack build --node-env production",
     "dev": "webpack-dev-server --mode development --open",
-    "start": "http-server dist"
+    "start": "webpack-dev-server --node-env production --open"
   },
   "keywords": [],
   "author": "",
