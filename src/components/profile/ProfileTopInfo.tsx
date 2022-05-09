@@ -47,6 +47,7 @@ export default function ProfileTopInfo({
       setOpenCropper(false);
     }
     doFileRead();
+    handleClose();
   }, []);
 
   const onInputChange = useCallback(({ target }) => {
@@ -101,6 +102,7 @@ export default function ProfileTopInfo({
             <input
               onChange={onInputChange}
               data-testid="input"
+              accept="image/*"
               type="file"
               hidden
             />

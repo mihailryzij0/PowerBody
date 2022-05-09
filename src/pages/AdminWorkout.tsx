@@ -49,7 +49,6 @@ export default function AdminWorkout() {
           <ToggleButton value="workouts">Тренировка</ToggleButton>
           <ToggleButton value="vitamins">Курс</ToggleButton>
         </ToggleButtonGroup>
-
         <FormCreateWorkout postKey={postKey} handlerForm={handleSubmit} />
       </MyBox>
       <IconButton

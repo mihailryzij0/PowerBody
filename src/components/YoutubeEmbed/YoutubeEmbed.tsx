@@ -5,7 +5,10 @@ type props = { linkYouTubeVideo: string | null };
 export default function YoutubeEmbed({
   linkYouTubeVideo: linkYouTubeVideo,
 }: props) {
-  const embedId = linkYouTubeVideo?.split("=").pop();
+  const regExp =
+    /(https?:\/\/)?((www\.)?(youtube(-nocookie)?|youtube.googleapis)\.com.*(v\/|v=|vi=|vi\/|e\/|embed\/|user\/.*\/u\/\d+\/)|youtu\.be\/)([_0-9a-z-]+)/i;
+  const match = linkYouTubeVideo?.match(regExp);
+  const embedId = match ? match[7] : false;
   return (
     <>
       {embedId != "" && embedId && (

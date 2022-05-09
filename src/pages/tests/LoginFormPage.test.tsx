@@ -24,7 +24,6 @@ describe("LoginFormPage", () => {
     await act(async () => {
       fireEvent.click(screen.getByText(/Зарегистрироваться/i));
     });
-    screen.debug();
     expect(screen.getByText(/Регистрация/i)).toBeInTheDocument();
   });
 });

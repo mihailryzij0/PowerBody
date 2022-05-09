@@ -94,7 +94,7 @@ export default function GeneratorWorkout() {
           Тренировка рассчитывается для спортсменов начального и среднего
           уровня.
         </Typography>
-        {/* <RatingDynamic id={ID_GENERATOR_WORKOUT} handleChange={changeRating} /> */}
+        <RatingDynamic id={ID_GENERATOR_WORKOUT} handleChange={changeRating} />
         {!workout ? (
           <>
             <SelectGroup
@@ -117,22 +117,24 @@ export default function GeneratorWorkout() {
             className="generator-workout__preview"
           >
             <WorkoutList workouts={workout.workouts} />
-            <Button
-              onClick={() => setWorkout(null)}
-              variant="contained"
-              color="secondary"
-              sx={{ mt: "20px", mr: "10px" }}
-            >
-              Назад
-            </Button>
-            <Button
-              onClick={handleClickAddButton}
-              variant="contained"
-              color="success"
-              sx={{ mt: "20px", ml: "10px" }}
-            >
-              Добавить
-            </Button>
+            <div className="generator-workout__buttons">
+              <Button
+                className="generator-workout__button"
+                onClick={() => setWorkout(null)}
+                variant="contained"
+                color="secondary"
+              >
+                Назад
+              </Button>
+              <Button
+                className="generator-workout__button"
+                onClick={handleClickAddButton}
+                variant="contained"
+                color="success"
+              >
+                Добавить
+              </Button>
+            </div>
           </div>
         )}
         {error && (

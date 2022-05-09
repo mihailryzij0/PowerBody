@@ -11,4 +11,14 @@
     text-align: center;
     margin-top: 50px;
   }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  &__button {
+    flex-basis: 48%;
+  }
 }

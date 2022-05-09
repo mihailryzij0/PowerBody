@@ -113,22 +113,22 @@ export default function UserCreateWorkout() {
         ) : (
           <>
             <WorkoutList workouts={newWorkout.workouts} />
-            <div className="user-create-workout__preview-btn">
+            <div className="user-create-workout__preview-buttons">
               <Button
                 onClick={() => setNewWorkout(null)}
                 variant="contained"
                 color="secondary"
-                sx={{ mt: "20px", mr: "10px" }}
+                className="user-create-workout__preview-button"
               >
-                Сделать изменения
+                Изменить
               </Button>
               <Button
                 onClick={handleClick}
                 variant="contained"
                 color="success"
-                sx={{ mt: "20px", ml: "10px" }}
+                className="user-create-workout__preview-button"
               >
-                Добавить тренировку
+                Добавить
               </Button>
             </div>
           </>

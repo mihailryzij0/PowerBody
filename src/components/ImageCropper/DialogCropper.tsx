@@ -73,7 +73,7 @@ export default function DialogCropper({
         TransitionComponent={Transition}
       >
         <AppBar sx={{ position: "relative" }}>
-          <Toolbar>
+          <Toolbar sx={{ justifyContent: "space-between" }}>
             <IconButton
               data-testid={"closeButton"}
               edge="start"
