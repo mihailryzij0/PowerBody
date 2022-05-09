@@ -6,17 +6,18 @@ import PostsList from "./pages/PostsList";
 import RequireAuth from "./components/hoc/RequireAuth";
 const AdminWorkout = lazy(() => import("./pages/AdminWorkout"));
 const GeneratorWorkout = lazy(() => import("./pages/GeneratorWorkout"));
+const UserCreateWorkout = lazy(() => import("./pages/UserCreateWorkout"));
 import PostPage from "./pages/PostPage";
 import { useAppDispatch, useAppSelector } from "./hooks/redux-hooks";
-import { getUserData } from "./store/slices/userDataSlice";
 import { Backdrop, CircularProgress } from "@mui/material";
 import NavPanel from "./components/NavPanel/NavPanel";
 import WithSuspense from "./components/hoc/WithSuspense";
-import UserCreateWorkout from "./pages/UserCreateWorkout";
-import { onAuthChanged, setUser } from "./store/slices/userSlice";
+import { onAuthChanged } from "./store/slices/userSlice";
+import NotfoundPage from "./pages/NotfoundPage";
 
 const AdminWorkoutSuspense = WithSuspense(AdminWorkout);
 const GeneratorWorkoutSuspense = WithSuspense(GeneratorWorkout);
+const UserCreateWorkoutSuspense = WithSuspense(UserCreateWorkout);
 function App() {
   const { userData } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
@@ -80,13 +81,14 @@ function App() {
           path="/userCreateWorkout"
           element={
             <RequireAuth>
-              <UserCreateWorkout />
+              <UserCreateWorkoutSuspense />
             </RequireAuth>
           }
         />
         <Route path="/login" element={<LoginFormPage />} />
+        <Route path="" element={<NotfoundPage />} />
       </Routes>
-      {userData.status === "data-pending" && (
+      {userData.status === "getData-pending" && (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}

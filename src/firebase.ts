@@ -35,7 +35,7 @@ if (window.indexedDB) {
 
 export const getFirebaseData = (collection: string, document: string) =>
   getDoc(doc(db, collection, document)).then((data) => {
-    if (!data.exists()) {
+    if (!data.exists() || !data) {
       throw "Загрузить данные не удалось, попробуйте еще раз";
     } else {
       return data.data();

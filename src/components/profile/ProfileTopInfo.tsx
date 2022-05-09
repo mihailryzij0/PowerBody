@@ -80,7 +80,7 @@ export default function ProfileTopInfo({
             <Avatar
               sx={{ width: 60, height: 60, transform: "translateZ(0)" }}
               alt="Avatar"
-              src={`${image}`}
+              src={image ? image : "img/icons/icon-96x96.png"}
             />
           ) : (
             <Avatar

@@ -1,4 +1,10 @@
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { filterCards } from "../../store/slices/cardsSlice";
@@ -32,34 +38,37 @@ export default function CardsFilter() {
   };
   return (
     <div className="cards-filter">
-      <Select
-        inputProps={{ "data-testid": "select-1" }}
-        className="cards-filter__item"
-        fullWidth={true}
-        value={filteredParams.typeWorkout}
-        onChange={handleChangeWorkoutType}
-      >
-        <MenuItem value={"Стандарт"}>Стандарт</MenuItem>
-        <MenuItem value={"На массу"}>На массу</MenuItem>
-        <MenuItem value={"На сушку"}>На сушку</MenuItem>
-        <MenuItem value={"На выносливость"}>На выносливость</MenuItem>
-        <MenuItem value={"Весь список"}>Весь список</MenuItem>
-      </Select>
-
-      <Select
-        data-testid="select-2"
-        className="cards-filter__item"
-        fullWidth={true}
-        value={filteredParams.author}
-        onChange={handleChangeAuthors}
-      >
-        <MenuItem value={"Весь список"}>Весь список</MenuItem>
-        {authors.map((author, index) => (
-          <MenuItem key={index} value={author}>
-            {author}
-          </MenuItem>
-        ))}
-      </Select>
+      <FormControl className="cards-filter__item" fullWidth={true}>
+        <Select
+          inputProps={{ "data-testid": "select-1" }}
+          fullWidth={true}
+          value={filteredParams.typeWorkout}
+          onChange={handleChangeWorkoutType}
+        >
+          <MenuItem value={"Стандарт"}>Стандарт</MenuItem>
+          <MenuItem value={"На массу"}>На массу</MenuItem>
+          <MenuItem value={"На сушку"}>На сушку</MenuItem>
+          <MenuItem value={"На выносливость"}>На выносливость</MenuItem>
+          <MenuItem value={"Весь список"}>Весь список</MenuItem>
+        </Select>
+        <FormHelperText>Тип тренировки</FormHelperText>
+      </FormControl>
+      <FormControl className="cards-filter__item" fullWidth={true}>
+        <Select
+          data-testid="select-2"
+          fullWidth={true}
+          value={filteredParams.author}
+          onChange={handleChangeAuthors}
+        >
+          <MenuItem value={"Весь список"}>Весь список</MenuItem>
+          {authors.map((author, index) => (
+            <MenuItem key={index} value={author}>
+              {author}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>Автор</FormHelperText>
+      </FormControl>
     </div>
   );
 }

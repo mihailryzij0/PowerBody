@@ -1,13 +1,10 @@
 .cards-filter {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 20px;
 
   &__item {
-    margin-top: 20px;
-  }
-
-  &__item:nth-child(2) {
-    margin-left: 10px;
+    flex-basis: 48%;
   }
 }

@@ -1,5 +1,7 @@
 import {
+  Backdrop,
   Button,
+  CircularProgress,
   MenuItem,
   styled,
   TextareaAutosize,
@@ -144,7 +146,14 @@ export default function FormCreateWorkout({
           </Button>
         )}
         {status === "fulfilled" && <Typography> Готово!! </Typography>}
-        {status === "pending" && <Typography>Loading...</Typography>}
+        {status === "pending" && (
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        )}
       </form>
     </FormProvider>
   );

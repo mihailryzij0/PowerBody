@@ -56,7 +56,7 @@ export default function AdminWorkout() {
           position: "fixed",
           top: "20px",
           left: "10px",
-          color: "black",
+          color: "white",
         }}
         onClick={() => {
           navigate("/posts");

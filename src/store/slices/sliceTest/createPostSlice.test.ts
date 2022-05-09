@@ -1,6 +1,7 @@
 import { setFirebaseData, setFirebaseImage } from "../../../firebase";
+import { WorkoutForm } from "../../../pages/UserCreateWorkout";
 import { store } from "../../store";
-import { createPost } from "../createPostSlice";
+import { createPost, createPostProps } from "../createPostSlice";
 
 const receivedData = {
   postData: {
@@ -9,6 +10,7 @@ const receivedData = {
     image: { name: "image", width: 400, height: 500 },
     description: "test",
     rating: "5",
+    typeWorkout: "",
     title: "test",
     weeks: 6,
     id: "123",
@@ -26,7 +28,7 @@ jest.mock("../../../firebase", () => ({
   updateFirebaseData: jest.fn(),
   getFirebaseData: jest
     .fn()
-    .mockResolvedValueOnce(receivedData)
+    .mockResolvedValueOnce(receivedData as unknown as createPostProps)
     .mockRejectedValueOnce("ошибка"),
 }));
 
@@ -34,7 +36,9 @@ describe("createPostSlice", () => {
   beforeEach(() => {});
 
   it("asyncThunk createPost fulfilled", async () => {
-    await store.dispatch(createPost(receivedData));
+    await store.dispatch(
+      createPost(receivedData as unknown as createPostProps)
+    );
     expect(setFirebaseImage).toHaveBeenCalledWith(
       {
         height: 500,

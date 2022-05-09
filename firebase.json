@@ -1,7 +1,7 @@
 {
   "firestore": {
     "rules": "Firestore",
-    "indexes": "=== Hosting Setup"
+    "indexes": "hostingSetup"
   },
   "hosting": {
     "public": "dist",

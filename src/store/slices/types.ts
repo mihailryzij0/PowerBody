@@ -12,6 +12,7 @@ export type comment = {
 };
 
 export interface Post {
+  weeks: number;
   authorId: string | null;
   author: string;
   image: string;

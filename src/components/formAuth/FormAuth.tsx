@@ -41,7 +41,9 @@ export function FormAuth({ onSubmit, title }: FormProps) {
 
   return (
     <div className="auth-form">
-      <Typography variant="h2">{title}</Typography>
+      <Typography mb={2} variant="h2">
+        {title}
+      </Typography>
       <Typography sx={{ color: "red" }} variant="body1">
         {error ? setHelperText() : " "}
       </Typography>

@@ -4,7 +4,7 @@ import Header from "../components/NavPanel/NavPanel";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { getPostData } from "../store/slices/postSlice";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
-import { Box, CircularProgress, IconButton } from "@mui/material";
+import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
 import PostContent from "../components/Post/PostContent";
 
 export default function PostPage() {
@@ -19,7 +19,7 @@ export default function PostPage() {
 
   return (
     <>
-      {status === "pending" || postData === null ? (
+      {status === "pending" ? (
         <Box
           sx={{
             height: "90vh",
@@ -31,7 +31,12 @@ export default function PostPage() {
           <CircularProgress />
         </Box>
       ) : (
-        <PostContent postData={postData} />
+        <>{postData && <PostContent postData={postData} />} </>
+      )}
+      {status === "rejected" && (
+        <Typography mt={40} variant="h3" textAlign={"center"}>
+          {error}
+        </Typography>
       )}
       <IconButton
         sx={{

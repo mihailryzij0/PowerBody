@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SignUp from "../components/formAuth/SignUp";
-import { Button, Container } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import Login from "../components/formAuth/Login";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -20,22 +20,24 @@ export default function LoginFormPage() {
     }
   }, [isAuth]);
   return (
-    <Container
-      sx={{
-        textAlign: "center",
-        height: "90vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      maxWidth={"sm"}
-    >
-      {inputSwitch ? <SignUp /> : <Login />}
-      <Button sx={{ marginTop: 2 }} onClick={handleClick}>
-        {" "}
-        {inputSwitch ? "Войти" : "Зарегистрироваться"}
-      </Button>
-    </Container>
+    <div className="container">
+      <Box
+        sx={{
+          textAlign: "center",
+          height: "90vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        maxWidth={"sm"}
+      >
+        {inputSwitch ? <SignUp /> : <Login />}
+        <Button sx={{ marginTop: 2 }} onClick={handleClick}>
+          {" "}
+          {inputSwitch ? "Войти" : "Зарегистрироваться"}
+        </Button>
+      </Box>
+    </div>
   );
 }

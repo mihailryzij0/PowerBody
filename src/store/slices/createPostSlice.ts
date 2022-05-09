@@ -1,15 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setFirebaseData, setFirebaseImage } from "../../firebase";
+import { WorkoutForm } from "../../pages/UserCreateWorkout";
+import { RootState } from "../store";
+import { Post } from "./types";
 
 interface initialState {
   status: string;
   progress: string;
-  error: null;
+  error: null | string;
 }
 
-export const createPost: any = createAsyncThunk(
+export interface createPostProps {
+  postData: Omit<WorkoutForm, "image"> & { image: string | File[] | null };
+  postKey: "vitamins" | "workouts";
+}
+
+export const createPost = createAsyncThunk(
   "post/setDataPost",
-  async ({ postData, postKey }: any, { rejectWithValue, getState }) => {
+  async (
+    { postData, postKey }: createPostProps,
+    { rejectWithValue, getState }
+  ) => {
     return setFirebaseImage(postData.image, postData.id, "imagePosts")
       .then((url) => {
         postData.image = url;
@@ -33,20 +44,20 @@ export const createPost: any = createAsyncThunk(
         const { workouts, ...dataCards } = postData;
         const {
           cards: { postCards },
-        } = getState() as any;
+        } = getState() as RootState;
         const newCards = {
           ...postCards,
           [postKey]: [...postCards[postKey], dataCards],
         };
         return setFirebaseData("postCards", "cards", newCards);
       })
-      .catch(() => {
-        rejectWithValue(postData);
+      .catch((error: string) => {
+        rejectWithValue(error);
       });
   }
 );
 
-const initialState = {
+const initialState: initialState = {
   status: "",
   progress: "",
   error: null,
@@ -56,17 +67,17 @@ const createPostSlice = createSlice({
   name: "createPost",
   initialState,
   reducers: {},
-  extraReducers: {
-    [createPost.fulfilled]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(createPost.fulfilled, (state, action) => {
       state.status = "fulfilled";
-    },
-    [createPost.pending]: (state) => {
+    });
+    builder.addCase(createPost.pending, (state) => {
       state.status = "pending";
-    },
-    [createPost.rejected]: (state, action) => {
+    });
+    builder.addCase(createPost.rejected, (state, action) => {
       state.status = "rejected";
-      state.error = action.payload;
-    },
+      state.error = action.payload as string;
+    });
   },
 });
 
