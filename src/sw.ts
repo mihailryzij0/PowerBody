@@ -3,9 +3,7 @@ import { clientsClaim, skipWaiting } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import {
-  CacheFirst,
-} from "workbox-strategies";
+import { CacheFirst } from "workbox-strategies";
 
 declare let self: ServiceWorkerGlobalScope & typeof globalThis;
 
