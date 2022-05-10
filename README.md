@@ -1,44 +1,32 @@
-<div align="center">
-<img src="" align="center" style="width: 100%" />
-</div>  
-  
+
 
 ### <div align="center">Приложение "PowerBody" </div>  
-  
+
+  [![Sanity Check](https://github.com/mihailryzij0/PowerBody/actions/workflows/sanity-check.yml/badge.svg?branch=final-task)](https://github.com/mihailryzij0/PowerBody/actions/workflows/sanity-check.yml)
+   [![Sanity Check](https://github.com/mihailryzij0/PowerBody/actions/workflows/firebase-hosting-pull-request.yml/badge.svg?branch=final-task)](https://github.com/mihailryzij0/PowerBody/actions/workflows/firebase-hosting-pull-request.yml)
 
 На создания проекта меня побудила моя любовь к занятию спортом, в приложение я постарался максимально реализовать свою идею.    
   
-
 В приложении реализовано:  
   
-
 - ⚡ PWA, SPA  
   
-
-- ⚡ Регистрация, авторизация  
+- ⚡ Авторизация  
   
-
 - ⚡Работа offline    
   
-
 - ⚡ Комментарии к постам    
   
-
 - ⚡ Фильтрация постов   
   
-
 - ⚡ Создание постов   
   
-
 - ⚡ Рейтинг тренировок   
   
-
 - ⚡ Генератор тренировок   
   
-
 - ⚡ Создание своей тренировки   
   
-
 В приложение все страницы приватные для просмотра  необходимо зарегистрироваться . Если зайти на страницу с постами как администратор в правом нижнем углу появится кнопка при клике на которую вы будете направлены на страницу с формой для создания тренировки или курса анаболиков.  
   
 
@@ -56,16 +44,12 @@
 
 ## Запустить проект.  
   
-
 - npm i  
   
-
 - npm run build  
   
-
 - npm run start /или/ npm run dev (в этом случае service worker не подключится, в режиме development я  его отключил из за конфликтов с devServer )  
   
-
 <div align="center">  
 <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="JavaScript" height="50" />  
 <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/typescript-original.svg" alt="TypeScript" height="50" />  
