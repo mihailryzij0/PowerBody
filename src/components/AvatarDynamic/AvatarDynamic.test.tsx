@@ -25,7 +25,7 @@ describe("AvatarDynamic", () => {
   });
   it("AvatarDynamic render render without image", () => {
     renderWithRedux(<AvatarDynamic authorId={"321test"} />);
-    const avatar = screen.getByTestId("PersonIcon");
-    expect(avatar).toBeInTheDocument();
+    const avatar = screen.getByRole("img");
+    expect(avatar.getAttribute("src")).toBe("img/icons/icon-48x48.png");
   });
 });

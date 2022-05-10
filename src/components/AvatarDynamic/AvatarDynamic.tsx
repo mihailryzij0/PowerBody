@@ -15,11 +15,17 @@ export default function AvatarDynamic({ authorId }: Props) {
       dispatch(getUserAvatar(authorId));
     }
   }, []);
-  return (
+  return authorId && usersAvatar[authorId] ? (
     <Avatar
       alt="avatar"
       sx={{ transformTranslateZ: "0", marginRight: "10px" }}
-      src={authorId && usersAvatar[authorId] ? usersAvatar[authorId] : ""}
+      src={usersAvatar[authorId]}
+    />
+  ) : (
+    <Avatar
+      alt="avatar"
+      sx={{ transformTranslateZ: "0", marginRight: "10px" }}
+      src="img/icons/icon-48x48.png"
     />
   );
 }
