@@ -1,6 +1,6 @@
 
 
-### <div align="center">Приложение "PowerBody" </div>  
+### <div align="center">Приложение для мобильных устройств "PowerBody" </div>  
 
   [![Sanity Check](https://github.com/mihailryzij0/PowerBody/actions/workflows/sanity-check.yml/badge.svg?branch=final-task)](https://github.com/mihailryzij0/PowerBody/actions/workflows/sanity-check.yml)
    [![Sanity Check](https://github.com/mihailryzij0/PowerBody/actions/workflows/firebase-hosting-pull-request.yml/badge.svg?branch=final-task)](https://github.com/mihailryzij0/PowerBody/actions/workflows/firebase-hosting-pull-request.yml)
@@ -27,7 +27,7 @@
   
 - ⚡ Создание своей тренировки   
   
-В приложении все страницы приватны, для просмотра приложения необходимо зарегистрироваться. Если зайти на страницу с постами как администратор, в правом нижнем углу появится кнопка, при клике на которую вы будете направлены на страницу с формой для создания тренировки или курса анаболиков.  
+В приложении все страницы приватны, для просмотра приложения необходимо зарегистрироваться. Если зайти на страницу с постами как администратор, в правом нижнем углу появится кнопка, при клике на которую вы будете направлены на страницу с формой для создания тренировки или курса.  
   
 
  Добавить тренировку в личный кабинет можно тремя способами: создать свою, выбрать из списка авторских постов, либо в генераторе тренировок. Генератор тренировок создает комплекс с постоянной периодизацией упражнений, рассчитанный  на полтора месяца с тремя тренировочными днями в неделю.  
