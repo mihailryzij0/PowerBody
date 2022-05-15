@@ -1,0 +1,19 @@
+.user-create-workout {
+  &__box {
+    margin-top: 70px;
+  }
+
+  &__header {
+    margin-bottom: 50px;
+  }
+
+  &__preview-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__preview-button {
+    flex-basis: 48%;
+  }
+}

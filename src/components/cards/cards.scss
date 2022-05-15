@@ -1,0 +1,10 @@
+.cards-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  &__item {
+    flex-basis: 48%;
+  }
+}
