@@ -40,7 +40,9 @@
   
 
 Оценить тренировку можно на странице самой тренировки, в генераторе тренировок и в личном кабинете после прохождения комплекса.  
-  
+
+Ссылка на проект: https://powerbody-6330f.web.app/
+
 
 ## Запустить проект.  
   
@@ -59,5 +61,3 @@
 <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/sass-original.svg" alt="Sass" height="50" />  
 <img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React" height="50" />  
 </div>   
-
-Ссылка на проект: https://powerbody-6330f.web.app/
